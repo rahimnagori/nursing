@@ -1,0 +1,338 @@
+<div class="banner_top">
+   <div class="owl-carousel owl-theme slider_arrrw " id="slider1">
+      <?php
+  for($i = 0; $i <= 2; $i++){
+?>
+      <div class="item col">
+         <div class="banner">
+            <img src="<?=site_url('assets/site/');?>img/img_1.png">
+           <div class="banter_text">
+            <div class="container">
+               <div class="row">
+               <div class="col-sm-6">
+                  <h1>We Provide Home Care Service For Your  <span>Family</span></h1>
+                  <p>
+                     Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+                  </p>
+                  <div class="btn_bot3">
+                     <a href="#" class="btn btn_theme2 btn-lg">Sign Up</a>
+                  </div>
+               </div>
+            </div>
+            </div>
+           </div>
+         </div>
+      </div>
+<?php
+  }
+?>
+
+   </div>
+</div>
+<section class="sec1 pad_bottom">
+      <div class="container">
+         <div class="box_white">
+            <div class="row">
+            <div class="col-sm-4">
+                  <div class="box_icon">
+                     <div class="icon_1">
+                        <img src="<?=site_url('assets/site/');?>img/img_2.png">
+                     </div>
+                     <h4>Satisfaction Guarantee</h4>
+                     <p>
+                        
+                     Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been.
+                     </p>
+                  </div>
+            </div>
+            <div class="col-sm-4">
+                  <div class="box_icon">
+                     <div class="icon_1">
+                        <img src="<?=site_url('assets/site/');?>img/img_3.png">
+                     </div>
+                     <h4>Professional Nurse</h4>
+                     <p>
+                        
+                     Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been.
+                     </p>
+                  </div>
+            </div>
+            
+            <div class="col-sm-4">
+                  <div class="box_icon">
+                     <div class="icon_1">
+                        <img src="<?=site_url('assets/site/');?>img/img_4.png">
+                     </div>
+                     <h4>Low Cost Service</h4>
+                     <p>
+                        
+                     Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been.
+                     </p>
+                  </div>
+            </div>
+         </div>
+         </div>
+      </div>
+</section>
+<section class="sec2 pad_sec ">
+   <div class="container">
+      <div class="row d_flex item_center">
+         <div class="col-sm-8">
+            <div class="row d_flex">
+               <div class="col-sm-6">
+                  <div class="imv_im1">
+                     <img src="<?=site_url('assets/site/');?>img/img_5.png" class="img_r">
+
+                  </div>
+               </div>
+               <div class="col-sm-6">
+                  <div class="imv_im2">
+                     <img src="<?=site_url('assets/site/');?>img/img_6.png" class="img_r">
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="col-sm-4">
+            <div class="abot_cont">
+               <div class="headding cles_p">
+         <h2>About us Pambron</h2>
+         <p>
+          Pambron Nursing Limited is a Healthcare recruitment agency registered
+in England and Wales, and we specialise in providing Nurses, Health
+Care Assistants, Support workers...
+      </p>
+      </div>
+      
+      <a href="#" class="btn btn_theme2 btn-lg">Read More</a>
+      
+            </div>
+         </div>
+      </div>
+   </div>
+</section>
+<section class="bant_s">
+   <div class="container">
+      <div class="Place_d1">
+      <div class="row d_flex">
+        <div class="col-sm-6">
+           <div>
+              <div class="headding">
+         <h2>
+20 Years of Experience in Home Care & Private Nursing
+</h2>
+         <p> 
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+ </p>
+ 
+      </div>
+      <div class="row">
+    <div class="col-sm-4">
+       <div class="box_icon">
+                     <div class="icon_1">
+                        <img src="<?=site_url('assets/site/');?>img/img_8.png">
+                     </div>
+                     <h4>Satisfaction Guarantee</h4>
+                     
+                  </div>
+    </div>
+    <div class="col-sm-4">
+       <div class="box_icon">
+                     <div class="icon_1">
+                        <img src="<?=site_url('assets/site/');?>img/img_9.png">
+                     </div>
+                     <h4>Senior Care</h4>
+                     
+                  </div>
+    </div>
+    <div class="col-sm-4">
+       <div class="box_icon">
+                     <div class="icon_1">
+                        <img src="<?=site_url('assets/site/');?>img/img_10.png">
+                     </div>
+                     <h4>Health Consultation</h4>
+                     
+                  </div>
+    </div>
+ </div>
+           </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="box_c1">
+            <img src="<?=site_url('assets/site/');?>img/img_7.png" class="img_r" >
+          </div>
+        </div>
+      </div>
+      
+      
+  </div>
+   </div>
+</section>
+<section class="sec4 pad_sec">
+   <div class="container">
+      <div class="row d_flex item_center">
+         <div class="col-sm-7">
+            <div class="img_abot2">
+               <img src="<?=site_url('assets/site/');?>img/img_7.png" class="img_r">
+            </div>
+         </div>
+         <div class="col-sm-5">
+            <div class="abot_cont">
+               <div class="headding">
+         <h2>We Are Available For Home Care Consultation </h2>
+      </div>
+      <p>
+          
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+
+      </p>
+      <a href="#" class="btn btn_theme2 btn-lg">Contact Us</a>
+      
+            </div>
+         </div>
+      </div>
+   </div>
+</section>
+<section class="sec5 pad_sec ">
+   <div class="container">
+      
+
+     <!--  <div class="headding">
+         <h2>Why do we use it?</h2>
+         <p>
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
+         </p>
+      </div> -->
+      <div class="don_box1 ">
+         <div class="row">
+         <div class="col-sm-3">
+            <div class="box_icon">
+               <div class="icon_1">
+                  <img src="<?=site_url('assets/site/');?>img/img_15.png">
+               </div>
+               <h1><span class="counter" data-count="1000">0</span></h1>
+               <h4> Happy Patients </h4>
+               
+               
+            </div>
+         </div>
+         <div class="col-sm-3">
+            <div class="box_icon">
+               <div class="icon_1">
+                  <img src="<?=site_url('assets/site/');?>img/img_8.png">
+               </div>
+               <h1><span class="counter" data-count="3000">0</span></h1>
+               <h4>Successful Home Care</h4>
+
+              
+            </div>
+         </div>
+         <div class="col-sm-3">
+            <div class="box_icon">
+               <div class="icon_1">
+                   <img src="<?=site_url('assets/site/');?>img/img_2.png">
+               </div>
+               <h1><span class="counter" data-count="8000">0</span></h1>
+               <h4>Years Of Experience</h4>
+
+               
+            </div>
+         </div>
+         <div class="col-sm-3">
+            <div class="box_icon">
+               <div class="icon_1">
+                  <img src="<?=site_url('assets/site/');?>img/img_9.png">
+               </div>
+               <h1><span class="counter" data-count="8000">0</span></h1>
+               <h4>Professional Nurses</h4>
+
+               
+            </div>
+         </div>
+      </div>
+         
+      </div>
+   </div>
+</section>
+<section class="sec3 pad_sec">
+   <div class="container">
+      <div class="headding">
+         <h2> Latest News & Tips </h2>
+         <p>
+            
+                     Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+         </p>
+      </div>
+      <div class="slider_corse top_arrow">
+         <div class="owl-carousel owl-theme slider_arrrw " id="slider2">
+            <?php
+  for($i = 0; $i <= 2; $i++){
+?>
+    
+            <div class="item">
+               <div class="blog_1">
+               <div class="blog_3">
+                  <div class="blog_img">
+                      <a href="<?=site_url('Blog/1');?>"><img src="<?=site_url('assets/site/');?>img/img_11.jpg" class="img_r"></a>
+                  </div>
+                  <div class="blog_2">
+                     <div class="date_me">
+                        <span>08 March 2022</span>
+                     </div>
+                     <h6>By Admin</h6>
+                     <h4>Medical and Love Have 4 Things In Common </h4>
+                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna</p>
+                     <a href="<?=site_url('Blog/1');?>" class="btn btn_theme3 btn_lg">Read More</a>
+                  </div>
+               </div>
+               </div>
+               
+            </div>
+    
+            <div class="item">
+               <div class="blog_1">
+                  <div class="blog_3">
+                  <div class="blog_img">
+                      <a href="<?=site_url('Blog/1');?>"><img src="<?=site_url('assets/site/');?>img/img_12.jpg" class="img_r"></a>
+                  </div>
+                  <div class="blog_2">
+                     <div class="date_me">
+                        <span>08 March 2022</span>
+                     </div>
+                     <h6>By Admin</h6>
+                     <h4>Medical and Love Have 4 Things In Common </h4>
+                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna</p>
+                     <a href="<?=site_url('Blog/1');?>" class="btn btn_theme3 btn_lg">Read More</a>
+                  </div>
+               </div>
+               </div>
+               
+            </div>
+    
+            <div class="item">
+               <div class="blog_1">
+                  <div class="blog_3">
+                  <div class="blog_img">
+                      <a href="<?=site_url('Blog/1');?>"><img src="<?=site_url('assets/site/');?>img/img_13.jpg" class="img_r"></a>
+                  </div>
+                  <div class="blog_2">
+                     <div class="date_me">
+                        <span>08 March 2022</span>
+                     </div>
+                     <h6>By Admin</h6>
+                     <h4>Medical and Love Have 4 Things In Common </h4>
+                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna</p>
+                     <a href="<?=site_url('Blog/1');?>" class="btn btn_theme3 btn_lg">Read More</a>
+                  </div>
+               </div>
+               </div>
+               
+            </div>
+
+<?php
+  }
+?>
+
+         </div>
+      </div>
+   </div>
+</section>
