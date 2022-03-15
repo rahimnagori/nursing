@@ -11,13 +11,13 @@ class Admin extends CI_Controller {
 
   public function index(){
     if($this->check_login()){
-      redirect('Admin-Dashboard');
+      redirect('Dashboard');
     }
     $pageData = [];
     $this->load->view('admin/login', $pageData);
   }
 
-  public function check_login(){
+  private function check_login(){
     return ($this->session->userdata('is_admin_logged_in')) ? true : false;
   }
 
@@ -29,7 +29,7 @@ class Admin extends CI_Controller {
     return redirect('Admin');
   }
 
-  public function admin_login(){
+  public function login(){
     $username = trim($this->input->post('email'));
     $password = trim($this->input->post('password'));
     $where = array('email' => $username, 'password' => md5($password));
@@ -45,13 +45,12 @@ class Admin extends CI_Controller {
       $this->Common_Model->update('admins', $where, $update);
       $this->session->set_userdata(array('id' => $userdata['id'], 'is_admin_logged_in' => true));
       $response['responseMessage'] = $this->Common_Model->success('Login successfully.');
-      $response['redirect'] = 'Admin-Dashboard';
+      $response['redirect'] = 'Dashboard';
     }else{
       $response['responseMessage'] = $this->Common_Model->error('Invalid Username or Password.');
     }
     echo json_encode($response);
   }
-  /* No use below this */
 
   public function change_password(){
     $response['status'] = 0;
@@ -85,31 +84,25 @@ class Admin extends CI_Controller {
 
   public function forget_password(){
     $this->form_validation->set_rules('email','email','required');
-    
     if($this->form_validation->run()){
-      
       $email = $this->input->post('email');
-      
-      
-        $run = $this->Common_Model->fetch_records('admins',array('email' =>$email),false, true);
-      
+      $run = $this->Common_Model->fetch_records('admins',array('email' =>$email),false, true);
       if($run){
-        
         $email = $run['email'];
         $name = $run['name'];
         $id = $run['id'];
         $subject = "Forget password";
-        
+
         $html = '<p>Hello, '.$run['name'].'</p>';
         $html .= '<p>This is an automated message . If you did not recently initiate the Forgot Password process, please disregard this email.</p>';
         $html .= '<p>You indicated that you forgot your login password. We can generate a temporary password for you to log in with, then once logged in you can change your password to anything you like.</p>';
         $html .= '<p>Password: <b>'.$run['password'].'</b></p>';
-        
+
         $this->Common_Model->send_mail($run['email'],$subject,$html);
-        
+
         $output['status'] = 1;
         $output['message'] = 'Please check your mail , We have sent your password in your registered mail id.';
-        
+
       } else {
         $output['status'] = 0;
         $output['message'] = 'Email address that you have entered is not registered with us.';

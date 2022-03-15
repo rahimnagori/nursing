@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Admin_Services extends CI_Controller {
+class Admin_Jobs extends CI_Controller {
 
   public function __construct() {
     parent::__construct();
@@ -23,10 +23,25 @@ class Admin_Services extends CI_Controller {
     $adminData = $this->Common_Model->fetch_records('admins', $where, false, true);
     $pageData['adminData'] = $adminData;
 
-    $pageData['services'] = $this->Common_Model->fetch_records('services', array('is_deleted' => 0), false, false, 'id');
+    $pageData['jobs'] = $this->Common_Model->fetch_records('jobs', array('is_deleted' => 0), false, false, 'id');
 
-    $this->load->view('admin/services_management', $pageData);
+    $this->load->view('admin/jobs_management', $pageData);
   }
+
+  public function types(){
+    $pageData = [];
+    $admin_id = $this->session->userdata('id');
+    $where['id'] = $admin_id;
+
+    $adminData = $this->Common_Model->fetch_records('admins', $where, false, true);
+    $pageData['adminData'] = $adminData;
+
+    $pageData['jobTypes'] = $this->Common_Model->fetch_records('job_types', false, false, false, 'id');
+
+    $this->load->view('admin/job_types_management', $pageData);
+  }
+
+  /* Not in use below functions */
 
   public function Add(){
     $response['status'] = 0;

@@ -73,14 +73,13 @@
     e.preventDefault();
     if(check_form()){
       $.ajax({
-        url: BASE_URL + 'Admin_Login',
+        url: BASE_URL + 'Admin-Login',
         type: 'POST',
         data: new FormData($('#loginForm')[0]),
         processData: false,
         contentType: false,
         cache: false,
         beforeSend: function( xhr ) {
-          // xhr.overrideMimeType( "text/plain; charset=x-user-defined" );
           $(".btn_submit").attr('disabled' , true);
           $(".btn_submit").html(LOADING);
           $("#responseMessage").html('');

@@ -75,3 +75,11 @@ $route['Logout'] = 'Users/logout';
 
 /* Admin Routes */
 $route['Admin'] = 'Admin';
+$route['Update-Admin'] = 'Admin_Dashboard/update_profile';
+$route['Update-Admin-Password'] = 'Admin_Dashboard/update_password';
+$route['Admin-Login'] = 'Admin/login';
+$route['Dashboard'] = 'Admin_Dashboard';
+$route['Admin-Profile'] = 'Admin_Dashboard/profile';
+$route['Users-Management'] = 'Admin_Users';
+$route['Admin-Jobs'] = 'Admin_Jobs';
+$route['Job-Types'] = 'Admin_Jobs/types';

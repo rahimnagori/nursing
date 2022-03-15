@@ -18,9 +18,9 @@ class Admin_Users extends CI_Controller {
     $adminData = $this->Common_Model->fetch_records('admins', $where, false, true);
     $pageData['adminData'] = $adminData;
 
-    $pageData['users'] = $this->Common_Model->fetch_records('users');
+    $pageData['users'] = $this->Common_Model->fetch_records('users', array('is_deleted' => 0));
 
-    $this->load->view('admin/users', $pageData);
+    $this->load->view('admin/users_management', $pageData);
   }
 
   public function check_login(){

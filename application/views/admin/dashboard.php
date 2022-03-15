@@ -7,7 +7,7 @@
       <div class="col-sm-3">
         <div class="dashboard-tile1 detail1 ">
           <div class="content1">
-            <p>Bookings</p>
+            <p>Jobs</p>
             <h1>480</h1>
           </div>
           <div class="ussicon">
@@ -18,7 +18,7 @@
       <div class="col-sm-3">
         <div class="dashboard-tile1 detail1 ">
           <div class="content1">
-            <p>Bookings</p>
+            <p>Users</p>
             <h1>480</h1>
           </div>
           <div class="ussicon">

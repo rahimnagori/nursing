@@ -1,7 +1,7 @@
 <?php include 'include/header.php'; ?>
 
 <div class="conten_web">
-  <h4 class="heading">Dasboard</h4>
+  <h4 class="heading">Users <small>Management</small></h4>
   <div class="white_box">
     <div class="card_bodym">
       <div class="table-responsive">
@@ -19,25 +19,25 @@
           </thead>
           <tbody>
             <?php
-              foreach($organizations as $serialNumber => $organization){
-                $emailStatus = ($organization['is_email_verified'] == 1) ? 'Verified' : 'Not verified';
-                $statusClass = ($organization['is_email_verified'] == 1) ? 'success' : 'danger';
+              foreach($users as $serialNumber => $user){
+                $emailStatus = ($user['is_email_verified'] == 1) ? 'Verified' : 'Not verified';
+                $statusClass = ($user['is_email_verified'] == 1) ? 'success' : 'danger';
             ?>
                 <tr>
                   <td><?=$serialNumber + 1;?></td>
-                  <td><?=$organization['first_name'] .' ' .$organization['last_name'];?></td>
+                  <td><?=$user['first_name'] .' ' .$user['last_name'];?></td>
                   <td>
-                    <?=$organization['email'];?> 
+                    <?=$user['email'];?> 
                     <strong><span class="text-<?=$statusClass;?>">
                       (<?=$emailStatus;?>)
                     </span></strong>
                   </td>
-                  <td><?=$organization['phone'];?></td>
-                  <td><?=date("d M, Y", strtotime($organization['last_login']));?></td>
-                  <td><?=date("d M, Y", strtotime($organization['created']));?></td>
+                  <td><?=$user['phone'];?></td>
+                  <td><?=date("d M, Y", strtotime($user['last_login']));?></td>
+                  <td><?=date("d M, Y", strtotime($user['created']));?></td>
                   <td>
-                    <a href="#" class="btn btn_theme2 btn-sm">Send Mail</a>
-                    <a href="#" class="btn btn_theme2 btn-sm">Edit</a>
+                    <a href="#" class="btn btn-info btn-sm">Send Mail</a>
+                    <a href="#" class="btn btn-info btn-sm">Edit</a>
                     <a href="#" class="btn btn-danger btn-sm">Delete</a>
                   </td>
                 </tr>
