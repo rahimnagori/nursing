@@ -52,7 +52,7 @@
      color: #333;
 }
 :root{
-  --red:#f9a900;
+  --red:#F84365;
   --BL:#0c1f38;
 }
 /*start*/
@@ -293,16 +293,16 @@ body{
   width: 100%;
   font-size: 15px;
   position: relative;
-  padding: 6px 10px;
+  padding: 10px 10px;
   padding-left: 42px;
-  color: #777;
+  color: #000;
   transition: all ease-in-out 0.5s;
 }
 .sidebar2 > ul > li > a > i {
   position: absolute;
   left: 15px;
   font-size: 22px;
-  top: 7px;
+  top: 10px;
 }
 .sidebar2 > ul > li > a:after{
   position: absolute;
@@ -314,7 +314,7 @@ body{
 }
 .sidebar2 > ul > li > a:hover{
   color: var(--red);
-  background: rgba(249,169,0,0.05);
+  background: rgba(248,67,101,0.05);
 }
 .sidebar2 > ul > li > a:hover:after{
   background: var(--red);
@@ -340,10 +340,13 @@ body{
   border: 0;
 }
 .sidebar2 > ul > li.dropdown .dropdown-menu > li > a {
-  padding: 4px 10px;
+  padding: 8px 10px;
   font-size: 15px;
   color: #777;
   padding-left: 40px;
+}
+.sidebar2 > ul > li.dropdown .dropdown-menu > li > a > i{
+  margin-right: 5px;
 }
 /*sidebar*/
 
@@ -362,7 +365,12 @@ body{
   box-shadow: 0 0 5px rgba(0,0,0,0.03);
 }
 .heading {
-  color: #000;
+	color: #000;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	align-items: center;
+  margin-bottom: 20px;
 }
 
 .dashboard-tile1.detail1 {
@@ -382,7 +390,7 @@ body{
   top: 20px;
   width: 55px;
   height: 55px;
-  background:rgba(249,169,0,0.05);
+  background:rgba(248,67,101,0.05);
   border-radius: 10px;
   font-size: 24px;
   line-height: 55px;

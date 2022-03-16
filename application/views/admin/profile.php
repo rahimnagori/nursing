@@ -1,13 +1,16 @@
 <?php include 'include/header.php'; ?>
 
 <div class="conten_web">
-  <h4 class="heading">Profile</h4>
+  <h4 class="heading">Profile <span><a href="javascript:void(0);" class="btn btn_theme2" data-toggle="modal" data-target="#Add_polls">modal</a></span></h4> 
+
   <div class="ddd">
     <div class="row">
       <div class="col-sm-12">
         <?=$this->session->flashdata('responseMessage');?>
         <div class="row">
           <div class="col-md-6">
+          <div class="white_box">
+    <div class="card_bodym">
             <div class="box box-info">
               <div class="box-header with-border">
                 <h3 class="box-title">Update Profile</h3>
@@ -33,15 +36,20 @@
                     </div>
                   </div>
                 </div>
-                <div class="box-footer">
+                <div class="box-footer text-right">
                  <input type="hidden" name="id" id="id" value="<?=$adminData['id'];?>">
-                  <button type="submit" class="btn btn-info pull-right" data-loading-text="Loading..." id="changeUsernameBtn">Update</button>
+                  <button type="submit" class="btn btn-info " data-loading-text="Loading..." id="changeUsernameBtn">Update</button>
                 </div>
                 <!-- /.box-footer -->
               </form>
             </div>
+            </div>
+            </div>
           </div>
            <div class="col-md-6">
+           <div class="white_box">
+    <div class="card_bodym">
+      
             <div class="box box-info">
               <div class="box-header with-border">
                 <h3 class="box-title">Change Password</h3>
@@ -71,10 +79,12 @@
                     </div>
                   </div>
                 </div>
-                <div class="box-footer">
-                  <button type="submit" class="btn btn-info pull-right">Save &amp; Changes</button>
+                <div class="box-footer text-right">
+                  <button type="submit" class="btn btn-info">Save &amp; Changes</button>
                 </div>
               </form>
+            </div>
+            </div>
             </div>
           </div>
         </div>
@@ -83,4 +93,73 @@
   </div>
 </div>
 
+<!-- modal us -->
+
+
+<!-- Modal -->
+<div class="modal fade " id="Add_polls" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+
+  <div class="modal-dialog" role="document">
+
+    <div class="modal-content">
+
+     <div class="modal-header">
+
+      <h4 class="modal-title">Add Poll</h4>
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="la la-times-circle"></i></span></button>
+
+        
+
+      </div>
+
+      <div class="modal-body">
+
+        <div class="optio_raddipo">
+            <div class="form-group">
+              <label class="radio"> First Choose 
+                <input type="radio" checked="checked" name="is_company">
+                <span class="checkround"></span>
+              </label>
+              <input type="text" name="" class="form-control" value="Option 1">
+            </div>
+            <div class="form-group">
+              <label class="radio"> Second Choose 
+                <input type="radio"  name="is_company">
+                <span class="checkround"></span>
+              </label>
+              <input type="text" name="" class="form-control" value="Option 1">
+            </div>
+            <div class="form-group">
+              <label class="radio"> Third Choose
+                <input type="radio"  name="is_company">
+                <span class="checkround"></span>
+              </label>
+              <input type="text" name="" class="form-control" value="Option 1">
+            </div>
+            <div class="form-group">
+                <label class="check ">Scheduling Date
+    <input type="checkbox" name="Scheduling_dtae" id="MyCheckBox">
+  <span class="checkmark"></span>
+</label>
+            </div>
+           
+            
+
+            <div class="form-group">
+              <a href="#" class="btn btn_theme2 btn-lg">Submit</a>
+            </div>
+        </div>
+
+      </div>
+
+      
+
+    </div>
+
+  </div>
+
+</div>
+<!-- Modal close-->
+<!-- modal us -->
 <?php include 'include/footer.php'; ?>
