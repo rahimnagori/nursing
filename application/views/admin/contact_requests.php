@@ -14,6 +14,7 @@
               <th>Email</th>
               <th>Telephone</th>
               <th>Message</th>
+              <th>Resume</th>
               <th>Use of Data Consent</th>
               <th>Privacy Consent</th>
               <th>Created</th>
@@ -31,6 +32,9 @@
                 <td><?=$contactRequest['email'] ?></td>
                 <td><?=$contactRequest['phone'];?></td>
                 <td><?=$contactRequest['message'];?></td>
+                <td>
+                  <a href="<?=site_url($contactRequest['resume']);?>" download> Download <a>
+                </td>
                 <td><?=($contactRequest['process_policy']) ? 'Yes' : 'No';?></td>
                 <td><?=($contactRequest['collect_policy']) ? 'Yes' : 'No';?></td>
                 <td><?=date("d M, Y", strtotime( $contactRequest['created']));?></td>

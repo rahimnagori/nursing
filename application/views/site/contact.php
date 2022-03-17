@@ -76,8 +76,10 @@
                            <label>Upload CV </label>
                            <div class="icon_us">
                               <i class="la la-cloud-upload"></i>
-                              <input type="file" name="" placeholder="" class="form-control">
+                              <input type="file" name="resumeFile" class="form-control" onchange="upload_resume(this);" >
+                              <input type="hidden" name="resume" id="resume" >
                            </div>
+                           <div id="preview_image"></div>
                         </div>
 
                      </div>
@@ -142,6 +144,31 @@
             if (response.status == 1) location.reload();
             $("#responseMessage").html(response.responseMessage);
             $("#responseMessage").show();
+         }
+      });
+   }
+
+   function upload_resume(element){
+      let formData = new FormData();
+      let oldResume = $("#resume").val();
+      formData.append('resume', element.files[0]);
+      formData.append('oldResume', oldResume);
+      $.ajax({
+         type: 'POST',
+         url: BASE_URL + 'Contact/Resume',
+         data: formData,
+         dataType: 'JSON',
+         processData: false,
+         contentType: false,
+         cache: false,
+         beforeSend: function(xhr) {
+            $(".btn_submit").attr('disabled', true);
+         },
+         success: function(response) {
+            $(".btn_submit").attr('disabled', false);
+            if(response.status == 1){
+               $("#resume").val(response.resumePath);
+            }
          }
       });
    }

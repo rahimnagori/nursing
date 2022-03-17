@@ -59,8 +59,11 @@ $route['Blogs'] = 'Home/blogs';
 $route['Blog/(:any)'] = 'Home/blog/$1';
 $route['Jobs'] = 'Home/jobs';
 $route['Work'] = 'Home/work';
+
 $route['Contact'] = 'Home/contact';
 $route['Contact/Request'] = 'Home/contact_request';
+$route['Contact/Resume'] = 'Home/resume';
+
 $route['Terms'] = 'Home/terms';
 $route['Privacy'] = 'Home/privacy';
 

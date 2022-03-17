@@ -91,6 +91,7 @@ class Home extends CI_Controller {
     $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
     $this->form_validation->set_rules('phone', 'phone', 'required');
     $this->form_validation->set_rules('message', 'message', 'required');
+    $this->form_validation->set_rules('resume', 'resume', 'required');
     if ($this->form_validation->run()){
       $insert = $this->input->post();
       $insert['created'] = $insert['updated'] = date("Y-m-d H:i:s");
@@ -105,6 +106,31 @@ class Home extends CI_Controller {
 
     
     $this->session->set_flashdata('responseMessage', $response['responseMessage']);
+    echo json_encode($response);
+  }
+
+  public function resume(){
+    $oldResume = $this->input->post('oldResume');
+    $response['status'] = 0;
+    $response['responseMessage'] = $this->Common_Model->error('There are some error with this file, please upload another file.');
+    if($_FILES['resume']['error'] == 0){
+      $config['upload_path'] = "assets/site/resume/";
+      $config['allowed_types'] = 'pdf|doc|docx|jpg';
+      $config['encrypt_name'] = true;
+      $this->load->library("upload", $config);
+      if ($this->upload->do_upload('resume')) {
+        if(trim($oldResume)){
+          if(file_exists($oldResume)){
+            unlink($oldResume);
+          }
+        }
+        $response['resumePath'] = $config['upload_path'] .$this->upload->data("file_name");
+        $response['status'] = 1;
+        $response['responseMessage'] = $this->Common_Model->success('Resume uploaded successfully.');
+      }else{
+        $response['responseMessage'] = $this->Common_Model->error($this->upload->display_errors());
+      }
+    }
     echo json_encode($response);
   }
 
