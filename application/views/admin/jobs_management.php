@@ -3,7 +3,7 @@
 <div class="conten_web">
   <h4 class="heading">Jobs <small>Management</small><span><button class="btn btn_theme2" data-toggle="modal" data-target="#addJobModal">Add</button></span></h4>
   <div class="white_box">
-    <?=$this->session->flashdata('responseMessage');?>
+    <?= $this->session->flashdata('responseMessage'); ?>
     <div class="card_bodym">
       <div class="table-responsive">
         <table id="extent_tbl1" class="table display">
@@ -11,8 +11,12 @@
             <tr>
               <th>S.No.</th>
               <th>Title</th>
+              <th>Location</th>
+              <th>Salary</th>
               <th>Description</th>
-              <th>Job Type</th>
+              <th>Qualification</th>
+              <th>Employment Type</th>
+              <th>Last Date</th>
               <th>Created</th>
               <th>Updated</th>
               <th>Action</th>
@@ -20,22 +24,32 @@
           </thead>
           <tbody>
             <?php
-              foreach($jobs as $serialNumber => $job){
+            foreach ($jobs as $serialNumber => $job) {
             ?>
-                <tr>
-                  <td><?=$serialNumber + 1;?></td>
-                  <td><?=$job['title'];?></td>
-                  <td><?=$job['description'];?></td>
-                  <td><?=$job['name']?></td>
-                  <td><?=date("d M, Y", strtotime($job['created']));?></td>
-                  <td><?=date("d M, Y", strtotime($job['updated']));?></td>
-                  <td>
-                    <button onclick="edit_job(<?=$job['id']?>)" class="btn btn-info btn-sm">Edit</button>
-                    <button class="btn btn-danger btn-sm" onclick="open_delete_modal(<?=$job['id']?>)" >Delete</button>
-                  </td>
-                </tr>
+              <tr>
+                <td><?= $serialNumber + 1; ?></td>
+                <td><?= $job['title']; ?></td>
+                <td><?= $job['name'] ?></td>
+                <td>$<?= $job['salary']; ?></td>
+                <td>
+                  <?php
+                  $description = strip_tags(substr($job['description'], 0, 100));
+                  echo $description;
+                  echo (strlen($description) > 100) ? '...' : '';
+                  ?>
+                </td>
+                <td><?= $job['qualification']; ?></td>
+                <td><?= ($job['employment_type'] == 1) ? 'Permanent' : 'Temporary'; ?></td>
+                <td><?= date("d M, Y", strtotime($job['last_date'])); ?></td>
+                <td><?= date("d M, Y", strtotime($job['created'])); ?></td>
+                <td><?= date("d M, Y", strtotime($job['updated'])); ?></td>
+                <td>
+                  <button onclick="edit_job(<?= $job['id'] ?>)" class="btn btn-info btn-sm">Edit</button>
+                  <button class="btn btn-danger btn-sm" onclick="open_delete_modal(<?= $job['id'] ?>)">Delete</button>
+                </td>
+              </tr>
             <?php
-              }
+            }
             ?>
           </tbody>
         </table>
@@ -58,29 +72,59 @@
           <div class="optio_raddipo">
             <div class="form-group">
               <label> Title </label>
-              <input type="text" name="title" class="form-control" required="" >
+              <input type="text" name="title" class="form-control" required="">
+            </div>
+            <div class="form-group">
+              <label> Location </label>
+              <select class="form-control" name="job_type" onchange="update_location(this.value);">
+                <?php
+                foreach ($jobTypes as $jobType) {
+                ?>
+                  <option value="<?= $jobType['id']; ?>"><?= $jobType['name']; ?></option>
+                <?php
+                }
+                ?>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div class="responseMessage" id="addLocationHtml">
+
+            </div>
+            <div class="form-group">
+              <label> Salary </label>
+              <div class="input-group">
+                <span class="input-group-addon">$</span>
+                <input type="number" name="salary" class="form-control" required="">
+              </div>
             </div>
             <div class="form-group">
               <label> Description </label>
-              <input type="text" name="description" class="form-control" required="" >
+              <textarea class="form-control textarea" name="description" required=""></textarea>
             </div>
             <div class="form-group">
-              <label> Job Type </label>
-              <select class="form-control" name="job_type" > 
-                <?php
-                  foreach($jobTypes as $jobType){
-                ?>
-                    <option value="<?=$jobType['id'];?>"><?=$jobType['name'];?></option>
-                <?php
-                  }
-                ?>
-              </select>
+              <label> Qualification </label>
+              <input type="text" name="qualification" class="form-control" required="">
+            </div>
+            <div class="form-group">
+              <label> Employment Type </label>
+              <label class="radio"> Permanent
+                <input type="radio" value="1" checked="checked" name="employment_type">
+                <span class="checkround"></span>
+              </label>
+              <label class="radio"> Temporary
+                <input type="radio" value="0" name="employment_type">
+                <span class="checkround"></span>
+              </label>
+            </div>
+            <div class="form-group">
+              <label> Last Date </label>
+              <input type="date" name="last_date" class="form-control" required="">
             </div>
             <div class="row">
               <div class="col-sm-12" class="responseMessage" id="responseMessage"></div>
             </div>
             <div class="form-group">
-              <button class="btn btn_theme2 btn-lg btn_submit" >Add</button>
+              <button class="btn btn_theme2 btn-lg btn_submit">Add</button>
             </div>
           </div>
         </div>
@@ -110,8 +154,8 @@
               <div class="col-sm-12" class="responseMessage" id="responseMessage"></div>
             </div>
             <div class="form-group">
-              <button class="btn btn_theme2 btn-lg btn_submit" >Yes</button>
-              <button class="btn btn-lg btn-info" class="close" data-dismiss="modal" aria-label="Close" >No</button>
+              <button class="btn btn_theme2 btn-lg btn_submit">Yes</button>
+              <button class="btn btn-lg btn-info" class="close" data-dismiss="modal" aria-label="Close">No</button>
             </div>
           </div>
         </div>
@@ -141,96 +185,109 @@
 <!-- Modal close-->
 
 <?php include 'include/footer.php'; ?>
+<?php include 'include/tinymce.php'; ?>
 
 <script>
-  function add_job(e){
+  function add_job(e) {
     e.preventDefault();
     $.ajax({
       type: 'POST',
       url: BASE_URL + 'Admin-Jobs/Add',
       data: new FormData($('#addForm')[0]),
-      dataType:'JSON',
+      dataType: 'JSON',
       processData: false,
       contentType: false,
       cache: false,
-      beforeSend: function( xhr ) {
-        $(".btn_submit").attr('disabled' , true);
+      beforeSend: function(xhr) {
+        $(".btn_submit").attr('disabled', true);
         $(".btn_submit").html(LOADING);
         $("#responseMessage").html('');
         $("#responseMessage").hide();
       },
-      success:function(response){
-        $(".submit-btn").prop('disabled', false);
-        $(".submit-btn").html(' Add ');
-        if(response.status == 1) location.reload();
+      success: function(response) {
+        $(".btn_submit").prop('disabled', false);
+        $(".btn_submit").html(' Add ');
+        if (response.status == 1) location.reload();
       }
     });
   }
 
-  function open_delete_modal(id){
+  function open_delete_modal(id) {
     $("#delete_job_id").val(id);
     $("#deleteJobModal").modal("show");
   }
 
-  function delete_job(e){
+  function delete_job(e) {
     e.preventDefault();
     $.ajax({
       type: 'POST',
       url: BASE_URL + 'Admin-Jobs/delete',
       data: new FormData($('#deleteForm')[0]),
-      dataType:'JSON',
+      dataType: 'JSON',
       processData: false,
       contentType: false,
       cache: false,
-      beforeSend: function( xhr ) {
-        $(".btn_submit").attr('disabled' , true);
+      beforeSend: function(xhr) {
+        $(".btn_submit").attr('disabled', true);
         $(".btn_submit").html(LOADING);
         $("#responseMessage").html('');
         $("#responseMessage").hide();
       },
-      success:function(response){
-        $(".submit-btn").prop('disabled', false);
-        $(".submit-btn").html(' Yes ');
-        if(response.status == 1) location.reload();
+      success: function(response) {
+        $(".btn_submit").prop('disabled', false);
+        $(".btn_submit").html(' Yes ');
+        if (response.status == 1) location.reload();
       }
     });
   }
 
-  function edit_job(job_id){
+  function edit_job(job_id) {
     $.ajax({
       type: 'GET',
       url: BASE_URL + 'Admin-Jobs/Get/' + job_id,
       dataType: 'HTML',
-      beforeSend: function( xhr ) {
+      beforeSend: function(xhr) {
         $("#editModal").html("<i class='fa fa-spin fa-spinner' aria-hidden='true'></i>")
         $("#editJobModal").modal("show");
       },
-      success:function(response){
+      success: function(response) {
         $("#editModal").html(response);
+        update_tiny('textarea-edit');
       }
     });
   }
-  function update_job(e){
+
+  function update_job(e) {
     e.preventDefault();
     $.ajax({
       type: 'POST',
       url: BASE_URL + 'Admin-Jobs/Update',
       data: new FormData($('#editForm')[0]),
-      dataType:'JSON',
+      dataType: 'JSON',
       processData: false,
       contentType: false,
       cache: false,
-      beforeSend: function( xhr ) {
-        $(".btn_submit").attr('disabled' , true);
+      beforeSend: function(xhr) {
+        $(".btn_submit").attr('disabled', true);
         $(".btn_submit").html(LOADING);
         $("#responseMessage").html('');
         $("#responseMessage").hide();
       },
-      success:function(response){
-        $(".submit-btn").prop('disabled', false);
-        $(".submit-btn").html(' Update ');
-        if(response.status == 1) location.reload();
+      success: function(response) {
+        $(".btn_submit").prop('disabled', false);
+        $(".btn_submit").html(' Update ');
+        if (response.status == 1) location.reload();
       }
     });
+  }
+
+  function update_location(locationType) {
+    if (locationType == 'other') {
+      $("#addLocationHtml").html(`<input type="text" name="name" id="location" class="form-control" required="" placeholder="Add other..." />`);
+      $("#addLocationHtml").show();
+    } else {
+      $("#addLocationHtml").hide();
+      $("#addLocationHtml").html("");
+    }
   }
 </script>

@@ -51,12 +51,15 @@ class Admin_Jobs extends CI_Controller {
   public function add_job(){
     $response['status'] = 0;
     $response['responseMessage'] = $this->Common_Model->error('Something went wrong.');
-    $insert['title'] = $this->input->post('title');
-    $insert['description'] = $this->input->post('description');
-    $insert['job_type'] = $this->input->post('job_type');
+    $insert = $this->input->post();
     $insert['is_deleted'] = 0;
     $insert['user_id'] = $this->session->userdata('id');
     $insert['created'] = $insert['updated'] = date("Y-m-d H:i:s");
+    if($insert['job_type'] == 'other' && $insert['name']){
+      $insertJobType['name'] = $insert['name'];
+      $insert['job_type'] = $this->Common_Model->insert('job_types', $insertJobType);
+      unset($insert['name']);
+    }
     if($this->Common_Model->insert('jobs', $insert)){
       $response['status'] = 1;
       $response['responseMessage'] = $this->Common_Model->success('Job added successfully.');

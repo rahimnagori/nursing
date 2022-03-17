@@ -8,7 +8,7 @@
         <div class="dashboard-tile1 detail1 ">
           <div class="content1">
             <p>Jobs</p>
-            <h1>480</h1>
+            <h1><?=count($jobs);?></h1>
           </div>
           <div class="ussicon">
             <i class="fa fa-calendar"></i>
@@ -19,7 +19,7 @@
         <div class="dashboard-tile1 detail1 ">
           <div class="content1">
             <p>Users</p>
-            <h1>480</h1>
+            <h1><?=count($users);?></h1>
           </div>
           <div class="ussicon">
             <i class="fa fa-briefcase"></i>
