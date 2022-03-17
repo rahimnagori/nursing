@@ -2,7 +2,7 @@
   <div class="form-group">
     <label> Job Type </label>
     <input type="text" name="name" class="form-control" value="<?=$jobTypeDetails['name'];?>" >
-    <input type="hidden" name="job_type_id" class="form-control" value="<?=$jobTypeDetails['id'];?>" >
+    <input type="hidden" name="job_type_id" class="form-control" value="<?=$jobTypeDetails['id'];?>" required="" >
   </div>
   <div class="row">
     <div class="col-sm-12" class="responseMessage" id="responseMessageEdit"></div>

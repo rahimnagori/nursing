@@ -23,7 +23,13 @@ class Admin_Jobs extends CI_Controller {
     $adminData = $this->Common_Model->fetch_records('admins', $where, false, true);
     $pageData['adminData'] = $adminData;
 
-    $pageData['jobs'] = $this->Common_Model->fetch_records('jobs', array('is_deleted' => 0), false, false, 'id');
+    $join[0][] = 'job_types';
+    $join[0][] = 'jobs.job_type = job_types.id';
+    $join[0][] = 'left';
+    $whereJoin['jobs.is_deleted'] = 0;
+    $select = 'jobs.*, job_types.name';
+    $pageData['jobs'] = $this->Common_Model->join_records('jobs', $join, $whereJoin, $select, 'jobs.id', 'DESC');
+
     $pageData['jobTypes'] = $this->Common_Model->fetch_records('job_types');
 
     $this->load->view('admin/jobs_management', $pageData);
@@ -40,6 +46,65 @@ class Admin_Jobs extends CI_Controller {
     $pageData['jobTypes'] = $this->Common_Model->fetch_records('job_types', false, false, false, 'id');
 
     $this->load->view('admin/job_types_management', $pageData);
+  }
+
+  public function add_job(){
+    $response['status'] = 0;
+    $response['responseMessage'] = $this->Common_Model->error('Something went wrong.');
+    $insert['title'] = $this->input->post('title');
+    $insert['description'] = $this->input->post('description');
+    $insert['job_type'] = $this->input->post('job_type');
+    $insert['is_deleted'] = 0;
+    $insert['user_id'] = $this->session->userdata('id');
+    $insert['created'] = $insert['updated'] = date("Y-m-d H:i:s");
+    if($this->Common_Model->insert('jobs', $insert)){
+      $response['status'] = 1;
+      $response['responseMessage'] = $this->Common_Model->success('Job added successfully.');
+    }
+    $this->session->set_flashdata('responseMessage', $response['responseMessage']);
+    echo json_encode($response);
+  }
+
+  public function delete_job(){
+    $response['status'] = 0;
+    $where['id'] = $this->input->post('delete_job_id');
+    $update['is_deleted'] = 1;
+    if($this->Common_Model->update('jobs', $where, $update)){
+      $response['status'] = 1;
+      $response['responseMessage'] = $this->Common_Model->success('Job deleted successfully.');
+    }
+    $this->session->set_flashdata('responseMessage', $response['responseMessage']);
+    echo json_encode($response);
+  }
+
+  public function get_job($id){
+    $join[0][] = 'job_types';
+    $join[0][] = 'jobs.job_type = job_types.id';
+    $join[0][] = 'left';
+    $where['jobs.is_deleted'] = 0;
+    $where['jobs.id'] = $id;
+    $select = 'jobs.*, job_types.name';
+    $jobDetails = $this->Common_Model->join_records('jobs', $join, $where, $select, 'jobs.id', 'DESC');
+    $pageData['jobDetails'] = $jobDetails[0];
+
+    $pageData['jobTypes'] = $this->Common_Model->fetch_records('job_types');
+
+    $this->load->view('admin/include/job_details', $pageData);
+  }
+
+  public function update_job(){
+    $response['status'] = 0;
+    $response['responseMessage'] = $this->Common_Model->error('Something went wrong.');
+    $update['title'] = $this->input->post('title');
+    $update['description'] = $this->input->post('description');
+    $update['job_type'] = $this->input->post('job_type');
+    $where['id'] = $this->input->post('job_id');
+    if($this->Common_Model->update('jobs', $where, $update)){
+      $response['status'] = 1;
+      $response['responseMessage'] = $this->Common_Model->success('Job updated successfully.');
+    }
+    $this->session->set_flashdata('responseMessage', $response['responseMessage']);
+    echo json_encode($response);
   }
 
   public function add_type(){

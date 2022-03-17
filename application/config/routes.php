@@ -81,10 +81,14 @@ $route['Admin-Login'] = 'Admin/login';
 $route['Dashboard'] = 'Admin_Dashboard';
 $route['Admin-Profile'] = 'Admin_Dashboard/profile';
 $route['Users-Management'] = 'Admin_Users';
+
 $route['Admin-Jobs'] = 'Admin_Jobs';
+$route['Admin-Jobs/Get/(:any)'] = 'Admin_Jobs/get_job/$1';
+$route['Admin-Jobs/Add'] = 'Admin_Jobs/add_job';
+$route['Admin-Jobs/delete'] = 'Admin_Jobs/delete_job';
+$route['Admin-Jobs/Update'] = 'Admin_Jobs/update_job';
+
 $route['Job-Types'] = 'Admin_Jobs/types';
-
-
 $route['Job-Type/Get/(:any)'] = 'Admin_Jobs/get_job_type/$1';
 $route['Job-Type/Add'] = 'Admin_Jobs/add_type';
 $route['Job-Type/delete'] = 'Admin_Jobs/delete_type';

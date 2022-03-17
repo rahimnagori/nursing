@@ -1,11 +1,5 @@
 <?php include 'include/header.php'; ?>
 
-<style>
-  .responseMessage{
-    display:none;
-  }
-</style>
-
 <div class="conten_web">
   <h4 class="heading">Job Types <small>Management</small><span><button class="btn btn_theme2" data-toggle="modal" data-target="#addJobTypeModal">Add</button></span></h4>
   <div class="white_box">
@@ -56,7 +50,7 @@
           <div class="optio_raddipo">
             <div class="form-group">
               <label> Job Type </label>
-              <input type="text" name="name" class="form-control" >
+              <input type="text" name="name" class="form-control" required="" >
             </div>
             <div class="row">
               <div class="col-sm-12" class="responseMessage" id="responseMessage"></div>
@@ -185,6 +179,7 @@
       url: BASE_URL + 'Job-Type/Get/' + job_type_id,
       dataType: 'HTML',
       beforeSend: function( xhr ) {
+        $("#editModal").html("<i class='fa fa-spin fa-spinner' aria-hidden='true'></i>")
         $("#editJobTypeModal").modal("show");
       },
       success:function(response){

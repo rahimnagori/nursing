@@ -655,6 +655,10 @@ body{
 }
 /* The check close */
 
+/* Hide all response messages by default */
+.responseMessage{
+  display: none;
+}
 
 
 /*media start*/
