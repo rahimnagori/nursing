@@ -24,6 +24,7 @@ class Admin_Jobs extends CI_Controller {
     $pageData['adminData'] = $adminData;
 
     $pageData['jobs'] = $this->Common_Model->fetch_records('jobs', array('is_deleted' => 0), false, false, 'id');
+    $pageData['jobTypes'] = $this->Common_Model->fetch_records('job_types');
 
     $this->load->view('admin/jobs_management', $pageData);
   }
@@ -39,6 +40,47 @@ class Admin_Jobs extends CI_Controller {
     $pageData['jobTypes'] = $this->Common_Model->fetch_records('job_types', false, false, false, 'id');
 
     $this->load->view('admin/job_types_management', $pageData);
+  }
+
+  public function add_type(){
+    $response['status'] = 0;
+    $response['responseMessage'] = $this->Common_Model->error('Something went wrong.');
+    $insert['name'] = $this->input->post('name');
+    if($this->Common_Model->insert('job_types', $insert)){
+      $response['status'] = 1;
+      $response['responseMessage'] = $this->Common_Model->success('Job type added successfully.');
+    }
+    $this->session->set_flashdata('responseMessage', $response['responseMessage']);
+    echo json_encode($response);
+  }
+
+  public function delete_type(){
+    $response['status'] = 0;
+    $where['id'] = $this->input->post('delete_job_type_id');
+    if($this->Common_Model->delete('job_types', $where)){
+      $response['status'] = 1;
+      $response['responseMessage'] = $this->Common_Model->success('Job type deleted successfully.');
+    }
+    $this->session->set_flashdata('responseMessage', $response['responseMessage']);
+    echo json_encode($response);
+  }
+
+  public function get_job_type($id){
+    $pageData['jobTypeDetails'] = $this->Common_Model->fetch_records('job_types', array('id' => $id), false, true);
+    $this->load->view('admin/include/job_type_details', $pageData);
+  }
+
+  public function update_job_type(){
+    $response['status'] = 0;
+    $response['responseMessage'] = $this->Common_Model->error('Something went wrong.');
+    $update['name'] = $this->input->post('name');
+    $where['id'] = $this->input->post('job_type_id');
+    if($this->Common_Model->update('job_types', $where, $update)){
+      $response['status'] = 1;
+      $response['responseMessage'] = $this->Common_Model->success('Job type updated successfully.');
+    }
+    $this->session->set_flashdata('responseMessage', $response['responseMessage']);
+    echo json_encode($response);
   }
 
   /* Not in use below functions */

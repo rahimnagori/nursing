@@ -68,7 +68,7 @@
 
 <script>
   $("#email").val('admin@gmail.com');
-  $("#password").val('12121212');
+  $("#password").val('12312312');
   function adminLogin(e){
     e.preventDefault();
     if(check_form()){

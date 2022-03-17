@@ -83,3 +83,9 @@ $route['Admin-Profile'] = 'Admin_Dashboard/profile';
 $route['Users-Management'] = 'Admin_Users';
 $route['Admin-Jobs'] = 'Admin_Jobs';
 $route['Job-Types'] = 'Admin_Jobs/types';
+
+
+$route['Job-Type/Get/(:any)'] = 'Admin_Jobs/get_job_type/$1';
+$route['Job-Type/Add'] = 'Admin_Jobs/add_type';
+$route['Job-Type/delete'] = 'Admin_Jobs/delete_type';
+$route['Job-Type/Update'] = 'Admin_Jobs/update_job_type';
