@@ -98,6 +98,7 @@ class Home extends CI_Controller {
       if($this->Common_Model->insert('contact_requests', $insert)){
         $response['status'] = 1;
         $response['responseMessage'] = $this->Common_Model->success('Message sent successfully.');
+        $this->Common_Model->history('New contact request added.');
       }
     }else{
       $response['status'] = 2;
@@ -122,11 +123,13 @@ class Home extends CI_Controller {
         if(trim($oldResume)){
           if(file_exists($oldResume)){
             unlink($oldResume);
+            $this->Common_Model->history('Resume removed by user.');
           }
         }
         $response['resumePath'] = $config['upload_path'] .$this->upload->data("file_name");
         $response['status'] = 1;
         $response['responseMessage'] = $this->Common_Model->success('Resume uploaded successfully.');
+        $this->Common_Model->history('Resume uploaded by user.');
       }else{
         $response['responseMessage'] = $this->Common_Model->error($this->upload->display_errors());
       }

@@ -48,6 +48,12 @@ class Common_Model extends CI_Model {
     return '<div class="alert alert-danger alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>' .$message .'</div>';
   }
 
+  public function history($message){
+    $insert['user_id'] = ($this->session->userdata('id')) ? $this->session->userdata('id') : 0;
+    $insert['action'] = $message;
+    $this->insert('histories', $insert);
+  }
+
   public function send_mail($to, $subject, $body, $bcc = null, $attachment = false){
     $PROJECT = $this->config->item('PROJECT');
     $fromEmail = 'info@charity.in';
