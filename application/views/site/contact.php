@@ -76,7 +76,7 @@
                            <label>Upload CV </label>
                            <div class="icon_us">
                               <i class="la la-cloud-upload"></i>
-                              <input type="file" name="resumeFile" class="form-control" onchange="upload_resume(this);" >
+                              <input type="file" name="resumeFile" class="form-control" onchange="upload_resume(this);" accept=".pdf, .doc, .docx" >
                               <input type="hidden" name="resume" id="resume" >
                            </div>
                            <div id="preview_image"></div>

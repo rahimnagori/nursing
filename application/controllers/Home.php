@@ -116,7 +116,7 @@ class Home extends CI_Controller {
     $response['responseMessage'] = $this->Common_Model->error('There are some error with this file, please upload another file.');
     if($_FILES['resume']['error'] == 0){
       $config['upload_path'] = "assets/site/resume/";
-      $config['allowed_types'] = 'pdf|doc|docx|jpg';
+      $config['allowed_types'] = 'pdf|doc|docx';
       $config['encrypt_name'] = true;
       $this->load->library("upload", $config);
       if ($this->upload->do_upload('resume')) {
