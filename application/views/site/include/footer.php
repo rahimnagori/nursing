@@ -89,6 +89,10 @@
 <script type="text/javascript" src="<?=site_url('assets/site/');?>js/owl.carousel.js"></script>
 <script type="text/javascript" src="<?=site_url('assets/site/');?>js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="<?=site_url('assets/site/');?>js/custom.js"></script>
+<script>
+    const BASE_URL = "http://localhost/nursing/";
+    const LOADING = "<i class='fa fa-spin fa-spinner' aria-hidden='true'></i> Processing ... ";
+</script>
 
  </body>
 </html>

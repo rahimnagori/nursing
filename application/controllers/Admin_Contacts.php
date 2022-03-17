@@ -23,9 +23,7 @@ class Admin_Contacts extends CI_Controller {
     $adminData = $this->Common_Model->fetch_records('admins', $where, false, true);
     $pageData['adminData'] = $adminData;
 
-    $contact_requests = $this->Common_Model->fetch_records('contact_requests', false, false, false, 'id');
-
-    $pageData['contact_requests'] = $contact_requests;
+    $pageData['contactRequests']  = $this->Common_Model->fetch_records('contact_requests', false, false, false, 'id');
     $this->load->view('admin/contact_requests', $pageData);
   }
 }

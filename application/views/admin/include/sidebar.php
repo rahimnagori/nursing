@@ -20,6 +20,9 @@
           </li>
         </ul>
       </li>
+      <li>
+        <a href="<?=site_url('Admin/Contact');?>"><i class="fa fa-user"></i> Contact Requests</a>
+      </li>
     </ul>
   </div>
 </div>

@@ -60,12 +60,13 @@ $route['Blog/(:any)'] = 'Home/blog/$1';
 $route['Jobs'] = 'Home/jobs';
 $route['Work'] = 'Home/work';
 $route['Contact'] = 'Home/contact';
+$route['Contact/Request'] = 'Home/contact_request';
 $route['Terms'] = 'Home/terms';
 $route['Privacy'] = 'Home/privacy';
 
 /* Protected Routes */
 $route['Login'] = 'Users/login';
-$route['Signup'] = 'Users/signup';
+$route['Sign-Up'] = 'Users/signup';
 $route['Profile'] = 'Users/profile';
 $route['Account'] = 'Users/account';
 $route['Add-Post'] = 'Users/post';
@@ -80,6 +81,7 @@ $route['Update-Admin-Password'] = 'Admin_Dashboard/update_password';
 $route['Admin-Login'] = 'Admin/login';
 $route['Dashboard'] = 'Admin_Dashboard';
 $route['Admin-Profile'] = 'Admin_Dashboard/profile';
+
 $route['Users-Management'] = 'Admin_Users';
 
 $route['Admin-Jobs'] = 'Admin_Jobs';
@@ -93,3 +95,5 @@ $route['Job-Type/Get/(:any)'] = 'Admin_Jobs/get_job_type/$1';
 $route['Job-Type/Add'] = 'Admin_Jobs/add_type';
 $route['Job-Type/delete'] = 'Admin_Jobs/delete_type';
 $route['Job-Type/Update'] = 'Admin_Jobs/update_job_type';
+
+$route['Admin/Contact'] = 'Admin_Contacts';
