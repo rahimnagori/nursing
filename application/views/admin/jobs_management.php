@@ -25,6 +25,7 @@
           <tbody>
             <?php
             foreach ($jobs as $serialNumber => $job) {
+              $elementClass = (date("Y-m-d H:i:s") >= date("d M, Y", strtotime($job['last_date']))) ? 'danger' : '';
             ?>
               <tr>
                 <td><?= $serialNumber + 1; ?></td>
@@ -40,7 +41,7 @@
                 </td>
                 <td><?= $job['qualification']; ?></td>
                 <td><?= ($job['employment_type'] == 1) ? 'Permanent' : 'Temporary'; ?></td>
-                <td><?= date("d M, Y", strtotime($job['last_date'])); ?></td>
+                <td class="<?=$elementClass;?>"><?= date("d M, Y", strtotime($job['last_date'])); ?></td>
                 <td><?= date("d M, Y", strtotime($job['created'])); ?></td>
                 <td><?= date("d M, Y", strtotime($job['updated'])); ?></td>
                 <td>
