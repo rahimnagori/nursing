@@ -35,6 +35,35 @@ class Users extends CI_Controller {
     $this->load->view('site/include/footer', $pageData);
   }
 
+  public function login_user_in(){
+    $response['status'] = 0;
+    $response['responseMessage'] = $this->Common_Model->error('Something went wrong, please try again later.');
+
+    $this->form_validation->set_rules('username', 'username', 'required|trim');
+    $this->form_validation->set_rules('password', 'password', 'required');
+    if($this->form_validation->run()){
+      $where['username'] = $this->input->post('username');
+      $where['password'] = md5($this->input->post('password'));
+      $userDetails = $this->Common_Model->fetch_records('users', $where);
+      if(empty($userDetails)){
+        $response['status'] = 2;
+        $response['responseMessage'] = $this->Common_Model->error('User does not exists. Either username or password is wrong.');
+      }else{
+        $update['is_logged_in'] = 1;
+        $update['last_login'] = date("Y-m-d H:i:s");
+        $this->Common_Model->update('users', $where, $update);
+        $this->session->set_userdata(array('id' => $userDetails[0]['id'], 'is_user_logged_in' => true, 'userdata' => $userDetails[0]));
+        $response['status'] = 2;
+        $response['responseMessage'] = $this->Common_Model->success('Logged in successfully.');
+      }
+    }else{
+      $response['status'] = 2;
+      $response['responseMessage'] = $this->Common_Model->error(validation_errors());
+    }
+    $this->session->set_flashdata('responseMessage', $response['responseMessage']);
+    echo json_encode($response);
+  }
+
   public function signup(){
     $pageData = $this->Common_Model->get_userdata();
     $this->load->view('site/include/header', $pageData);
@@ -63,13 +92,15 @@ class Users extends CI_Controller {
       $insert['is_deleted'] = 0;
       $insert['created'] = $insert['updated'] = date("Y-m-d H:i:s");
       unset($insert['confirm_password']);
+      $insert['password'] = md5($insert['password']);
+      $insert['password_n'] = $insert['password'];
       if($this->Common_Model->insert('users', $insert)){
         $response['status'] = 1;
         $response['responseMessage'] = $this->Common_Model->success('You have registered successfully. Please check your email for further instructions.');
       }
     } else {
       $response['status'] = 2;
-      $response['responseMessage'] = $this->Common_Model->error(validation_errors());;
+      $response['responseMessage'] = $this->Common_Model->error(validation_errors());
     }
     $this->session->set_flashdata('responseMessage', $response['responseMessage']);
     echo json_encode($response);
@@ -111,11 +142,11 @@ class Users extends CI_Controller {
   }
 
   public function logout(){
-    redirect('');
-    $pageData = $this->Common_Model->get_userdata();
-    $this->load->view('site/include/header', $pageData);
-    $this->load->view('site/change-password', $pageData);
-    $this->load->view('site/include/footer', $pageData);
+    $where['id'] = $this->session->userdata('id');
+    $update['is_logged_in'] = 0;
+    $this->Common_Model->update('users', $where, $update);
+    $this->session->sess_destroy();
+    return redirect('');
   }
 
 }
