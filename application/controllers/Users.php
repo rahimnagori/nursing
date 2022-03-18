@@ -24,11 +24,6 @@ class Users extends CI_Controller {
     $this->load->library('session');
   }
 
-  private function get_userdata(){
-
-    return array();
-  }
-
   public function index(){
     redirect('');
   }
@@ -45,6 +40,39 @@ class Users extends CI_Controller {
     $this->load->view('site/include/header', $pageData);
     $this->load->view('site/sign-up', $pageData);
     $this->load->view('site/include/footer', $pageData);
+  }
+
+  public function register(){
+    $response['status'] = 0;
+    $response['responseMessage'] = $this->Common_Model->error('Something went wrong, please try again later.');
+
+    $this->form_validation->set_rules('first_name', 'first_name', 'required');
+    $this->form_validation->set_rules('last_name', 'last_name', 'required');
+    $this->form_validation->set_rules('username', 'username', 'required|is_unique[users.username]|trim');
+    $this->form_validation->set_rules('email', 'email', 'required|valid_email|trim|is_unique[users.email]', array('is_unique' => 'This email is already taken. Please provide another email.'));
+    $this->form_validation->set_rules('password', 'password', 'required');
+    $this->form_validation->set_rules('confirm_password', 'confirm_password', 'required|matches[password]', array('matches' => 'Password and Confirm password does not match.'));
+    $this->form_validation->set_rules('job_title', 'job_title', 'required');
+    $this->form_validation->set_rules('job_title', 'job_title', 'required');
+    if($this->form_validation->run()){
+      $insert = $this->input->post();
+      $insert['is_email_verified'] = 0;
+      $insert['token'] = rand(1000, 99999);
+      $insert['is_logged_in'] = 0;
+      $insert['user_ip'] = $_SERVER['REMOTE_ADDR'];
+      $insert['is_deleted'] = 0;
+      $insert['created'] = $insert['updated'] = date("Y-m-d H:i:s");
+      unset($insert['confirm_password']);
+      if($this->Common_Model->insert('users', $insert)){
+        $response['status'] = 1;
+        $response['responseMessage'] = $this->Common_Model->success('You have registered successfully. Please check your email for further instructions.');
+      }
+    } else {
+      $response['status'] = 2;
+      $response['responseMessage'] = $this->Common_Model->error(validation_errors());;
+    }
+    $this->session->set_flashdata('responseMessage', $response['responseMessage']);
+    echo json_encode($response);
   }
 
   public function profile(){

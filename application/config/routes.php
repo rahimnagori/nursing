@@ -69,7 +69,10 @@ $route['Privacy'] = 'Home/privacy';
 
 /* Protected Routes */
 $route['Login'] = 'Users/login';
+
 $route['Sign-Up'] = 'Users/signup';
+$route['Register'] = 'Users/register';
+
 $route['Profile'] = 'Users/profile';
 $route['Account'] = 'Users/account';
 $route['Add-Post'] = 'Users/post';
