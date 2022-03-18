@@ -42,6 +42,19 @@
     </label>
   </div>
   <div class="form-group">
+    <label> Payment Type </label>
+    <?php
+      foreach($paymentTypes as $key => $paymentType){
+    ?>
+        <label class="radio"> <?=$paymentType;?>
+          <input type="radio" value="<?=$key;?>" <?=($jobDetails['payment_type'] == $key) ? 'checked="checked"' : '';?> name="payment_type">
+          <span class="checkround"></span>
+        </label>
+    <?php
+      }
+    ?>
+  </div>
+  <div class="form-group">
     <label> Last Date </label>
     <input type="date" name="last_date" class="form-control" required="" value="<?=date("Y-m-d", strtotime($jobDetails['last_date']));?>" >
   </div>

@@ -55,6 +55,14 @@ class Home extends CI_Controller {
 
   public function jobs(){
     $pageData = $this->Common_Model->get_userdata();
+    $join[0][] = 'job_types';
+    $join[0][] = 'jobs.job_type = job_types.id';
+    $join[0][] = 'left';
+    $whereJoin['jobs.is_deleted'] = 0;
+    $select = 'jobs.*, job_types.name';
+    $pageData['jobs'] = $this->Common_Model->join_records('jobs', $join, $whereJoin, $select, 'jobs.id', 'DESC');
+    $pageData['paymentTypes'] = $this->Common_Model->get_payment_types();
+
     $this->load->view('site/include/header', $pageData);
     $this->load->view('site/jobs', $pageData);
     $this->load->view('site/include/footer', $pageData);
@@ -98,7 +106,6 @@ class Home extends CI_Controller {
       if($this->Common_Model->insert('contact_requests', $insert)){
         $response['status'] = 1;
         $response['responseMessage'] = $this->Common_Model->success('Message sent successfully.');
-        $this->Common_Model->history('New contact request added.');
       }
     }else{
       $response['status'] = 2;
@@ -123,13 +130,11 @@ class Home extends CI_Controller {
         if(trim($oldResume)){
           if(file_exists($oldResume)){
             unlink($oldResume);
-            $this->Common_Model->history('Resume removed by user.');
           }
         }
         $response['resumePath'] = $config['upload_path'] .$this->upload->data("file_name");
         $response['status'] = 1;
         $response['responseMessage'] = $this->Common_Model->success('Resume uploaded successfully.');
-        $this->Common_Model->history('Resume uploaded by user.');
       }else{
         $response['responseMessage'] = $this->Common_Model->error($this->upload->display_errors());
       }

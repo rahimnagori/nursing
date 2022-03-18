@@ -19,18 +19,16 @@ class Admin_Jobs extends CI_Controller {
     $pageData = [];
     $admin_id = $this->session->userdata('id');
     $where['id'] = $admin_id;
-
     $adminData = $this->Common_Model->fetch_records('admins', $where, false, true);
     $pageData['adminData'] = $adminData;
-
     $join[0][] = 'job_types';
     $join[0][] = 'jobs.job_type = job_types.id';
     $join[0][] = 'left';
     $whereJoin['jobs.is_deleted'] = 0;
     $select = 'jobs.*, job_types.name';
     $pageData['jobs'] = $this->Common_Model->join_records('jobs', $join, $whereJoin, $select, 'jobs.id', 'DESC');
-
     $pageData['jobTypes'] = $this->Common_Model->fetch_records('job_types');
+    $pageData['paymentTypes'] = $this->Common_Model->get_payment_types();
 
     $this->load->view('admin/jobs_management', $pageData);
   }
@@ -91,6 +89,7 @@ class Admin_Jobs extends CI_Controller {
     $pageData['jobDetails'] = $jobDetails[0];
 
     $pageData['jobTypes'] = $this->Common_Model->fetch_records('job_types');
+    $pageData['paymentTypes'] = $this->Common_Model->get_payment_types();
 
     $this->load->view('admin/include/job_details', $pageData);
   }

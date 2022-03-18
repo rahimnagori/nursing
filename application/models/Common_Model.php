@@ -118,5 +118,14 @@ class Common_Model extends CI_Model {
 
   }
 
+  public function get_payment_types(){
+    $formattedPaymentTypes = [];
+    $paymentTypes = $this->fetch_records('payment_types');
+    foreach($paymentTypes as $paymentType){
+      $formattedPaymentTypes[$paymentType['id']] = ucfirst($paymentType['payment_type']);
+    }
+    return $formattedPaymentTypes;
+  }
+
 }
 ?>

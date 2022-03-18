@@ -22,8 +22,8 @@
                   <td><?=$serialNumber + 1;?></td>
                   <td><?=$jobType['name'];?></td>
                   <td>
-                    <button onclick="edit_job_type(<?=$jobType['id']?>)" class="btn btn-info btn-sm">Edit</button>
-                    <button class="btn btn-danger btn-sm" onclick="open_delete_modal(<?=$jobType['id']?>)" >Delete</button>
+                    <button onclick="edit_job_type(<?=$jobType['id']?>)" class="btn btn-info btn-xs">Edit</button>
+                    <button class="btn btn-danger btn-xs" onclick="open_delete_modal(<?=$jobType['id']?>)" >Delete</button>
                   </td>
                 </tr>
             <?php

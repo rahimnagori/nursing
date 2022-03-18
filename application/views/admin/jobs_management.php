@@ -16,6 +16,7 @@
               <th>Description</th>
               <th>Qualification</th>
               <th>Employment Type</th>
+              <th>Payment Type</th>
               <th>Last Date</th>
               <th>Created</th>
               <th>Updated</th>
@@ -41,12 +42,13 @@
                 </td>
                 <td><?= $job['qualification']; ?></td>
                 <td><?= ($job['employment_type'] == 1) ? 'Permanent' : 'Temporary'; ?></td>
+                <td><?= $paymentTypes[$job['payment_type']]; ?></td>
                 <td class="<?=$elementClass;?>"><?= date("d M, Y", strtotime($job['last_date'])); ?></td>
                 <td><?= date("d M, Y", strtotime($job['created'])); ?></td>
                 <td><?= date("d M, Y", strtotime($job['updated'])); ?></td>
                 <td>
-                  <button onclick="edit_job(<?= $job['id'] ?>)" class="btn btn-info btn-sm">Edit</button>
-                  <button class="btn btn-danger btn-sm" onclick="open_delete_modal(<?= $job['id'] ?>)">Delete</button>
+                  <button onclick="edit_job(<?= $job['id'] ?>)" class="btn btn-info btn-xs">Edit</button>
+                  <button class="btn btn-danger btn-xs" onclick="open_delete_modal(<?= $job['id'] ?>)">Delete</button>
                 </td>
               </tr>
             <?php
@@ -116,6 +118,19 @@
                 <input type="radio" value="0" name="employment_type">
                 <span class="checkround"></span>
               </label>
+            </div>
+            <div class="form-group">
+              <label> Payment Type </label>
+              <?php
+                foreach($paymentTypes as $key => $paymentType){
+              ?>
+                  <label class="radio"> <?=$paymentType;?>
+                    <input type="radio" value="<?=$key;?>" checked="checked" name="payment_type">
+                    <span class="checkround"></span>
+                  </label>
+              <?php
+                }
+              ?>
             </div>
             <div class="form-group">
               <label> Last Date </label>
