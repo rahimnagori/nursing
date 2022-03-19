@@ -18,13 +18,10 @@
                     <ul class="ul_set">
                         <li><a href="<?= site_url(); ?>">Home</a></li>
                         <li><a href="<?= site_url('About'); ?>">About Us</a></li>
-                        <li><a href="<?= site_url('Blogs'); ?>">News</a></li>
+                        <li><a href="<?= site_url('News'); ?>">News</a></li>
                         <li><a href="<?= site_url('Jobs'); ?>">Job Search</a></li>
                         <li><a href="#">Work With Us</a></li>
                         <li><a href="<?= site_url('Contact'); ?>">Contact Us</a></li>
-
-
-
                     </ul>
                 </div>
             </div>
@@ -34,24 +31,18 @@
                     <ul class="ul_set">
                         <li><a href="<?= site_url('Terms'); ?>">Terms & Conditions </a></li>
                         <li><a href="<?= site_url('Privacy'); ?>">Privacy Policy </a></li>
-
-
-
                     </ul>
                 </div>
             </div>
-
             <div class="col-sm-4">
                 <div class="link_1 ">
                     <h5>Get In Touch</h5>
                     <ul class="ul_set conttss">
                         <li>
                             <i class="fa fa-phone  "></i>
-
                             <span class="">
                                 <a href="#"> 123-456-7899</a>
                             </span>
-
                         </li>
                         <li>
                             <i class="fa fa-envelope-o  "></i>
@@ -66,13 +57,11 @@
                             <li class="social-twitter "><a href="#" target="_blank"><i class="fa fa-twitter "></i></a></li>
                             <li class="social-vimeo "><a href="#" target="_blank"><i class="fa fa-instagram "></i></a></li>
                             <li class="social-instagram"><a href="#" target="_blank"><i class="fa fa-youtube-play"></i></a>
-
                             </li>
                         </ul>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
     <div class="copy_rightt">
@@ -82,9 +71,7 @@
             </div>
         </div>
     </div>
-
 </footer>
-
 <script type="text/javascript" src="<?= site_url('assets/site/'); ?>js/jquery.min.js"></script>
 <script type="text/javascript" src="<?= site_url('assets/site/'); ?>js/bootstrap.min.js"></script>
 <script type="text/javascript" src="<?= site_url('assets/site/'); ?>js/owl.carousel.js"></script>
@@ -95,19 +82,13 @@
     const LOADING = "<i class='fa fa-spin fa-spinner' aria-hidden='true'></i> Processing ... ";
 
     function preview_image(input, previewId) {
-        /* Show loader */
-        /* Start uploading */
-        /* Return file url */
-        /* Complete loader */
-        /* Allow user to remove the file using cross button, also delete from server */
-        /* Add file url to hidden element */
         if (input.files && input.files[0]) {
             var reader = new FileReader();
             reader.onload = function(e) {
-                let previewImg = $('<img />', { 
-                src: e.target.result,
-                alt: 'Resume',
-                width: '50px'
+                let previewImg = $('<img />', {
+                    src: e.target.result,
+                    alt: 'Resume',
+                    width: '50px'
                 });
                 $('#' + previewId).html(previewImg);
             }
@@ -115,7 +96,5 @@
         }
     }
 </script>
-
 </body>
-
 </html>
