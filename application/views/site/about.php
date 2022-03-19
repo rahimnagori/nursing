@@ -50,7 +50,7 @@ colleagues are very competitive.
       </div> -->
       <div class="don_box1 ">
          <div class="row">
-         <div class="col-sm-3">
+         <div class="col-sm-3 col-xs-6">
             <div class="box_icon">
                <div class="icon_1">
                   <img src="<?=site_url('assets/site/');?>img/img_15.png">
@@ -61,7 +61,7 @@ colleagues are very competitive.
                
             </div>
          </div>
-         <div class="col-sm-3">
+         <div class="col-sm-3 col-xs-6">
             <div class="box_icon">
                <div class="icon_1">
                   <img src="<?=site_url('assets/site/');?>img/img_8.png">
@@ -72,7 +72,7 @@ colleagues are very competitive.
               
             </div>
          </div>
-         <div class="col-sm-3">
+         <div class="col-sm-3 col-xs-6">
             <div class="box_icon">
                <div class="icon_1">
                    <img src="<?=site_url('assets/site/');?>img/img_2.png">
@@ -83,7 +83,7 @@ colleagues are very competitive.
                
             </div>
          </div>
-         <div class="col-sm-3">
+         <div class="col-sm-3 col-xs-6">
             <div class="box_icon">
                <div class="icon_1">
                   <img src="<?=site_url('assets/site/');?>img/img_9.png">
