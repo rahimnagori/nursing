@@ -63,7 +63,6 @@
 <script>
    function log_user_in(e) {
     e.preventDefault();
-    alert('over here');
     $.ajax({
       type: 'POST',
       url: BASE_URL + 'Log-In',

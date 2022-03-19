@@ -190,10 +190,10 @@
   }
   
   <?php
-    if($userdata['is_email_verified']){
+    if($userDetails['is_email_verified']){
   ?>
       setTimeout(function(){
-        window.location.href = BASE_URL + 'Organization-Profile';
+        window.location.href = BASE_URL + 'Profile';
       }, 5000);
   <?php
     }

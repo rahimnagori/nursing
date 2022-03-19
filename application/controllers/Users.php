@@ -152,7 +152,7 @@ class Users extends CI_Controller {
       $response['status'] = 1;
       $response['responseMessage'] = $this->Common_Model->success('Verification email sent successfully.');
     }
-    echo json_encode($response);
+    // echo json_encode($response);
   }
 
   private function send_verification_email($userId, $resend = false){
@@ -163,7 +163,7 @@ class Users extends CI_Controller {
         $update['token'] = $token;
         $this->Common_Model->update('users', array('id' => $userId), $update);
         $verificationLink = $this->config->item('base_url');
-        $verificationLink .= 'Email-Verify/' .$userdata['id'] .'/' .$token;
+        $verificationLink .= 'Verify/' .$userdata['id'] .'/' .$token;
 
         $subject = ($resend) ? 'Re: Verify you email address.' : 'Verify your email address.';
         $body = "<p>Hello " .$userdata['first_name'] ." " .$userdata['last_name'] .",</p>";
@@ -184,25 +184,32 @@ class Users extends CI_Controller {
     $where['id'] = $user_id;
     $userdata = $this->Common_Model->fetch_records('users', $where, false, true);
     if($userdata){
-      $update['token'] = null;
-      $update['last_login'] = date("Y-m-d H:i:d");
-      $update['is_email_verified'] = 1;
-      if($this->Common_Model->update('users', array('id' => $userdata['id']), $update)){
-        $to = $userdata['email'];
-        $subject = 'Email successfully verified.';
-        $body = '<p>Hello ' .$userdata['first_name'] .' ' .$userdata['last_name'] .',</p>';
-        $body .= '<p>Congratulations!! your email has been verified successfully. You may now continue using our services.</p>';
-        $this->Common_Model->send_mail($to, $subject, $body);
-
-        if($this->session->userdata('is_logged_id')){
-          redirect('Verify');
-        }else{
-          $message = $this->Common_Model->success('Thank you: Your email has been verified successfully. Please login to continue.');
-          $this->session->set_flashdata('responseMessage', $message);
-          redirect('Login');
+      if($userdata['is_email_verified'] != 1){
+        $update['token'] = null;
+        $update['last_login'] = date("Y-m-d H:i:d");
+        $update['is_email_verified'] = 1;
+        if($this->Common_Model->update('users', array('id' => $userdata['id']), $update)){
+          $to = $userdata['email'];
+          $subject = 'Email successfully verified.';
+          $body = '<p>Hello ' .$userdata['first_name'] .' ' .$userdata['last_name'] .',</p>';
+          $body .= '<p>Congratulations!! your email has been verified successfully. You may now continue using our services.</p>';
+          $this->Common_Model->send_mail($to, $subject, $body);
+          if($this->session->userdata('is_logged_id')){
+            redirect('Verify');
+          }else{
+            $message = $this->Common_Model->success('Thank you: Your email has been verified successfully. Please login to continue.');
+            $this->session->set_flashdata('responseMessage', $message);
+            redirect('Login');
+          }
         }
+      }else{
+        $message = $this->Common_Model->success('Email already verified.');
+        $this->session->set_flashdata('responseMessage', $message);
+        redirect('Login');
       }
     }else{
+      $message = $this->Common_Model->error('This link has been expired.');
+      $this->session->set_flashdata('responseMessage', $message);
       redirect('');
     }
   }
