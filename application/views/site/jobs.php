@@ -154,7 +154,7 @@
             ?>
               <a class="job_com1" href="#">
                 <div class="com_img">
-                  <img src="<?= site_url('assets/site/'); ?>img/logo.png">
+                  <img src="<?= site_url('assets/site/'); ?>img/logo.png" >
                 </div>
                 <div class="commodo_de">
                   <h3><?=$job['title'];?></h3>
@@ -178,7 +178,7 @@
             <?php
               if(count($jobs) == 0){
             ?>
-                <img src="<?=site_url('assets/site/');?>img/no-jobs.png" >
+                <img src="<?=site_url('assets/site/');?>img/no-jobs.png" class="img_r" >
             <?php
               }
             ?>

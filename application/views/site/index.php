@@ -117,7 +117,7 @@
                      </p>
                   </div>
                   <div class="row">
-                     <div class="col-sm-4">
+                     <div class="col-sm-4 col-xs-4">
                         <div class="box_icon">
                            <div class="icon_1">
                               <img src="<?= site_url('assets/site/'); ?>img/img_8.png">
@@ -125,7 +125,7 @@
                            <h4>Satisfaction Guarantee</h4>
                         </div>
                      </div>
-                     <div class="col-sm-4">
+                     <div class="col-sm-4 col-xs-4">
                         <div class="box_icon">
                            <div class="icon_1">
                               <img src="<?= site_url('assets/site/'); ?>img/img_9.png">
@@ -133,7 +133,7 @@
                            <h4>Senior Care</h4>
                         </div>
                      </div>
-                     <div class="col-sm-4">
+                     <div class="col-sm-4 col-xs-4">
                         <div class="box_icon">
                            <div class="icon_1">
                               <img src="<?= site_url('assets/site/'); ?>img/img_10.png">
@@ -179,7 +179,7 @@
    <div class="container">
       <div class="don_box1 ">
          <div class="row">
-            <div class="col-sm-3">
+            <div class="col-sm-3 col-xs-6">
                <div class="box_icon">
                   <div class="icon_1">
                      <img src="<?= site_url('assets/site/'); ?>img/img_15.png">
@@ -188,7 +188,7 @@
                   <h4> Happy Patients </h4>
                </div>
             </div>
-            <div class="col-sm-3">
+            <div class="col-sm-3 col-xs-6">
                <div class="box_icon">
                   <div class="icon_1">
                      <img src="<?= site_url('assets/site/'); ?>img/img_8.png">
@@ -197,7 +197,7 @@
                   <h4>Successful Home Care</h4>
                </div>
             </div>
-            <div class="col-sm-3">
+            <div class="col-sm-3 col-xs-6">
                <div class="box_icon">
                   <div class="icon_1">
                      <img src="<?= site_url('assets/site/'); ?>img/img_2.png">
@@ -206,7 +206,7 @@
                   <h4>Years Of Experience</h4>
                </div>
             </div>
-            <div class="col-sm-3">
+            <div class="col-sm-3 col-xs-6">
                <div class="box_icon">
                   <div class="icon_1">
                      <img src="<?= site_url('assets/site/'); ?>img/img_9.png">
