@@ -84,7 +84,6 @@ class Users extends CI_Controller {
     $this->form_validation->set_rules('password', 'password', 'required');
     $this->form_validation->set_rules('confirm_password', 'confirm_password', 'required|matches[password]', array('matches' => 'Password and Confirm password does not match.'));
     $this->form_validation->set_rules('job_title', 'job_title', 'required');
-    $this->form_validation->set_rules('job_title', 'job_title', 'required');
     if($this->form_validation->run()){
       $insert = $this->input->post();
       $insert['is_email_verified'] = 0;
@@ -152,7 +151,7 @@ class Users extends CI_Controller {
       $response['status'] = 1;
       $response['responseMessage'] = $this->Common_Model->success('Verification email sent successfully.');
     }
-    // echo json_encode($response);
+    echo json_encode($response);
   }
 
   private function send_verification_email($userId, $resend = false){
@@ -176,7 +175,6 @@ class Users extends CI_Controller {
     }else{
       /* User does not exist */
     }
-    
   }
 
   public function email_verification($user_id, $token){
@@ -212,6 +210,27 @@ class Users extends CI_Controller {
       $this->session->set_flashdata('responseMessage', $message);
       redirect('');
     }
+  }
+
+  public function update(){
+    $response['status'] = 0;
+    $response['responseMessage'] = $this->Common_Model->error('Something went wrong, please try again later.');
+
+    if(!$this->check_login()){
+      $responseMessage = $this->Common_Model->error('Please login to continue.');
+      $this->session->set_flashdata('responseMessage', $responseMessage);
+      redirect('Login');
+    }
+    $update['address'] = $this->input->post('address');
+    $update['phone'] = $this->input->post('phone');
+    $update['national_insurance_number'] = $this->input->post('national_insurance_number');
+    $update['uk_work_permit'] = ($this->input->post('uk_work_permit')) ? 1 : 0;
+    $where['id'] = $this->session->userdata('id');
+    if($this->Common_Model->update('users', $where, $update)){
+      $response['status'] = 1;
+      $response['responseMessage'] = $this->Common_Model->success('Profile updated successfully.');
+    }
+    echo json_encode($response);
   }
 
   public function account(){

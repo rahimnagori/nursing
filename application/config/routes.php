@@ -78,6 +78,8 @@ $route['Profile'] = 'Users/profile';
 $route['Verify'] = 'Users/verify';
 $route['Resend-Email-Verification'] = 'Users/resend';
 $route['Verify/(:any)/(:any)'] = 'Users/email_verification/$1/$2';
+
+$route['Update-User'] = 'Users/update';
 $route['Account'] = 'Users/account';
 
 $route['Add-Post'] = 'Users/post';
