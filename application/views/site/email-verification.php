@@ -150,7 +150,7 @@
       <div class="ema_viii2">
         <div class="form_1">
           <div class="icon_img">
-            <img src="https://www.webwiders.in/WEB01/insurance/assets/site/img/email.png" class="img_r">
+            <img src="<?=site_url('assets/site/');?>img/missing-email.png" class="img_r">
           </div>
           <div class="heade_login">
             <h4>Email Verification </h4>

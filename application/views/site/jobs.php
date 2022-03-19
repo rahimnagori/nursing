@@ -149,7 +149,6 @@
         </div>
         <div class="col-sm-8">
           <div class="job_list2">
-
             <?php
             foreach ($jobs as $serialNumber => $job) {
             ?>
@@ -176,9 +175,15 @@
             <?php
             }
             ?>
-
+            <?php
+              if(count($jobs) == 0){
+            ?>
+                No jobs found!!
+            <?php
+              }
+            ?>
           </div>
-          <nav aria-label="Page navigation" class="pagination_des">
+          <nav aria-label="Page navigation" class="pagination_des" style="display:none;">
             <ul class="pagination">
               <li>
                 <a href="#" aria-label="Previous">
