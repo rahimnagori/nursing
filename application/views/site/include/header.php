@@ -24,9 +24,11 @@
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
             <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
+            <span class="icon-bar line_us1"></span>
+
+            <span class="icon-bar line_us2"></span>
+
+            <span class="icon-bar line_us3"></span>
           </button>
           <a class="navbar-brand logo_m" href="<?= site_url() ?>">
             <img src="<?= site_url('assets/site/'); ?>img/logo.png">

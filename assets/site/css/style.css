@@ -1817,6 +1817,128 @@ table.dataTable.order-column.stripe tbody tr.odd>.sorting_1 {
         width: 100%;
         left: 0;
     }
+    .navbar-default .navbar-toggle {
+        background: var(--red) !important;
+        border-color: var(--red) !important;
+        padding: 0;
+        width: 40px;
+        height: 40px;
+        border-radius: 100%;
+        text-align: center;
+        line-height: 40px;
+        margin-top: 20px;
+    }
+    .navbar-default .navbar-toggle .icon-bar {
+        background: #fff;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .navbar-toggle .icon-bar {
+        transition: all ease-in-out 0.5s;
+    }
+    .navbar-toggle .line_us1 {
+        transform: rotate(45deg) translateY(4px) translateX(4px);
+    }
+    .navbar-toggle .line_us2 {
+        opacity: 0;
+    }
+    .navbar-toggle .line_us3 {
+        transform: rotate(-45deg) translateY(-4px) translateX(4px);
+    }
+    .navbar-toggle.collapsed .line_us1 {
+        transform: rotate(0) translateY(0) translateX(0);
+    }
+    .navbar-toggle.collapsed .line_us2 {
+        opacity: 1;
+    }
+    .navbar-toggle.collapsed .line_us3 {
+        transform: rotate(0) translateY(0) translateX(0);
+    }
+    .main_nav .navbar-default .navbar-nav > li > a {
+        padding: 8px 20px;
+        font-family: "MuktaR";
+        font-size: 16px;
+    }
+    .main_nav .navbar-default .navbar-nav > li.Sign_top > a {
+        padding: 8px 20px;
+        margin: 5px auto;
+        width: calc(100% - 25px);
+    }
+    .banner img {
+        height: 300px;
+    }
+    .banter_text h1 {
+        font-size: 26px;
+    }
+    .btn_bot3 .btn {
+        width: auto;
+        padding: 4px 20px;
+        font-size: 16px;
+    }
+    .banter_text p {
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+    .box_white {
+        margin-top: 40px;
+    }
+    .box_white .col-sm-4 + .col-sm-4{
+        border: none;
+    }
+    .headding h2 {
+        font-size: 26px;
+        padding: 0;
+    }
+    .abot_cont {
+        margin-top: 20px;
+    }
+    .Place_d1 .box_icon h4{
+        font-size: 18px;
+    }
+    .Place_d1 .row .col-sm-6:nth-child(1) {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    .icon_1 img {
+        width: 50px;
+        height: 50px;
+        margin-bottom: 15px;
+    }
+    .box_icon h1 {
+        font-size: 28px;
+    }
+    .sec5 .box_icon h4 {
+        font-size: 16px;
+    }
+    .inner_cont {
+        padding: 70px 0;
+    }
+    .pad_bottom {
+        padding-bottom: 40px;
+    }
+    
+    .pad_top {
+        padding-top: 40px;
+    }
+    
+    .pad_sec {
+        padding: 40px 0;
+    }
+    .blog_detail > .container > .row{
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .blog_detail > .container > .row > .col-sm-4{
+        order: 1;
+        width: 100%;
+    }
+    .blog_detail > .container > .row > .col-sm-8 {
+        order: 2;
+        width: 100%;
+    }
+    .banner_top .owl-nav {
+        display: none;
+    }
 }
 
 
