@@ -15,7 +15,7 @@
                               Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
                            </p>
                            <div class="btn_bot3">
-                              <a href="<?=site_url('Sign-Up');?>" class="btn btn_theme2 btn-lg">Sign Up</a>
+                              <a href="<?= site_url('Sign-Up'); ?>" class="btn btn_theme2 btn-lg">Sign Up</a>
                            </div>
                         </div>
                      </div>
@@ -96,7 +96,7 @@
                      Care Assistants, Support workers...
                   </p>
                </div>
-               <a href="<?=site_url('About');?>" class="btn btn_theme2 btn-lg">Read More</a>
+               <a href="<?= site_url('About'); ?>" class="btn btn_theme2 btn-lg">Read More</a>
             </div>
          </div>
       </div>
@@ -169,7 +169,7 @@
                <p>
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
                </p>
-               <a href="<?=site_url('Contact');?>" class="btn btn_theme2 btn-lg">Contact Us</a>
+               <a href="<?= site_url('Contact'); ?>" class="btn btn_theme2 btn-lg">Contact Us</a>
             </div>
          </div>
       </div>
@@ -219,77 +219,48 @@
       </div>
    </div>
 </section>
-<section class="sec3 pad_sec">
-   <div class="container">
-      <div class="headding">
-         <h2> Latest News & Tips </h2>
-         <p>
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-         </p>
-      </div>
-      <div class="slider_corse top_arrow">
-         <div class="owl-carousel owl-theme slider_arrrw " id="slider2">
-            <?php
-            for ($i = 0; $i <= 2; $i++) {
-            ?>
-               <div class="item">
-                  <div class="blog_1">
-                     <div class="blog_3">
-                        <div class="blog_img">
-                           <a href="<?= site_url('Blog/1'); ?>"><img src="<?= site_url('assets/site/'); ?>img/img_11.jpg" class="img_r"></a>
-                        </div>
-                        <div class="blog_2">
-                           <div class="date_me">
-                              <span>08 March 2022</span>
+<?php
+if (count($newses)) {
+?>
+   <section class="sec3 pad_sec">
+      <div class="container">
+         <div class="headding">
+            <h2> Latest News & Tips </h2>
+            <p>
+               Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+            </p>
+         </div>
+         <div class="slider_corse top_arrow">
+            <div class="owl-carousel owl-theme slider_arrrw " id="slider2">
+               <?php
+               foreach ($newses as $news) {
+                  $description = strip_tags(substr($news['description'], 0, 120));
+               ?>
+                  <div class="item">
+                     <div class="blog_1">
+                        <div class="blog_3">
+                           <div class="blog_img">
+                              <a href="<?= site_url('News/' . $news['id']); ?>"><img src="<?= site_url('assets/site/'); ?>img/img_11.jpg" class="img_r"></a>
                            </div>
-                           <h6>By Admin</h6>
-                           <h4>Medical and Love Have 4 Things In Common </h4>
-                           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna</p>
-                           <a href="<?= site_url('Blog/1'); ?>" class="btn btn_theme3 btn_lg">Read More</a>
+                           <div class="blog_2">
+                              <div class="date_me">
+                                 <span><?= date("d M, Y", strtotime($news['created'])); ?></span>
+                              </div>
+                              <h6>By Admin</h6>
+                              <h4><?= substr($news['title'], 0, 25); ?></h4>
+                              <p><?= $description; ?></p>
+                              <a href="<?= site_url('News/' . $news['id']); ?>" class="btn btn_theme3 btn_lg">Read More</a>
+                           </div>
                         </div>
                      </div>
                   </div>
-               </div>
-               <div class="item">
-                  <div class="blog_1">
-                     <div class="blog_3">
-                        <div class="blog_img">
-                           <a href="<?= site_url('Blog/1'); ?>"><img src="<?= site_url('assets/site/'); ?>img/img_12.jpg" class="img_r"></a>
-                        </div>
-                        <div class="blog_2">
-                           <div class="date_me">
-                              <span>08 March 2022</span>
-                           </div>
-                           <h6>By Admin</h6>
-                           <h4>Medical and Love Have 4 Things In Common </h4>
-                           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna</p>
-                           <a href="<?= site_url('Blog/1'); ?>" class="btn btn_theme3 btn_lg">Read More</a>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-               <div class="item">
-                  <div class="blog_1">
-                     <div class="blog_3">
-                        <div class="blog_img">
-                           <a href="<?= site_url('Blog/1'); ?>"><img src="<?= site_url('assets/site/'); ?>img/img_13.jpg" class="img_r"></a>
-                        </div>
-                        <div class="blog_2">
-                           <div class="date_me">
-                              <span>08 March 2022</span>
-                           </div>
-                           <h6>By Admin</h6>
-                           <h4>Medical and Love Have 4 Things In Common </h4>
-                           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna</p>
-                           <a href="<?= site_url('Blog/1'); ?>" class="btn btn_theme3 btn_lg">Read More</a>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            <?php
-            }
-            ?>
+               <?php
+               }
+               ?>
+            </div>
          </div>
       </div>
-   </div>
-</section>
+   </section>
+<?php
+}
+?>

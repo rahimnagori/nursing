@@ -2,6 +2,7 @@
   <div class="form-group">
     <label> Title </label>
     <input type="text" name="title" class="form-control" required="" value="<?=$jobDetails['title'];?>" >
+    <input type="hidden" name="job_id" required="" value="<?=$jobDetails['id'];?>" >
   </div>
   <div class="form-group">
     <label> Location </label>

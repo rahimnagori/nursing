@@ -41,14 +41,14 @@
               <a href="<?= site_url('About') ?>">About Us</a>
             </li>
             <li>
-              <a href="<?= site_url('Blogs') ?>">News</a>
+              <a href="<?= site_url('Newses') ?>">News</a>
             </li>
             <li>
               <a href="<?= site_url('Jobs') ?>">Job Search</a>
             </li>
-            <li>
+            <!-- <li>
               <a href="<?= site_url('Work') ?>">Work With Us</a>
-            </li>
+            </li> -->
             <li>
               <a href="<?= site_url('Contact') ?>">Contact Us</a>
             </li>

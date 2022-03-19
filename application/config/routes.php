@@ -55,8 +55,8 @@ $route['translate_uri_dashes'] = FALSE;
 
 /* Static Route */
 $route['About'] = 'Home/about';
-$route['Blogs'] = 'Home/blogs';
-$route['Blog/(:any)'] = 'Home/blog/$1';
+$route['Newses'] = 'Home/newses';
+$route['News/(:any)'] = 'Home/news/$1';
 $route['Jobs'] = 'Home/jobs';
 $route['Work'] = 'Home/work';
 
@@ -109,4 +109,10 @@ $route['Job-Type/Add'] = 'Admin_Jobs/add_type';
 $route['Job-Type/delete'] = 'Admin_Jobs/delete_type';
 $route['Job-Type/Update'] = 'Admin_Jobs/update_job_type';
 
-$route['Admin/Contact'] = 'Admin_Contacts';
+$route['Admin-Contact'] = 'Admin_Contacts';
+
+$route['Admin-News'] = 'Admin_News';
+$route['Admin-News/Get/(:any)'] = 'Admin_News/get_news/$1';
+$route['Admin-News/Add'] = 'Admin_News/add_news';
+$route['Admin-News/delete'] = 'Admin_News/delete_news';
+$route['Admin-News/Update'] = 'Admin_News/update_news';

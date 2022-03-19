@@ -1,7 +1,7 @@
 <?php include 'include/header.php'; ?>
 
 <div class="conten_web">
-  <h4 class="heading">Jobs <small>Management</small><span><button class="btn btn_theme2" data-toggle="modal" data-target="#addJobModal">Add</button></span></h4>
+  <h4 class="heading">News <small>Management</small><span><button class="btn btn_theme2" data-toggle="modal" data-target="#addNewsModal">Add</button></span></h4>
   <div class="white_box">
     <?= $this->session->flashdata('responseMessage'); ?>
     <div class="card_bodym">
@@ -11,13 +11,8 @@
             <tr>
               <th>S.No.</th>
               <th>Title</th>
-              <th>Location</th>
-              <th>Salary</th>
               <th>Description</th>
-              <th>Qualification</th>
-              <th>Employment Type</th>
-              <th>Payment Type</th>
-              <th>Last Date</th>
+              <th>Created By</th>
               <th>Created</th>
               <th>Updated</th>
               <th>Action</th>
@@ -25,30 +20,19 @@
           </thead>
           <tbody>
             <?php
-            foreach ($jobs as $serialNumber => $job) {
-              $elementClass = (date("Y-m-d H:i:s") >= date("d M, Y", strtotime($job['last_date']))) ? 'danger' : '';
-              $description = strip_tags(substr($job['description'], 0, 100));
+            foreach ($newses as $serialNumber => $news) {
+              $description = strip_tags(substr($news['description'], 0, 120));
             ?>
               <tr>
                 <td><?= $serialNumber + 1; ?></td>
-                <td><?= $job['title']; ?></td>
-                <td><?= $job['name'] ?></td>
-                <td>$<?= $job['salary']; ?></td>
+                <td><?= $news['title']; ?></td>
+                <td><?= $description; ?></td>
+                <td><?= $news['user_id']; ?></td>
+                <td><?= date("d M, Y", strtotime($news['created'])); ?></td>
+                <td><?= date("d M, Y", strtotime($news['updated'])); ?></td>
                 <td>
-                  <?php
-                  echo $description;
-                  echo (strlen($description) > 100) ? '...' : '';
-                  ?>
-                </td>
-                <td><?= $job['qualification']; ?></td>
-                <td><?= ($job['employment_type'] == 1) ? 'Permanent' : 'Temporary'; ?></td>
-                <td><?= $paymentTypes[$job['payment_type']]; ?></td>
-                <td class="<?=$elementClass;?>"><?= date("d M, Y", strtotime($job['last_date'])); ?></td>
-                <td><?= date("d M, Y", strtotime($job['created'])); ?></td>
-                <td><?= date("d M, Y", strtotime($job['updated'])); ?></td>
-                <td>
-                  <button onclick="edit_job(<?= $job['id'] ?>)" class="btn btn-info btn-xs">Edit</button>
-                  <button class="btn btn-danger btn-xs" onclick="open_delete_modal(<?= $job['id'] ?>)">Delete</button>
+                  <button onclick="edit_news(<?= $news['id'] ?>)" class="btn btn-info btn-sm">Edit</button>
+                  <button class="btn btn-danger btn-sm" onclick="open_delete_modal(<?= $news['id'] ?>)">Delete</button>
                 </td>
               </tr>
             <?php
@@ -62,12 +46,12 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="addJobModal" tabindex="-1" role="dialog">
+<div class="modal fade" id="addNewsModal" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
-    <form id="addForm" name="addForm" onsubmit="add_job(event);">
+    <form id="addForm" name="addForm" onsubmit="add_news(event);">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title">Add Job</h4>
+          <h4 class="modal-title">Add News</h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="la la-times-circle"></i></span></button>
         </div>
 
@@ -78,66 +62,8 @@
               <input type="text" name="title" class="form-control" required="">
             </div>
             <div class="form-group">
-              <label> Location </label>
-              <select class="form-control" name="job_type" onchange="update_location(this.value);">
-                <?php
-                foreach ($jobTypes as $jobType) {
-                ?>
-                  <option value="<?= $jobType['id']; ?>"><?= $jobType['name']; ?></option>
-                <?php
-                }
-                ?>
-                <option value="other">Other</option>
-              </select>
-            </div>
-            <div class="responseMessage" id="addLocationHtml">
-
-            </div>
-            <div class="form-group">
-              <label> Salary </label>
-              <div class="input-group">
-                <span class="input-group-addon">$</span>
-                <input type="number" name="salary" class="form-control" required="">
-              </div>
-            </div>
-            <div class="form-group">
               <label> Description </label>
               <textarea class="form-control textarea" name="description" required=""></textarea>
-            </div>
-            <div class="form-group">
-              <label> Qualification </label>
-              <input type="text" name="qualification" class="form-control" required="">
-            </div>
-            <div class="form-group">
-              <label> Employment Type </label>
-              <label class="radio"> Permanent
-                <input type="radio" value="1" checked="checked" name="employment_type">
-                <span class="checkround"></span>
-              </label>
-              <label class="radio"> Temporary
-                <input type="radio" value="0" name="employment_type">
-                <span class="checkround"></span>
-              </label>
-            </div>
-            <div class="form-group">
-              <label> Payment Type </label>
-              <?php
-                foreach($paymentTypes as $key => $paymentType){
-              ?>
-                  <label class="radio"> <?=$paymentType;?>
-                    <input type="radio" value="<?=$key;?>" checked="checked" name="payment_type">
-                    <span class="checkround"></span>
-                  </label>
-              <?php
-                }
-              ?>
-            </div>
-            <div class="form-group">
-              <label> Last Date </label>
-              <input type="date" name="last_date" class="form-control" required="">
-            </div>
-            <div class="row">
-              <div class="col-sm-12" class="responseMessage" id="responseMessage"></div>
             </div>
             <div class="form-group">
               <button class="btn btn_theme2 btn-lg btn_submit">Add</button>
@@ -151,9 +77,9 @@
 <!-- Modal close-->
 
 <!-- Modal -->
-<div class="modal fade" id="deleteJobModal" tabindex="-1" role="dialog">
+<div class="modal fade" id="deleteNewsModal" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
-    <form id="deleteForm" name="deleteForm" onsubmit="delete_job(event);">
+    <form id="deleteForm" name="deleteForm" onsubmit="delete_news(event);">
       <div class="modal-content">
         <div class="modal-header">
           <h4 class="modal-title">Confirmation</h4>
@@ -163,8 +89,8 @@
         <div class="modal-body">
           <div class="optio_raddipo">
             <div class="form-group">
-              <label> Are you sure you want to delete this Job? </label>
-              <input type="hidden" name="delete_job_id" id="delete_job_id" />
+              <label> Are you sure you want to delete this News? </label>
+              <input type="hidden" name="delete_news_id" id="delete_news_id" />
             </div>
             <div class="row">
               <div class="col-sm-12" class="responseMessage" id="responseMessage"></div>
@@ -182,12 +108,12 @@
 <!-- Modal close-->
 
 <!-- Modal -->
-<div class="modal fade" id="editJobModal" tabindex="-1" role="dialog">
+<div class="modal fade" id="editNewsModal" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
-    <form id="editForm" name="editForm" onsubmit="update_job(event);">
+    <form id="editForm" name="editForm" onsubmit="update_news(event);">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title">Edit Job</h4>
+          <h4 class="modal-title">Edit News</h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="la la-times-circle"></i></span></button>
         </div>
 
@@ -204,11 +130,11 @@
 <?php include 'include/tinymce.php'; ?>
 
 <script>
-  function add_job(e) {
+  function add_news(e) {
     e.preventDefault();
     $.ajax({
       type: 'POST',
-      url: BASE_URL + 'Admin-Jobs/Add',
+      url: BASE_URL + 'Admin-News/Add',
       data: new FormData($('#addForm')[0]),
       dataType: 'JSON',
       processData: false,
@@ -229,15 +155,15 @@
   }
 
   function open_delete_modal(id) {
-    $("#delete_job_id").val(id);
-    $("#deleteJobModal").modal("show");
+    $("#delete_news_id").val(id);
+    $("#deleteNewsModal").modal("show");
   }
 
-  function delete_job(e) {
+  function delete_news(e) {
     e.preventDefault();
     $.ajax({
       type: 'POST',
-      url: BASE_URL + 'Admin-Jobs/delete',
+      url: BASE_URL + 'Admin-News/delete',
       data: new FormData($('#deleteForm')[0]),
       dataType: 'JSON',
       processData: false,
@@ -257,14 +183,14 @@
     });
   }
 
-  function edit_job(job_id) {
+  function edit_news(job_id) {
     $.ajax({
       type: 'GET',
-      url: BASE_URL + 'Admin-Jobs/Get/' + job_id,
+      url: BASE_URL + 'Admin-News/Get/' + job_id,
       dataType: 'HTML',
       beforeSend: function(xhr) {
         $("#editModal").html("<i class='fa fa-spin fa-spinner' aria-hidden='true'></i>")
-        $("#editJobModal").modal("show");
+        $("#editNewsModal").modal("show");
       },
       success: function(response) {
         $("#editModal").html(response);
@@ -273,11 +199,11 @@
     });
   }
 
-  function update_job(e) {
+  function update_news(e) {
     e.preventDefault();
     $.ajax({
       type: 'POST',
-      url: BASE_URL + 'Admin-Jobs/Update',
+      url: BASE_URL + 'Admin-News/Update',
       data: new FormData($('#editForm')[0]),
       dataType: 'JSON',
       processData: false,
@@ -295,15 +221,5 @@
         if (response.status == 1) location.reload();
       }
     });
-  }
-
-  function update_location(locationType) {
-    if (locationType == 'other') {
-      $("#addLocationHtml").html(`<input type="text" name="name" id="location" class="form-control" required="" placeholder="Add other..." />`);
-      $("#addLocationHtml").show();
-    } else {
-      $("#addLocationHtml").hide();
-      $("#addLocationHtml").html("");
-    }
   }
 </script>
