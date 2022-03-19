@@ -46,7 +46,7 @@
                   <?=$this->session->flashdata('responseMessage');?>
                   <div class="responseMessage" id="responseMessage" ></div>
                   <div class="btnloggib ">
-                     <button class="btn btn_theme2 btn-lg btn-block">Login</button>
+                     <button class="btn btn_theme2 btn-lg btn-block btn_submit" type="submit">Login</button>
                   </div>
                </form>
             </div>
@@ -63,6 +63,7 @@
 <script>
    function log_user_in(e) {
     e.preventDefault();
+    alert('over here');
     $.ajax({
       type: 'POST',
       url: BASE_URL + 'Log-In',

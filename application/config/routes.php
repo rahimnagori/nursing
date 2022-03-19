@@ -68,14 +68,18 @@ $route['Terms'] = 'Home/terms';
 $route['Privacy'] = 'Home/privacy';
 
 /* Protected Routes */
-$route['Login'] = 'Users/login';
-$route['Log-In'] = 'Users/login_user_in';
+$route['Login'] = 'Users/index';
+$route['Log-In'] = 'Users/login';
 
 $route['Sign-Up'] = 'Users/signup';
 $route['Register'] = 'Users/register';
 
 $route['Profile'] = 'Users/profile';
+$route['Verify'] = 'Users/verify';
+$route['Resend-Email-Verification'] = 'Users/resend';
+$route['Verify/(:any)/(:any)'] = 'Users/email_verification/$1/$2';
 $route['Account'] = 'Users/account';
+
 $route['Add-Post'] = 'Users/post';
 $route['My-Posts'] = 'Users/posts';
 $route['Change-Password'] = 'Users/password';

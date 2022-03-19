@@ -113,6 +113,10 @@ class Common_Model extends CI_Model {
 
   public function get_userdata(){
     $pageData = [];
+    $where['id'] = $this->session->userdata('id');
+    if($where['id']){
+      $pageData['userDetails'] = $this->fetch_records('users', $where, false, true);
+    }
 
     return $pageData;
 
