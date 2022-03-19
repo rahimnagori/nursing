@@ -23,6 +23,9 @@
       <li>
         <a href="<?=site_url('Admin/Contact');?>"><i class="fa fa-user"></i> Contact Requests</a>
       </li>
+      <li>
+        <a href="<?=site_url('Admin/News');?>"><i class="fa fa-user"></i> News Management</a>
+      </li>
     </ul>
   </div>
 </div>

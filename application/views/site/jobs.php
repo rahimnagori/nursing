@@ -178,7 +178,7 @@
             <?php
               if(count($jobs) == 0){
             ?>
-                No jobs found!!
+                <img src="<?=site_url('assets/site/');?>img/no-jobs.png" >
             <?php
               }
             ?>
