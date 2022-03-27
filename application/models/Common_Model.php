@@ -95,6 +95,40 @@ class Common_Model extends CI_Model {
 
   }
 
+  public function send_mail_with_smtp($to, $subject, $body, $bcc = null, $attachment = false){
+    $config = $this->get_smtp_configuration();
+    $this->load->library('email');
+    $this->email->set_mailtype("html");
+    $this->email->from('rahimnagori47@gmail.com', 'Rahim');
+    $this->email->to('rahim.nagori@gmail.com');
+    $this->email->subject('Test email from CI and Gmail ooooooo ');
+    $pageData['PROJECT'] = 'Test project';
+    $pageData['body'] = 'This is the body';
+    $message = $this->load->view('site/archive/include/email_template_new', $pageData, true);
+    $this->email->message($message);
+
+  }
+
+  private function get_smtp_configuration(){
+    //$config['mailpath'] = '/usr/sbin/sendmail';
+    // $config['wordwrap'] = TRUE;
+    // $config['mailtype'] = 'text/html';
+    $config['useragent'] = 'CodeIgniter';
+    $config['protocol'] = 'smtp';
+    $config['smtp_host'] = 'ssl://smtp.googlemail.com';
+    $config['smtp_user'] = '';
+    $config['smtp_pass'] = '';
+    $config['smtp_port'] = 465; 
+    $config['smtp_timeout'] = 5;
+    $config['wrapchars'] = 76;
+    $config['charset'] = 'utf-8';
+    $config['validate'] = FALSE;
+    $config['priority'] = 3;
+    $config['crlf'] = "\r\n";
+    $config['newline'] = "\r\n";
+    return $config;
+  }
+
   public function update_user_login($table, $user_id, $action_type = 0){
     if($action_type){
       $update['last_login'] = date('Y-m-d H:i:s');
