@@ -64,6 +64,7 @@ class Home extends CI_Controller {
     $select = 'jobs.*, job_types.name';
     $pageData['jobs'] = $this->Common_Model->join_records('jobs', $join, $whereJoin, $select, 'jobs.id', 'DESC');
     $pageData['paymentTypes'] = $this->Common_Model->get_payment_types();
+    $pageData['jobLocations'] = $this->Common_Model->fetch_records('job_types');
 
     $this->load->view('site/include/header', $pageData);
     $this->load->view('site/jobs', $pageData);

@@ -58,6 +58,7 @@ $route['About'] = 'Home/about';
 $route['Newses'] = 'Home/newses';
 $route['News/(:any)'] = 'Home/news/$1';
 $route['Jobs'] = 'Home/jobs';
+$route['Search-Jobs'] = 'Jobs';
 $route['Work'] = 'Home/work';
 
 $route['Contact'] = 'Home/contact';
