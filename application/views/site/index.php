@@ -89,11 +89,11 @@
          <div class="col-sm-4">
             <div class="abot_cont">
                <div class="headding cles_p">
-                  <h2>About us Pambron</h2>
+                  <h2>About us</h2>
                   <p>
-                     Pambron Nursing Limited is a Healthcare recruitment agency registered
-                     in England and Wales, and we specialise in providing Nurses, Health
-                     Care Assistants, Support workers...
+                     Pambron Nursing Agency Limited is a Healthcare recruitment agency
+                     registered in England and Wales, and we specialise in providing Nurses,
+                     Health Care Assistants, Support workers...
                   </p>
                </div>
                <a href="<?= site_url('About'); ?>" class="btn btn_theme2 btn-lg">Read More</a>

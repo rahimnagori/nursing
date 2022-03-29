@@ -78,7 +78,7 @@
 <script type="text/javascript" src="<?= site_url('assets/site/'); ?>js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="<?= site_url('assets/site/'); ?>js/custom.js"></script>
 <script>
-    const BASE_URL = "http://localhost/nursing/";
+    const BASE_URL = "<?=site_url();?>";
     const LOADING = "<i class='fa fa-spin fa-spinner' aria-hidden='true'></i> Processing ... ";
 
     function preview_image(input, previewId) {
