@@ -91,6 +91,13 @@ class Home extends CI_Controller {
     $this->load->view('site/include/footer', $pageData);
   }
 
+  public function job_details(){
+    $pageData = $this->Common_Model->get_userdata();
+    $this->load->view('site/include/header', $pageData);
+    $this->load->view('site/job_details', $pageData);
+    $this->load->view('site/include/footer', $pageData);
+  }
+
   public function contact_request(){
     $response['status'] = 0;
     $response['responseMessage'] = $this->Common_Model->error('Something went wrong.');
