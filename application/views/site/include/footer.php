@@ -72,6 +72,17 @@
         </div>
     </div>
 </footer>
+
+<div class="cokis">
+    <div class="container">
+        <div class="cokis2">
+        <h4>This site uses cookies to enhance user experience. see <a href="#">Privacy policy</a> </h4>
+        <div class="cokis3">
+        <button class="btn btn_theme ">Allow cookies</button> <button class="btn btn_theme2">cancel</button>
+        </div>
+        </div>
+    </div>
+</div>
 <script type="text/javascript" src="<?= site_url('assets/site/'); ?>js/jquery.min.js"></script>
 <script type="text/javascript" src="<?= site_url('assets/site/'); ?>js/bootstrap.min.js"></script>
 <script type="text/javascript" src="<?= site_url('assets/site/'); ?>js/owl.carousel.js"></script>
@@ -95,6 +106,11 @@
             reader.readAsDataURL(input.files[0]);
         }
     }
+</script>
+<script>
+    $(".cokis3 .btn").click(function(){
+  $(".cokis").toggleClass("hiden");
+});
 </script>
 </body>
 </html>

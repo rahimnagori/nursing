@@ -67,6 +67,7 @@ $route['Contact/Resume'] = 'Home/resume';
 
 $route['Terms'] = 'Home/terms';
 $route['Privacy'] = 'Home/privacy';
+$route['Job_Details'] = 'Home/job_details';
 
 /* Protected Routes */
 $route['Login'] = 'Users/index';

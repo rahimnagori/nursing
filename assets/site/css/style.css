@@ -1809,6 +1809,84 @@ table.dataTable.order-column.stripe tbody tr.odd>.sorting_1 {
     margin: 0 -10px;
 }
 
+.btn_r {
+    border-radius: 4px;
+}
+
+.job_deshhh .btn.btn_theme2.btn_r {
+    font-size: 16px;
+    padding: 6px 20px;
+    margin: 0 2px;
+}
+
+.job_deshhh .job_com1 {
+    border: none;
+}
+
+.detaidl h4 {
+    font-size: 16px;
+    font-family: "MuktaR";
+    color: #777;
+    margin-bottom: 20px;
+}
+
+.detaidl h4 span {
+    display: block;
+    font-weight: 600;
+    color: #000;
+    margin-bottom: 10px;
+}
+
+.detaidl h4 i {
+    margin-right: 7px;
+}
+
+.detaidl {
+    padding: 0 10px;
+}
+
+.detaidl h3 {
+    font-family: 'MuktaSB';
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.detaidl p {
+    color: #777;
+    font-size: 16px;
+}
+
+.cokis {
+    position: fixed;
+    bottom: 0;
+    background: #fff;
+    width: 100%;
+    padding: 20px 0;
+    z-index: 9999;
+    border-top: 1px solid #e1e1e1;
+}
+
+.cokis2 {
+    position: relative;
+    padding-right: 210px;
+}
+
+.cokis3 {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.cokis3 .btn {
+    border-radius: 5px;
+    font-size: 16px;
+    margin: 0 2px;
+}
+
+.cokis.hiden {
+    display: none;
+}
+
 
 /*media start*/
 
@@ -1854,12 +1932,12 @@ table.dataTable.order-column.stripe tbody tr.odd>.sorting_1 {
     .navbar-toggle.collapsed .line_us3 {
         transform: rotate(0) translateY(0) translateX(0);
     }
-    .main_nav .navbar-default .navbar-nav > li > a {
+    .main_nav .navbar-default .navbar-nav>li>a {
         padding: 8px 20px;
         font-family: "MuktaR";
         font-size: 16px;
     }
-    .main_nav .navbar-default .navbar-nav > li.Sign_top > a {
+    .main_nav .navbar-default .navbar-nav>li.Sign_top>a {
         padding: 8px 20px;
         margin: 5px auto;
         width: calc(100% - 25px);
@@ -1882,7 +1960,7 @@ table.dataTable.order-column.stripe tbody tr.odd>.sorting_1 {
     .box_white {
         margin-top: 40px;
     }
-    .box_white .col-sm-4 + .col-sm-4{
+    .box_white .col-sm-4+.col-sm-4 {
         border: none;
     }
     .headding h2 {
@@ -1892,7 +1970,7 @@ table.dataTable.order-column.stripe tbody tr.odd>.sorting_1 {
     .abot_cont {
         margin-top: 20px;
     }
-    .Place_d1 .box_icon h4{
+    .Place_d1 .box_icon h4 {
         font-size: 18px;
     }
     .Place_d1 .row .col-sm-6:nth-child(1) {
@@ -1916,23 +1994,21 @@ table.dataTable.order-column.stripe tbody tr.odd>.sorting_1 {
     .pad_bottom {
         padding-bottom: 40px;
     }
-    
     .pad_top {
         padding-top: 40px;
     }
-    
     .pad_sec {
         padding: 40px 0;
     }
-    .blog_detail > .container > .row{
+    .blog_detail>.container>.row {
         display: flex;
         flex-wrap: wrap;
     }
-    .blog_detail > .container > .row > .col-sm-4{
+    .blog_detail>.container>.row>.col-sm-4 {
         order: 1;
         width: 100%;
     }
-    .blog_detail > .container > .row > .col-sm-8 {
+    .blog_detail>.container>.row>.col-sm-8 {
         order: 2;
         width: 100%;
     }
