@@ -48,7 +48,6 @@
                             <i class="fa fa-envelope-o  "></i>
                             <a href="#"> contact@nursing.com</a>
                         </li>
-
                     </ul>
                     <div class="follooss">
                         <h5>Follow us</h5>
@@ -76,10 +75,10 @@
 <div class="cokis">
     <div class="container">
         <div class="cokis2">
-        <h4>This site uses cookies to enhance user experience. see <a href="#">Privacy policy</a> </h4>
-        <div class="cokis3">
-        <button class="btn btn_theme ">Allow cookies</button> <button class="btn btn_theme2">cancel</button>
-        </div>
+            <h4>This site uses cookies to enhance user experience. see <a href="#">Privacy policy</a> </h4>
+            <div class="cokis3">
+                <button class="btn btn_theme" type="button" onclick="accept_cookie();">Allow cookies</button> <button class="btn btn_theme2" type="button" onclick="hide_cookie_notification();">Cancel</button>
+            </div>
         </div>
     </div>
 </div>
@@ -89,7 +88,7 @@
 <script type="text/javascript" src="<?= site_url('assets/site/'); ?>js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="<?= site_url('assets/site/'); ?>js/custom.js"></script>
 <script>
-    const BASE_URL = "<?=site_url();?>";
+    const BASE_URL = "<?= site_url(); ?>";
     const LOADING = "<i class='fa fa-spin fa-spinner' aria-hidden='true'></i> Processing ... ";
 
     function preview_image(input, previewId) {
@@ -106,11 +105,20 @@
             reader.readAsDataURL(input.files[0]);
         }
     }
-</script>
-<script>
-    $(".cokis3 .btn").click(function(){
-  $(".cokis").toggleClass("hiden");
-});
+
+    function accept_cookie() {
+        localStorage.setItem('isCookieAccepted', true);
+        hide_cookie_notification()
+    }
+
+    function hide_cookie_notification() {
+        $(".cokis").hide();
+    }
+
+    if (localStorage.getItem('isCookieAccepted')) {
+        hide_cookie_notification();
+    }
 </script>
 </body>
+
 </html>
