@@ -57,9 +57,12 @@ $route['translate_uri_dashes'] = FALSE;
 $route['About'] = 'Home/about';
 $route['Newses'] = 'Home/newses';
 $route['News/(:any)'] = 'Home/news/$1';
+$route['Work'] = 'Home/work';
+
 $route['Jobs'] = 'Home/jobs';
 $route['Search-Jobs'] = 'Jobs';
-$route['Work'] = 'Home/work';
+$route['Job_Details/(:any)'] = 'Home/job_details/$1';
+$route['Apply'] = 'Jobs/apply';
 
 $route['Contact'] = 'Home/contact';
 $route['Contact/Request'] = 'Home/contact_request';
@@ -67,7 +70,6 @@ $route['Contact/Resume'] = 'Home/resume';
 
 $route['Terms'] = 'Home/terms';
 $route['Privacy'] = 'Home/privacy';
-$route['Job_Details'] = 'Home/job_details';
 $route['chat'] = 'Home/chat';
 
 /* Protected Routes */

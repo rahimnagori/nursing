@@ -49,9 +49,35 @@ class Jobs extends CI_Controller
         $whereJoin['jobs.is_deleted'] = 0;
         $select = 'jobs.*, job_types.name';
         $pageData['jobs'] = $this->Jobs_Model->join_records('jobs', $join, $select, $whereJoin, $orLikeGroup,  'jobs.id', 'DESC');
-        // echo $this->db->last_query();
-        // die;
         $pageData['paymentTypes'] = $this->Common_Model->get_payment_types();
         $this->load->view('site/include/jobs_listings', $pageData);
+    }
+
+    public function apply(){
+        $response['status'] = 0;
+        $response['responseMessage'] = $this->Common_Model->error('Something went wrong, please try again later.');
+        $jobId = $this->input->post('id');
+        $userId = $this->session->userdata('user_id');
+        if($userId){
+            $insert['user_id'] = $userId;
+            $insert['job_id'] = $jobId;
+            $where = $insert;
+            $isAlreadyApplied  = $this->Common_Model->fetch_records('job_applications', $where, false, true);
+            if(empty($isAlreadyApplied)){
+                $insert['status'] = 0;
+                $insert['created'] = date("Y-m-d H:i:s");
+                if($this->Common_Model->insert('job_applications', $insert)){
+                    $response['status'] = 1;
+                    $response['responseMessage'] = $this->Common_Model->success('Applied successfully.');
+                }
+            }else{
+                $response['status'] = 2;
+                $response['responseMessage'] = $this->Common_Model->error('You have already applied for this job.');
+            }
+        }else{
+            $response['status'] = 2;
+            $response['responseMessage'] = $this->Common_Model->error('Sorry you are not authorized.');
+        }
+        echo json_encode($response);
     }
 }
