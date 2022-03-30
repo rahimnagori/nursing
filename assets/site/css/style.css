@@ -1888,6 +1888,214 @@ table.dataTable.order-column.stripe tbody tr.odd>.sorting_1 {
 }
 
 
+/*chat messange*/
+
+.left_chat {
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.04);
+}
+
+.hedadeer_left h4 {
+    background: #4d4d4d;
+    color: #fff;
+    font-size: 20px;
+    margin: 0;
+    padding: 8px 15px;
+}
+
+.auto_scol_left ul li a {
+    border-bottom: 1px solid #f7f7f7;
+    color: #333;
+    display: inline-block;
+    min-height: 50px;
+    overflow: hidden;
+    padding: 10px 15px 5px 60px;
+    position: relative;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
+    font-size: 16px;
+    font-family: "MuktaSB";
+}
+
+.auto_scol_left ul li a p {
+    color: #444;
+    margin-bottom: 0;
+    font-size: 12px;
+    font-family: "MuktaR";
+    text-align: right;
+}
+
+.auto_scol_left ul li a .chat_user_img {
+    display: inline-block;
+    height: 42px;
+    left: 10px;
+    position: absolute;
+    top: 15px;
+    width: 42px;
+}
+
+.auto_scol_left ul li a .chat_user_img img {
+    border-radius: 100%;
+    height: 100%;
+    object-fit: cover;
+    width: 100%;
+    border: 2px solid #fff;
+    box-shadow: 0 3px 7px rgba(0, 0, 0, 0.1);
+}
+
+.auto_scol_left {
+    height: 400px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background: #fff;
+}
+
+.hedadeer_riht h4 {
+    background: #4d4d4d none repeat scroll 0 0;
+    color: #fff;
+    font-size: 20px;
+    margin: 0;
+    padding: 8px 15px;
+}
+
+.right_messge {
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.04);
+}
+
+.cha_magge_us2 ul>li {
+    margin-bottom: 15px;
+    min-height: 60px;
+    padding: 0 10px;
+}
+
+.message-data {
+    padding-left: 45px;
+    position: relative;
+}
+
+.message-data .mess_dat_img {
+    display: inline-block;
+    height: 32px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 32px;
+}
+
+.mess_dat_img>img {
+    border-radius: 100%;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.messge_cont p {
+    margin: 0;
+    margin-bottom: 5px;
+}
+
+.messge_cont p .message_box {
+    background: #f1f1f1;
+    border-radius: 4px;
+    color: #333;
+    padding: 4px 10px;
+    display: inline-block;
+}
+
+.messge_cont span.time {
+    display: inline-block;
+    width: 100%;
+    font-size: 13px;
+}
+
+.cha_magge_us2 {
+    height: 347px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 20px 0;
+    background: #fff;
+}
+
+.recever .message-data {
+    padding-left: 0;
+    padding-right: 45px;
+}
+
+.recever .message-data .mess_dat_img {
+    left: auto;
+    right: 0;
+}
+
+.recever .messge_cont {
+    text-align: right;
+}
+
+.chat_stas {
+    border-radius: 100%;
+    height: 7px;
+    left: 0;
+    position: absolute;
+    top: 5px;
+    width: 7px;
+    z-index: 999;
+}
+
+.online1 {
+    background: #0eba1e;
+}
+
+.offline {
+    background: #de0101;
+}
+
+.read_onle {
+    background: #d67707;
+}
+
+.messge_send {
+    background: #c1c1c1;
+    padding: 10px 15px;
+}
+
+.auto_scol_left ul li.active a,
+.auto_scol_left ul li:hover a {
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+}
+
+.auto_scol_left ul li+li {
+    margin-top: -6px;
+}
+
+.messge_send .btn {
+    height: 43px;
+    width: 110px;
+    font-size: 18px;
+    border-radius: 0;
+}
+
+.messge_send .btn i {
+    margin-right: 5px;
+}
+
+.left_chat,
+.right_messge {
+    margin: 20px 0;
+}
+
+.tex_us1d {
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 14px;
+    color: #777;
+    font-family: "MuktaR";
+}
+
+
+/*chat messange close*/
+
+
 /*media start*/
 
 @media(max-width:767px) {
