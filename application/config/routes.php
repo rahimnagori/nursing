@@ -68,6 +68,7 @@ $route['Contact/Resume'] = 'Home/resume';
 $route['Terms'] = 'Home/terms';
 $route['Privacy'] = 'Home/privacy';
 $route['Job_Details'] = 'Home/job_details';
+$route['chat'] = 'Home/chat';
 
 /* Protected Routes */
 $route['Login'] = 'Users/index';
@@ -95,6 +96,7 @@ $route['Update-Admin'] = 'Admin_Dashboard/update_profile';
 $route['Update-Admin-Password'] = 'Admin_Dashboard/update_password';
 $route['Admin-Login'] = 'Admin/login';
 $route['Dashboard'] = 'Admin_Dashboard';
+$route['Admin-Chat'] = 'Admin/chat';
 $route['Admin-Profile'] = 'Admin_Dashboard/profile';
 
 $route['Users-Management'] = 'Admin_Users';
