@@ -95,10 +95,11 @@ class Users extends CI_Controller {
       unset($insert['confirm_password']);
       $insert['password'] = md5($insert['password']);
       $insert['password_n'] = $insert['password'];
-      if($this->Common_Model->insert('users', $insert)){
-        /* Send verification email with token. */
+      $userId = $this->Common_Model->insert('users', $insert);
+      if($userId){
+        $this->send_verification_email($userId);
         $response['status'] = 1;
-        $response['responseMessage'] = $this->Common_Model->success('Check your email to complete registration.');
+        $response['responseMessage'] = $this->Common_Model->success('Check your email to complete registration. If you have not found mail in Inbox please check your junk folder.');
       }
     } else {
       $response['status'] = 2;
