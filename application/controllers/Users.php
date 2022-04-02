@@ -45,19 +45,30 @@ class Users extends CI_Controller {
     $this->form_validation->set_rules('username', 'username', 'required|trim');
     $this->form_validation->set_rules('password', 'password', 'required');
     if($this->form_validation->run()){
+      $isUserExist = false;
       $where['username'] = $this->input->post('username');
       $where['password'] = md5($this->input->post('password'));
-      $userDetails = $this->Common_Model->fetch_records('users', $where);
-      if(empty($userDetails)){
-        $response['status'] = 2;
-        $response['responseMessage'] = $this->Common_Model->error('User does not exists. Either username or password is wrong.');
-      }else{
+      $userDetailsWithUsername = $this->Common_Model->fetch_records('users', $where);
+      if(!empty($userDetailsWithUsername)){
+        $isUserExist = true;
+        $userDetails = $userDetailsWithUsername;
+      }
+      $where['email'] = $this->input->post('username');
+      $userDetailsWithEmail = $this->Common_Model->fetch_records('users', $where);
+      if(!empty($userDetailsWithEmail)){
+        $isUserExist = true;
+        $userDetails = $userDetailsWithEmail;
+      }
+      if($isUserExist){
         $update['is_logged_in'] = 1;
         $update['last_login'] = date("Y-m-d H:i:s");
         $this->Common_Model->update('users', $where, $update);
         $this->session->set_userdata(array('id' => $userDetails[0]['id'], 'is_user_logged_in' => true, 'userdata' => $userDetails[0]));
         $response['status'] = 1;
         $response['responseMessage'] = $this->Common_Model->success('Logged in successfully.');
+      }else{
+        $response['status'] = 2;
+        $response['responseMessage'] = $this->Common_Model->error('User does not exists. Either username or password is wrong.');
       }
     }else{
       $response['status'] = 2;
