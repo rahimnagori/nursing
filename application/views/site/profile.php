@@ -46,6 +46,26 @@
                            </div>
                         </div>
                      </div>
+                     <div class="row">
+                        <div class="form-group">
+                           <div class="col-sm-12">
+                              <label>Resume <small>(Uploading new resume will remove the old)</small></label>
+                              <input type="file" name="resume" accept=".doc, .docx, .pdf" >
+                              <input type="hidden" name="old_resume" value="<?=$userDetails['resume'];?>" >
+                              <?php
+                                 if(empty($userDetails['resume'])){
+                              ?>
+                                 <a href="#" >No resume uploaded yet</a>
+                              <?php
+                                 }else{
+                              ?>
+                                 <a href="<?=site_url($userDetails['resume']);?>" download >View Resume</a>
+                              <?php
+                                 }
+                              ?>
+                           </div>
+                        </div>
+                     </div>
                      <div class="remnper">
                         <label class="checkbox-inline">
                            <input type="checkbox" name="uk_work_permit" id="remember" value="1" <?= ($userDetails['uk_work_permit']) ? 'checked' : ''; ?>>
@@ -83,9 +103,9 @@
             $("#responseMessage").hide();
          },
          success: function(response) {
+            if (response.isResumeUploaded == 1) location.reload();
             $(".btn_submit").prop('disabled', false);
             $(".btn_submit").html(' Update ');
-            // if (response.status == 1) location.reload();
             $("#responseMessage").html(response.responseMessage);
             $("#responseMessage").show();
          }

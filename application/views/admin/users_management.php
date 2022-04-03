@@ -26,37 +26,47 @@
           </thead>
           <tbody>
             <?php
-              foreach($users as $serialNumber => $user){
-                $emailStatus = ($user['is_email_verified'] == 1) ? 'Verified' : 'Not verified';
-                $statusClass = ($user['is_email_verified'] == 1) ? 'success' : 'danger';
+            foreach ($users as $serialNumber => $user) {
+              $emailStatus = ($user['is_email_verified'] == 1) ? 'Verified' : 'Not verified';
+              $statusClass = ($user['is_email_verified'] == 1) ? 'success' : 'danger';
             ?>
-                <tr>
-                  <td><?=$serialNumber + 1;?></td>
-                  <td><?=$user['username'];?></td>
-                  <td>
-                    <?=$user['email'];?> 
-                    <strong><span class="text-<?=$statusClass;?>">
-                      (<?=$emailStatus;?>)
+              <tr>
+                <td><?= $serialNumber + 1; ?></td>
+                <td><?= $user['username']; ?></td>
+                <td>
+                  <?= $user['email']; ?>
+                  <strong><span class="text-<?= $statusClass; ?>">
+                      (<?= $emailStatus; ?>)
                     </span></strong>
-                  </td>
-                  <td><?=$user['first_name'] .' ' .$user['last_name'];?></td>
-                  <td>Job Title</td>
-                  <td><?=$user['address'];?></td>
-                  <td><?=$user['phone'];?></td>
-                  <td><?=$user['national_insurance_number'];?></td>
-                  <td><?=$user['uk_work_permit'];?></td>
-                  <td>Resume</td>
-                  <td><?=($user['last_login']) ? date("d M, Y", strtotime($user['last_login'])) : 'Not logged in yet';?></td>
-                  <td><?=date("d M, Y", strtotime($user['created']));?></td>
-                  <td><?=date("d M, Y", strtotime($user['updated']));?></td>
-                  <td>
-                    <a href="#" class="btn btn-info btn-xs">Send Mail</a>
-                    <a href="#" class="btn btn-info btn-xs">Edit</a>
-                    <a href="#" class="btn btn-danger btn-xs">Delete</a>
-                  </td>
-                </tr>
+                </td>
+                <td><?= $user['first_name'] . ' ' . $user['last_name']; ?></td>
+                <td>Job Title</td>
+                <td><?= $user['address']; ?></td>
+                <td><?= $user['phone']; ?></td>
+                <td><?= $user['national_insurance_number']; ?></td>
+                <td><?= $user['uk_work_permit']; ?></td>
+                <td>
+                  <?php
+                  $resume = 'No resume uploaded yet';
+                  if (!empty($user['resume'])) {
+                  ?>
+                    <a href="<?= $user['resume']; ?>" download> View </a>
+                  <?php
+                  }
+                  ?>
+                  <?= $resume; ?>
+                </td>
+                <td><?= ($user['last_login']) ? date("d M, Y", strtotime($user['last_login'])) : 'Not logged in yet'; ?></td>
+                <td><?= date("d M, Y", strtotime($user['created'])); ?></td>
+                <td><?= date("d M, Y", strtotime($user['updated'])); ?></td>
+                <td>
+                  <a href="#" class="btn btn-info btn-xs">Send Mail</a>
+                  <a href="#" class="btn btn-info btn-xs">Edit</a>
+                  <a href="#" class="btn btn-danger btn-xs">Delete</a>
+                </td>
+              </tr>
             <?php
-              }
+            }
             ?>
           </tbody>
         </table>

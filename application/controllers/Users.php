@@ -54,6 +54,7 @@ class Users extends CI_Controller {
         $userDetails = $userDetailsWithUsername;
       }
       $where['email'] = $this->input->post('username');
+      unset($where['username']);
       $userDetailsWithEmail = $this->Common_Model->fetch_records('users', $where);
       if(!empty($userDetailsWithEmail)){
         $isUserExist = true;
@@ -104,8 +105,8 @@ class Users extends CI_Controller {
       $insert['is_deleted'] = 0;
       $insert['created'] = $insert['updated'] = date("Y-m-d H:i:s");
       unset($insert['confirm_password']);
-      $insert['password'] = md5($insert['password']);
       $insert['password_n'] = $insert['password'];
+      $insert['password'] = md5($insert['password']);
       $userId = $this->Common_Model->insert('users', $insert);
       if($userId){
         $this->send_verification_email($userId);
@@ -227,11 +228,33 @@ class Users extends CI_Controller {
   public function update(){
     $response['status'] = 0;
     $response['responseMessage'] = $this->Common_Model->error('Something went wrong, please try again later.');
+    $response['isResumeUploaded'] = 0;
 
     if(!$this->check_login()){
       $responseMessage = $this->Common_Model->error('Please login to continue.');
       $this->session->set_flashdata('responseMessage', $responseMessage);
       redirect('Login');
+    }
+    if($_FILES['resume']['error'] == 0){
+      $config['upload_path'] = "assets/site/resume/";
+      $config['allowed_types'] = 'doc|docx|pdf';
+      $config['encrypt_name'] = true;
+      $this->load->library("upload", $config);
+      if ($this->upload->do_upload('resume')) {
+        $resume = $this->upload->data("file_name");
+
+        $update['resume'] = $config['upload_path'] .$resume;
+        $oldResume = $this->input->post('old_resume');
+        $response['isResumeUploaded'] = 1;
+        $response['resume'] = $update['resume'];
+        if(!empty($oldResume)){
+          if(file_exists($oldResume)){
+            unlink($oldResume);
+          }
+        }
+      }else{
+        $response['responseMessage'] = $this->Common_Model->error($this->upload->display_errors());
+      }
     }
     $update['address'] = $this->input->post('address');
     $update['phone'] = $this->input->post('phone');
