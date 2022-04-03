@@ -70,7 +70,6 @@ $route['Contact/Resume'] = 'Home/resume';
 
 $route['Terms'] = 'Home/terms';
 $route['Privacy'] = 'Home/privacy';
-$route['chat'] = 'Home/chat';
 
 /* Protected Routes */
 $route['Login'] = 'Users/index';
@@ -86,6 +85,8 @@ $route['Verify/(:any)/(:any)'] = 'Users/email_verification/$1/$2';
 
 $route['Update-User'] = 'Users/update';
 $route['Account'] = 'Users/account';
+$route['Contact-Admin'] = 'Users/chat';
+$route['Message/send'] = 'Chats/add';
 
 $route['Add-Post'] = 'Users/post';
 $route['My-Posts'] = 'Users/posts';
@@ -98,7 +99,6 @@ $route['Update-Admin'] = 'Admin_Dashboard/update_profile';
 $route['Update-Admin-Password'] = 'Admin_Dashboard/update_password';
 $route['Admin-Login'] = 'Admin/login';
 $route['Dashboard'] = 'Admin_Dashboard';
-$route['Admin-Chat'] = 'Admin/chat';
 $route['Admin-Profile'] = 'Admin_Dashboard/profile';
 
 $route['Users-Management'] = 'Admin_Users';
@@ -122,3 +122,4 @@ $route['Admin-News/Get/(:any)'] = 'Admin_News/get_news/$1';
 $route['Admin-News/Add'] = 'Admin_News/add_news';
 $route['Admin-News/delete'] = 'Admin_News/delete_news';
 $route['Admin-News/Update'] = 'Admin_News/update_news';
+$route['Admin-Chat'] = 'Admin_Dashboard/chat';

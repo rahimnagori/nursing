@@ -137,8 +137,8 @@
         $("#responseMessage").hide();
       },
       success:function(response){
-        $(".submit-btn").prop('disabled', false);
-        $(".submit-btn").html(' Add ');
+        $(".btn_submit").prop('disabled', false);
+        $(".btn_submit").html(' Add ');
         if(response.status == 1) location.reload();
       }
     });
@@ -166,8 +166,8 @@
         $("#responseMessage").hide();
       },
       success:function(response){
-        $(".submit-btn").prop('disabled', false);
-        $(".submit-btn").html(' Yes ');
+        $(".btn_submit").prop('disabled', false);
+        $(".btn_submit").html(' Yes ');
         if(response.status == 1) location.reload();
       }
     });
@@ -204,8 +204,8 @@
         $("#responseMessage").hide();
       },
       success:function(response){
-        $(".submit-btn").prop('disabled', false);
-        $(".submit-btn").html(' Update ');
+        $(".btn_submit").prop('disabled', false);
+        $(".btn_submit").html(' Update ');
         if(response.status == 1) location.reload();
       }
     });

@@ -12,39 +12,23 @@
           </div>
           <div class="auto_scol_left">
             <ul class="ul_set">
-              <li>
-                <a href="#">
-                  <span class="chat_user_img">
-                    <img src="img/img_2.png">
-                    <span class="chat_stas online1 "></span>
-                  </span>
-                  Use name
-                  <span class="tex_us1d">info@gmail.com</span>
-                  <p>22 Jan 2021</p>
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <span class="chat_user_img">
-                    <img src="img/img_2.png">
-                    <span class="chat_stas offline "></span>
-                  </span>
-                  Use name
-                  <span class="tex_us1d">info@gmail.com</span>
-                  <p>22 Jan 2021</p>
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <span class="chat_user_img">
-                    <img src="img/img_2.png">
-                    <span class="chat_stas read_onle "></span>
-                  </span>
-                  Use name
-                  <span class="tex_us1d">info@gmail.com</span>
-                  <p>22 Jan 2021</p>
-                </a>
-              </li>
+              <?php
+                foreach($users as $user){
+              ?>
+                  <li>
+                    <a href="#">
+                      <span class="chat_user_img">
+                        <img src="<?=site_url('assets/site/img/');?>logo.png">
+                        <span class="chat_stas online1 "></span>
+                      </span>
+                      <?=$user['first_name'] .' ' .$user['last_name'];?>
+                      <span class="tex_us1d"><?=$user['email'];?></span>
+                      <p>22 Jan 2021</p>
+                    </a>
+                  </li>
+              <?php
+                }
+              ?>
             </ul>
           </div>
         </div>

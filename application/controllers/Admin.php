@@ -18,13 +18,6 @@ class Admin extends CI_Controller {
     $this->load->view('admin/login', $pageData);
   }
 
-  public function chat(){
-    $admin_id = $this->session->userdata('id');
-    $where['id'] = $admin_id;
-    $pageData['adminData'] = $this->Common_Model->fetch_records('admins', $where, false, true);
-    $this->load->view('admin/chat', $pageData);
-  }
-
   private function check_login(){
     return ($this->session->userdata('is_admin_logged_in')) ? true : false;
   }
