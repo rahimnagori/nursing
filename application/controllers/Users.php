@@ -290,6 +290,11 @@ class Users extends CI_Controller {
   }
 
   public function chat(){
+    if(!$this->check_login()){
+      $responseMessage = $this->Common_Model->error('Please login to continue.');
+      $this->session->set_flashdata('responseMessage', $responseMessage);
+      redirect('');
+    }
     $pageData = $this->Common_Model->get_userdata();
     $userId = $this->session->userdata('id');
     $pageData['chatDetails'] = $this->Common_Model->fetch_records('chats', array('user_id' => $userId), false, true);

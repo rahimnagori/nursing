@@ -115,6 +115,12 @@
         $(".cokis").hide();
     }
 
+    function scroll_to_bottom(div) {
+        $("" + div).animate({
+            scrollTop: $("" + div)[0].scrollHeight
+        }, 1000);
+    }
+
     if (localStorage.getItem('isCookieAccepted')) {
         hide_cookie_notification();
     }
