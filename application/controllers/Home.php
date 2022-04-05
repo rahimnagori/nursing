@@ -1,15 +1,18 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Home extends CI_Controller {
+class Home extends CI_Controller
+{
 
-  public function __construct(){
+  public function __construct()
+  {
     parent::__construct();
     $this->load->model('Common_Model');
     $this->load->library('session');
   }
 
-  public function index(){
+  public function index()
+  {
     $pageData = $this->Common_Model->get_userdata();
     $pageData['newses']  = $this->Common_Model->fetch_records('newses', array('is_deleted' => 0), false, false, 'id');
 
@@ -18,14 +21,16 @@ class Home extends CI_Controller {
     $this->load->view('site/include/footer', $pageData);
   }
 
-  public function about(){
+  public function about()
+  {
     $pageData = $this->Common_Model->get_userdata();
     $this->load->view('site/include/header', $pageData);
     $this->load->view('site/about', $pageData);
     $this->load->view('site/include/footer', $pageData);
   }
 
-  public function newses(){
+  public function newses()
+  {
     $pageData = $this->Common_Model->get_userdata();
     $pageData['newses']  = $this->Common_Model->fetch_records('newses', array('is_deleted' => 0), false, false, 'id');
     $this->load->view('site/include/header', $pageData);
@@ -33,14 +38,16 @@ class Home extends CI_Controller {
     $this->load->view('site/include/footer', $pageData);
   }
 
-  public function news($id){
+  public function news($id)
+  {
     $pageData = $this->Common_Model->get_userdata();
     $this->load->view('site/include/header', $pageData);
     $this->load->view('site/blog-details', $pageData);
     $this->load->view('site/include/footer', $pageData);
   }
 
-  public function jobs(){
+  public function jobs()
+  {
     $pageData = $this->Common_Model->get_userdata();
     $join[0][] = 'job_types';
     $join[0][] = 'jobs.job_type = job_types.id';
@@ -55,28 +62,32 @@ class Home extends CI_Controller {
     $this->load->view('site/jobs', $pageData);
   }
 
-  public function contact(){
+  public function contact()
+  {
     $pageData = $this->Common_Model->get_userdata();
     $this->load->view('site/include/header', $pageData);
     $this->load->view('site/contact', $pageData);
     $this->load->view('site/include/footer', $pageData);
   }
 
-  public function terms(){
+  public function terms()
+  {
     $pageData = $this->Common_Model->get_userdata();
     $this->load->view('site/include/header', $pageData);
     $this->load->view('site/terms', $pageData);
     $this->load->view('site/include/footer', $pageData);
   }
 
-  public function privacy(){
+  public function privacy()
+  {
     $pageData = $this->Common_Model->get_userdata();
     $this->load->view('site/include/header', $pageData);
     $this->load->view('site/privacy', $pageData);
     $this->load->view('site/include/footer', $pageData);
   }
 
-  public function contact_request(){
+  public function contact_request()
+  {
     $response['status'] = 0;
     $response['responseMessage'] = $this->Common_Model->error('Something went wrong.');
     $this->load->helper(array('form', 'url'));
@@ -87,60 +98,46 @@ class Home extends CI_Controller {
     $this->form_validation->set_rules('phone', 'phone', 'required');
     $this->form_validation->set_rules('message', 'message', 'required');
     $this->form_validation->set_rules('resume', 'resume', 'required');
-    if ($this->form_validation->run()){
+    if ($this->form_validation->run()) {
       $insert = $this->input->post();
       $insert['created'] = $insert['updated'] = date("Y-m-d H:i:s");
-      if($this->Common_Model->insert('contact_requests', $insert)){
+      if ($this->Common_Model->insert('contact_requests', $insert)) {
         $response['status'] = 1;
         $response['responseMessage'] = $this->Common_Model->success('Message sent successfully.');
       }
-    }else{
+    } else {
       $response['status'] = 2;
       $response['responseMessage'] = $this->Common_Model->error(validation_errors());
     }
 
-    
+
     $this->session->set_flashdata('responseMessage', $response['responseMessage']);
     echo json_encode($response);
   }
 
-  public function resume(){
+  public function resume()
+  {
     $oldResume = $this->input->post('oldResume');
     $response['status'] = 0;
     $response['responseMessage'] = $this->Common_Model->error('There are some error with this file, please upload another file.');
-    if($_FILES['resume']['error'] == 0){
+    if ($_FILES['resume']['error'] == 0) {
       $config['upload_path'] = "assets/site/resume/";
       $config['allowed_types'] = 'pdf|doc|docx';
       $config['encrypt_name'] = true;
       $this->load->library("upload", $config);
       if ($this->upload->do_upload('resume')) {
-        if(trim($oldResume)){
-          if(file_exists($oldResume)){
+        if (trim($oldResume)) {
+          if (file_exists($oldResume)) {
             unlink($oldResume);
           }
         }
-        $response['resumePath'] = $config['upload_path'] .$this->upload->data("file_name");
+        $response['resumePath'] = $config['upload_path'] . $this->upload->data("file_name");
         $response['status'] = 1;
         $response['responseMessage'] = $this->Common_Model->success('Resume uploaded successfully.');
-      }else{
+      } else {
         $response['responseMessage'] = $this->Common_Model->error($this->upload->display_errors());
       }
     }
     echo json_encode($response);
   }
-
-  public function job_details($id){
-    $pageData = $this->Common_Model->get_userdata();
-
-    $where = [
-      'id' => $id
-    ];
-    $pageData['jobDetails'] = $this->Common_Model->fetch_records('jobs', $where, false, true);
-    $pageData['paymentTypes'] = $this->Common_Model->get_payment_types();
-
-    $this->load->view('site/include/header', $pageData);
-    $this->load->view('site/job_details', $pageData);
-    $this->load->view('site/include/footer', $pageData);
-  }
-
 }

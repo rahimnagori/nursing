@@ -57,12 +57,13 @@
           </div>
         </div>
         <div class="col-sm-8">
+          <?=$this->session->flashdata('responseMessage');?>
           <div class="job_list2" id="job-listings">
             <?php
             if (false) {
               /* Not in use */
             ?>
-              <a target="_blank" class="job_com1" href="<?= site_url('Job_Details/' .$job['id']) ?>">
+              <a target="_blank" class="job_com1" href="<?= site_url('Job-Details/' .$job['id']) ?>">
                 <div class="com_img">
                   <img src="<?= site_url('assets/site/'); ?>img/logo.png">
                 </div>

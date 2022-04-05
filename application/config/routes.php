@@ -61,7 +61,7 @@ $route['Work'] = 'Home/work';
 
 $route['Jobs'] = 'Home/jobs';
 $route['Search-Jobs'] = 'Jobs';
-$route['Job_Details/(:any)'] = 'Home/job_details/$1';
+$route['Job-Details/(:any)'] = 'Jobs/job_details/$1';
 $route['Apply'] = 'Jobs/apply';
 
 $route['Contact'] = 'Home/contact';
@@ -123,6 +123,7 @@ $route['Admin-News/Get/(:any)'] = 'Admin_News/get_news/$1';
 $route['Admin-News/Add'] = 'Admin_News/add_news';
 $route['Admin-News/delete'] = 'Admin_News/delete_news';
 $route['Admin-News/Update'] = 'Admin_News/update_news';
+$route['Job-Applications'] = 'Admin_Applications';
 $route['Admin-Chat'] = 'Admin_Chat';
 $route['Admin-Message/send'] = 'Admin_Chat/add';
 $route['Admin-Get-Messages'] = 'Admin_Chat/get_messages';

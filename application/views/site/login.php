@@ -53,7 +53,7 @@
          </div>
          <div class="donit">
             <p>
-               if you don't have account? <a href="<?= site_url('Signup'); ?>">Sign Up</a>
+               if you don't have account? <a href="<?= site_url('Sign-Up'); ?>">Sign Up</a>
             </p>
          </div>
       </div>

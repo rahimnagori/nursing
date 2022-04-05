@@ -15,9 +15,18 @@
                         <span class="fa fa-star"></span>
                     </div>
                     <?php
-                    if ($this->session->userdata('user_id')) {
+                    if ($this->session->userdata('id') && $userDetails['resume']) {
+                        if ($isJobApplied) {
+                            echo "<p>You have already applied for this job.</p>";
+                        } else {
                     ?>
-                        <button class="btn btn_theme2 btn_r btn_submit" type="button" onclick="apply();">Apply Now</button>
+                            <button class="btn btn_theme2 btn_r btn_submit" type="button" onclick="apply();">Apply Now</button>
+                        <?php
+                        }
+                    }
+                    if (!$this->session->userdata('id')) {
+                        ?>
+                        <button class="btn btn_theme2 btn_r btn_submit" onclick="login();">Login to Apply</button>
                     <?php
                     }
                     ?>
@@ -25,6 +34,14 @@
                 </div>
             </a>
             <div class="detaidl">
+                <?php
+                if ($this->session->userdata('id')) {
+                    if (!$userDetails['resume']) {
+                        echo "<p><a href='" . site_url('Profile') . "'>Upload</a> resume to start applying.</a>";
+                    }
+                }
+                ?>
+                <div class="responseMessage" id="responseMessage"></div>
                 <div class="row">
                     <div class="col-sm-4">
                         <h4><span><i class="fa fa-map-marker"></i>Location</span><?= $jobDetails['title']; ?> </h4>
@@ -54,22 +71,32 @@
         $.ajax({
             type: 'POST',
             url: BASE_URL + 'Apply',
-            data: { id: <?=$jobDetails['id'];?> },
+            data: {
+                id: <?= $jobDetails['id']; ?>
+            },
             dataType: 'json',
-            // processData: false,
-            // contentType: false,
-            // cache: false,
             beforeSend: function(xhr) {
                 $(".btn_submit").attr('disabled', true);
                 $(".btn_submit").html(LOADING);
-                // $("#responseMessage").html('');
-                // $("#responseMessage").hide();
                 $("#job-listings").html(LOADING);
+                $("#responseMessage").hide();
             },
             success: function(response) {
-                $(".btn_submit").prop('disabled', false);
-                $(".btn_submit").html(' Apply Now ');
+                $("#responseMessage").html(response.responseMessage);
+                $("#responseMessage").show();
+                if (response.status == 1) {
+                    $(".btn_submit").html(' Applied ');
+                } else if (response.status == 3) {
+                    $(".btn_submit").html(' Already applied ');
+                } else {
+                    $(".btn_submit").html(' Apply ');
+                    $(".btn_submit").prop('disabled', false);
+                }
             }
         });
+    }
+
+    function login(){
+        window.location.href = "../Login";
     }
 </script>
