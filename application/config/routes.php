@@ -85,8 +85,9 @@ $route['Verify/(:any)/(:any)'] = 'Users/email_verification/$1/$2';
 
 $route['Update-User'] = 'Users/update';
 $route['Account'] = 'Users/account';
-$route['Contact-Admin'] = 'Users/chat';
+$route['Contact-Admin'] = 'Chats';
 $route['Message/send'] = 'Chats/add';
+$route['Get-Messages'] = 'Chats/get_messages';
 
 $route['Add-Post'] = 'Users/post';
 $route['My-Posts'] = 'Users/posts';
@@ -124,3 +125,4 @@ $route['Admin-News/delete'] = 'Admin_News/delete_news';
 $route['Admin-News/Update'] = 'Admin_News/update_news';
 $route['Admin-Chat'] = 'Admin_Chat';
 $route['Admin-Message/send'] = 'Admin_Chat/add';
+$route['Admin-Get-Messages'] = 'Admin_Chat/get_messages';

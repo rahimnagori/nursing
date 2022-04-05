@@ -289,25 +289,4 @@ class Users extends CI_Controller {
     return redirect('');
   }
 
-  public function chat(){
-    if(!$this->check_login()){
-      $responseMessage = $this->Common_Model->error('Please login to continue.');
-      $this->session->set_flashdata('responseMessage', $responseMessage);
-      redirect('');
-    }
-    $pageData = $this->Common_Model->get_userdata();
-    $userId = $this->session->userdata('id');
-    $pageData['chatDetails'] = $this->Common_Model->fetch_records('chats', array('user_id' => $userId), false, true);
-    if(empty($pageData['chatDetails'])){
-      $insert['user_id'] = $userId;
-      $userId = $this->Common_Model->insert('chats', $insert);
-      $pageData['chatDetails'] = $this->Common_Model->fetch_records('chats', array('user_id' => $userId), false, true);
-    }
-    $pageData['messages'] = $this->Common_Model->fetch_records('messages', array('chat_id' => $pageData['chatDetails']['id']));
-
-    $this->load->view('site/include/header', $pageData);
-    $this->load->view('site/chat', $pageData);
-    $this->load->view('site/include/footer', $pageData);
-  }
-
 }

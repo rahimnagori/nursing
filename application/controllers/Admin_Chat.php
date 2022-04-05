@@ -61,4 +61,11 @@ class Admin_Chat extends CI_Controller {
       $this->session->set_flashdata('responseMessage', $response['responseMessage']);
       echo json_encode($response);
   }
+
+  public function get_messages(){
+      $chatId = $this->input->post('chat_id');
+      $pageData['messages'] = $this->Common_Model->fetch_records('messages', array('chat_id' => $chatId));
+  
+      $this->load->view('site/messages', $pageData);
+  }
 }
