@@ -8,7 +8,7 @@
                      <h4>Message</h4>
                   </div>
                   <div class="cha_magge_us2">
-                     <ul class="ul_set">
+                     <ul class="ul_set append_new_message">
                         <?php
                         foreach ($messages as $message) {
                         ?>
@@ -67,7 +67,7 @@
             $("#responseMessage").hide();
             let message = $("#message").val();
             let message_div = new_message(message);
-            $(".ul_set").append(message_div);
+            $(".append_new_message").append(message_div);
          },
          success: function(response) {
             $("#message").val('');
@@ -93,4 +93,10 @@
          </div>
       </li>`
    }
+
+   function scroll_to_bottom(div) {
+        $("" + div).animate({
+            scrollTop: $("" + div)[0].scrollHeight
+        }, 1000);
+    }
 </script>
