@@ -1,3 +1,8 @@
+<style>
+   .lahhh #google_translate_element {
+	margin-top: 22px;
+}
+</style>
 <div class="banner_top">
    <div class="owl-carousel owl-theme slider_arrrw " id="slider1">
       <?php
@@ -10,10 +15,10 @@
                   <div class="container">
                      <div class="row">
                         <div class="col-sm-6">
-                           <h1>We Provide Home Care Service For Your <span>Family</span></h1>
-                           <p>
+                           <h1><span>Work with us</span></h1>
+                           <!-- <p>
                               Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-                           </p>
+                           </p> -->
                            <div class="btn_bot3">
                               <a href="<?= site_url('Sign-Up'); ?>" class="btn btn_theme2 btn-lg">Sign Up</a>
                            </div>
@@ -34,35 +39,41 @@
          <div class="row">
             <div class="col-sm-4">
                <div class="box_icon">
+                  <a href="<?= site_url('Jobs') ?>">
                   <div class="icon_1">
                      <img src="<?= site_url('assets/site/'); ?>img/hospital.png">
                   </div>
                   <h4>HOSPITAL</h4>
-                  <p>
+                  </a>
+                  <!-- <p>
                      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been.
-                  </p>
+                  </p> -->
                </div>
             </div>
             <div class="col-sm-4">
                <div class="box_icon">
+               <a href="<?= site_url('Jobs') ?>">
                   <div class="icon_1">
                      <img src="<?= site_url('assets/site/'); ?>img/home(1).png">
                   </div>
                   <h4>CARE HOME</h4>
-                  <p>
+               </a>
+                  <!-- <p>
                      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been.
-                  </p>
+                  </p> -->
                </div>
             </div>
             <div class="col-sm-4">
                <div class="box_icon">
+               <a href="<?= site_url('Jobs') ?>">
                   <div class="icon_1">
                      <img src="<?= site_url('assets/site/'); ?>img/home(2).png">
                   </div>
                   <h4>OTHER INSTITUTIONS</h4>
-                  <p>
+               </a>
+                  <!-- <p>
                      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been.
-                  </p>
+                  </p> -->
                </div>
             </div>
          </div>
@@ -155,27 +166,28 @@
 </section>
 <section class="sec4 pad_sec">
    <div class="container">
-      <div class="row d_flex item_center">
-         <div class="col-sm-7">
+      <div class="row d_flex" style="justify-content: center; text-align: center">
+         <div class="col-sm-9">
             <div class="img_abot2">
                <img src="<?= site_url('assets/site/'); ?>img/img_7.png" class="img_r">
             </div>
+            <a href="<?= site_url('Contact'); ?>" class="btn btn_theme2 btn-lg" style="margin-top: 30px;">Contact Us</a>
          </div>
          <div class="col-sm-5">
             <div class="abot_cont">
-               <div class="headding">
+               <!-- <div class="headding">
                   <h2>We Are Available For Home Care Consultation </h2>
                </div>
                <p>
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-               </p>
-               <a href="<?= site_url('Contact'); ?>" class="btn btn_theme2 btn-lg">Contact Us</a>
+               </p> -->
+               <!-- <a href="<?= site_url('Contact'); ?>" class="btn btn_theme2 btn-lg">Contact Us</a> -->
             </div>
          </div>
       </div>
    </div>
 </section>
-<section class="sec5 pad_sec ">
+<!-- <section class="sec5 pad_sec ">
    <div class="container">
       <div class="don_box1 ">
          <div class="row">
@@ -218,7 +230,7 @@
          </div>
       </div>
    </div>
-</section>
+</section> -->
 <?php
 if (count($newses)) {
 ?>
