@@ -29,6 +29,9 @@
       <li>
         <a href="<?=site_url('Admin-News');?>"><i class="fa fa-user"></i> News Management</a>
       </li>
+      <li>
+        <a href="<?=site_url('Professional-Request');?>"><i class="fa fa-user"></i> Professional Requests</a>
+      </li>
     </ul>
   </div>
 </div>

@@ -75,4 +75,15 @@ class Admin_News extends CI_Controller {
     echo json_encode($response);
   }
 
+  public function professionals(){
+    $pageData = [];
+    $admin_id = $this->session->userdata('id');
+    $where['id'] = $admin_id;
+
+    $adminData = $this->Common_Model->fetch_records('admins', $where, false, true);
+    $pageData['adminData'] = $adminData;
+
+    $pageData['professionalRequests']  = $this->Common_Model->fetch_records('professional_requests', false, false, false, 'id');
+    $this->load->view('admin/professional_requests', $pageData);
+  }
 }

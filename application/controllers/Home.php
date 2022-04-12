@@ -170,7 +170,7 @@ class Home extends CI_Controller
           if ($this->upload->do_upload('resume')) {
             $resume = $this->upload->data("file_name");
     
-            $update['resume'] = $config['upload_path'] .$resume;
+            $insert['resume'] = $config['upload_path'] .$resume;
             $insert['created'] = $insert['updated'] = date("Y-m-d H:i:s");
             if ($this->Common_Model->insert('professional_requests', $insert)) {
               $response['status'] = 1;
