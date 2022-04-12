@@ -2095,6 +2095,49 @@ table.dataTable.order-column.stripe tbody tr.odd>.sorting_1 {
 
 /*chat messange close*/
 
+.modal-header .close {
+    padding: 0;
+    margin: 0;
+    font-size: 21px;
+    width: 30px;
+    height: 30px;
+    background: var(--red);
+    opacity: 1;
+    text-shadow: none;
+    color: #fff;
+    border-radius: 100%;
+    text-align: center;
+    line-height: 30px;
+}
+
+.modal-dialog {
+    max-width: 700px;
+    width: 100%;
+}
+
+#job-listings>img {
+    margin: 0 auto;
+    display: block;
+}
+
+
+/* lang */
+
+.skiptranslate>iframe {
+    display: none !important;
+}
+
+body {
+    top: 0 !important;
+}
+
+.lahhh #google_translate_element {
+    margin-top: 22px;
+}
+
+
+/* lang */
+
 
 /*media start*/
 

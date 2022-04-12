@@ -6,15 +6,15 @@
                     <figure class="footer-logo">
                         <img src="<?= site_url('assets/site/'); ?>img/logo1.png">
                     </figure>
-                    <h5>About Us</h5>
+                    <!-- <h5>About Us</h5>
                     <p>
                         Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum .
-                    </p>
+                    </p> -->
                 </div>
             </div>
             <div class="col-sm-2">
                 <div class="link_1 ">
-                    <h5>Know Link</h5>
+                    <!-- <h5>Know Link</h5> -->
                     <ul class="ul_set">
                         <li><a href="<?= site_url(); ?>">Home</a></li>
                         <li><a href="<?= site_url('About'); ?>">About Us</a></li>
@@ -27,16 +27,16 @@
             </div>
             <div class="col-sm-2">
                 <div class="link_1 ">
-                    <h5>Know Links</h5>
+                    <!-- <h5>Know Links</h5> -->
                     <ul class="ul_set">
                         <li><a href="<?= site_url('Terms'); ?>">Terms & Conditions </a></li>
-                        <li><a href="<?= site_url('Privacy'); ?>">Privacy Policy </a></li>
+                        <!-- <li><a href="<?= site_url('Privacy'); ?>">Privacy Policy </a></li> -->
                     </ul>
                 </div>
             </div>
             <div class="col-sm-4">
                 <div class="link_1 ">
-                    <h5>Get In Touch</h5>
+                    <!-- <h5>Get In Touch</h5> -->
                     <ul class="ul_set conttss">
                         <li>
                             <i class="fa fa-phone  "></i>
@@ -87,6 +87,103 @@
 <script type="text/javascript" src="<?= site_url('assets/site/'); ?>js/owl.carousel.js"></script>
 <script type="text/javascript" src="<?= site_url('assets/site/'); ?>js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="<?= site_url('assets/site/'); ?>js/custom.js"></script>
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">
+        <i class="fa fa-times"></i>
+        </span></button>
+        <h4 class="modal-title" id="myModalLabel">Request a professional</h4>
+      </div>
+      <div class="modal-body">
+      <div class="row">
+                     <div class="col-sm-6">
+                        <div class="form-group">
+                           <label>Name </label>
+                           <div class="icon_us">
+                              <i class="la la-user"></i>
+                              <input type="text"  placeholder="Name" class="form-control" required="">
+                           </div>
+                        </div>
+                     </div>
+                     <div class="col-sm-6">
+                        <div class="form-group">
+                           <label>Company Name</label>
+                           <div class="icon_us">
+                              <i class="la la-building"></i>
+                              <input type="text" placeholder="Company Name" class="form-control" required="">
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="row">
+                  <div class="col-sm-6">
+                        <div class="form-group">
+                           <label>Email</label>
+                           <div class="icon_us">
+                              <i class="la la-envelope"></i>
+                              <input type="text" placeholder="Email" class="form-control" required="">
+                           </div>
+                        </div>
+                     </div>
+                     <div class="col-sm-6">
+                        <div class="form-group">
+                           <label>Telephone </label>
+                           <div class="icon_us">
+                              <i class="la la-mobile"></i>
+                              <input type="number"  placeholder="Telephone" class="form-control" required="">
+                           </div>
+                        </div>
+                     </div>
+                   
+                  </div>
+                  <div class="row">
+                  <div class="col-sm-6">
+                        <div class="form-group">
+                           <label>Staff Required</label>
+                           <div class="icon_us">
+                              <i class="la la-users"></i>
+                              <input type="text" placeholder="Staff Required" class="form-control" required="">
+                           </div>
+                        </div>
+                     </div>
+                     <div class="col-sm-6">
+                        <div class="form-group">
+                           <label>Work Location </label>
+                           <div class="icon_us">
+                              <i class="la la-map-marker"></i>
+                              <input type="text"  placeholder="Work Location" class="form-control" required="">
+                           </div>
+                        </div>
+                     </div>
+                   
+                  </div>
+                  <div class="form-group">
+                           <label>Upload CV </label>
+                           <div class="icon_us">
+                              <i class="la la-cloud-upload"></i>
+                              <input type="file"  class="form-control"  accept=".pdf, .doc, .docx">
+                           </div>
+                           <div id="preview_image"></div>
+                        </div>
+                  <div class="form-group tx_add">
+                     <label>Brief description of staff required </label>
+                     <div class="icon_us">
+                        <i class="la la-comments-o"></i>
+                        <textarea name="Brief description of staff required" id="" class="form-control" required=""></textarea>
+                     </div>
+                  </div>
+                  <div class="btnloggib " style="margin-top: 10px;">
+                     <button class="btn btn_theme2 btn-lg btn-block btn_submit" type="submit"> Submit </button>
+                  </div>
+                   
+      </div>
+    
+    </div>
+  </div>
+</div>
 <script>
     const BASE_URL = "<?= site_url(); ?>";
     const LOADING = "<i class='fa fa-spin fa-spinner' aria-hidden='true'></i> Processing ... ";
@@ -124,6 +221,27 @@
     if (localStorage.getItem('isCookieAccepted')) {
         hide_cookie_notification();
     }
+</script>
+<script type="text/javascript">
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement({  
+      pageLanguage: 'en', 
+      layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+    }, 'google_translate_element');
+  }
+</script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<script>
+  $(document).ready(function(){
+    $('#google_translate_element').bind('DOMNodeInserted', function(event) {
+      $('.goog-te-menu-value span:first').html('Translate');
+      $('.goog-te-menu-frame.skiptranslate').load(function(){
+        setTimeout(function(){
+          $('.goog-te-menu-frame.skiptranslate').contents().find('.goog-te-menu2-item-selected .text').html('Translate');    
+        }, 100);
+      });
+    });
+  });
 </script>
 </body>
 
