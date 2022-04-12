@@ -16,7 +16,7 @@
               <th>Phone</th>
               <th>Staff Required</th>
               <th>Work Location</th>
-              <th>Resume</th>
+              <th>File</th>
               <th>Description</th>
               <th>Created</th>
               <!-- <th>Updated</th>
@@ -37,7 +37,13 @@
                 <td><?= $professionalRequest['staff_required']; ?></td>
                 <td><?= $professionalRequest['work_location']; ?></td>
                 <td>
-                    <a href="<?= site_url($professionalRequest['resume']); ?>" download > View </a>
+                    <?php
+                      if($professionalRequest['resume']){
+                    ?>
+                        <a href="<?= site_url($professionalRequest['resume']); ?>" download > View </a>
+                    <?php
+                      }
+                    ?>
                 </td>
                 <td><?= $description; ?></td>
                 <td><?= date("d M, Y", strtotime($professionalRequest['created'])); ?></td>
