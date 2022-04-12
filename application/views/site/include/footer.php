@@ -162,10 +162,10 @@
 
                     </div>
                     <div class="form-group">
-                        <label>Upload CV </label>
+                        <label>Attach a File </label>
                         <div class="icon_us">
                             <i class="la la-cloud-upload"></i>
-                            <input type="file" class="form-control" accept=".pdf, .doc, .docx" name="resume" required="" >
+                            <input type="file" class="form-control" accept=".pdf, .doc, .docx" name="resume" >
                         </div>
                         <div id="preview_image"></div>
                     </div>

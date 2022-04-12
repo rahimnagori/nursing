@@ -160,6 +160,7 @@ class Home extends CI_Controller
       $insert['staff_required'] = $this->input->post('staff_required');
       $insert['work_location'] = $this->input->post('work_location');
       $insert['description'] = $this->input->post('description');
+      $insert['created'] = $insert['updated'] = date("Y-m-d H:i:s");
 
       if(!empty($_FILES)){
         if($_FILES['resume']['error'] == 0){
@@ -171,19 +172,15 @@ class Home extends CI_Controller
             $resume = $this->upload->data("file_name");
     
             $insert['resume'] = $config['upload_path'] .$resume;
-            $insert['created'] = $insert['updated'] = date("Y-m-d H:i:s");
-            if ($this->Common_Model->insert('professional_requests', $insert)) {
-              $response['status'] = 1;
-              $response['responseMessage'] = $this->Common_Model->success('Request sent successfully.');
-            }
           }else{
             $response['status'] = 2;
             $response['responseMessage'] = $this->Common_Model->error($this->upload->display_errors());
           }
         }
-      }else{
-        $response['status'] = 2;
-        $response['responseMessage'] = $this->Common_Model->error("Please upload resume");
+      }
+      if ($this->Common_Model->insert('professional_requests', $insert)) {
+        $response['status'] = 1;
+        $response['responseMessage'] = $this->Common_Model->success('Request sent successfully.');
       }
     }else{
       $response['status'] = 2;
