@@ -120,7 +120,7 @@ $route['Job-Type/Update'] = 'Admin_Jobs/update_job_type';
 $route['Admin-Contact'] = 'Admin_Contacts';
 
 $route['Admin-News'] = 'Admin_News';
-$route['Professional-Request'] = 'Admin_news/professionals';
+$route['Professional-Request'] = 'Admin_News/professionals';
 
 $route['Admin-News/Get/(:any)'] = 'Admin_News/get_news/$1';
 $route['Admin-News/Add'] = 'Admin_News/add_news';
