@@ -140,4 +140,55 @@ class Home extends CI_Controller
     }
     echo json_encode($response);
   }
+
+  public function request_professional(){
+    $response['status'] = 0;
+    $response['responseMessage'] = $this->Common_Model->error('Something went wrong.');
+    $this->load->library('form_validation');
+    $this->form_validation->set_rules('name', 'name', 'required');
+    $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
+    $this->form_validation->set_rules('company', 'company', 'required');
+    $this->form_validation->set_rules('phone', 'phone', 'required');
+    $this->form_validation->set_rules('staff_required', 'staff_required', 'required');
+    $this->form_validation->set_rules('work_location', 'work_location', 'required');
+    $this->form_validation->set_rules('description', 'description', 'required');
+    if ($this->form_validation->run()) {
+      $insert['name'] = $this->input->post('name');
+      $insert['email'] = $this->input->post('email');
+      $insert['company'] = $this->input->post('company');
+      $insert['phone'] = $this->input->post('phone');
+      $insert['staff_required'] = $this->input->post('staff_required');
+      $insert['work_location'] = $this->input->post('work_location');
+      $insert['description'] = $this->input->post('description');
+
+      if(!empty($_FILES)){
+        if($_FILES['resume']['error'] == 0){
+          $config['upload_path'] = "assets/site/resume/";
+          $config['allowed_types'] = 'doc|docx|pdf';
+          $config['encrypt_name'] = true;
+          $this->load->library("upload", $config);
+          if ($this->upload->do_upload('resume')) {
+            $resume = $this->upload->data("file_name");
+    
+            $update['resume'] = $config['upload_path'] .$resume;
+            $insert['created'] = $insert['updated'] = date("Y-m-d H:i:s");
+            if ($this->Common_Model->insert('professional_requests', $insert)) {
+              $response['status'] = 1;
+              $response['responseMessage'] = $this->Common_Model->success('Request sent successfully.');
+            }
+          }else{
+            $response['status'] = 2;
+            $response['responseMessage'] = $this->Common_Model->error($this->upload->display_errors());
+          }
+        }
+      }else{
+        $response['status'] = 2;
+        $response['responseMessage'] = $this->Common_Model->error("Please upload resume");
+      }
+    }else{
+      $response['status'] = 2;
+      $response['responseMessage'] = $this->Common_Model->error(validation_errors());
+    }
+    echo json_encode($response);
+  }
 }

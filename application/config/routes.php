@@ -67,6 +67,7 @@ $route['Apply'] = 'Jobs/apply';
 $route['Contact'] = 'Home/contact';
 $route['Contact/Request'] = 'Home/contact_request';
 $route['Contact/Resume'] = 'Home/resume';
+$route['Request-Professional'] = 'Home/request_professional';
 
 $route['Terms'] = 'Home/terms';
 $route['Privacy'] = 'Home/privacy';

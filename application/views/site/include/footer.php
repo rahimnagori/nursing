@@ -89,100 +89,103 @@
 <script type="text/javascript" src="<?= site_url('assets/site/'); ?>js/custom.js"></script>
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">
-        <i class="fa fa-times"></i>
-        </span></button>
-        <h4 class="modal-title" id="myModalLabel">Request a professional</h4>
-      </div>
-      <div class="modal-body">
-      <div class="row">
-                     <div class="col-sm-6">
-                        <div class="form-group">
-                           <label>Name </label>
-                           <div class="icon_us">
-                              <i class="la la-user"></i>
-                              <input type="text"  placeholder="Name" class="form-control" required="">
-                           </div>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">
+                        <i class="fa fa-times"></i>
+                    </span></button>
+                <h4 class="modal-title" id="myModalLabel">Request a professional</h4>
+            </div>
+            <div class="modal-body">
+                <form id="requestProfessionalForm" name="requestProfessionalForm" onsubmit="request_professional(event);">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Name </label>
+                                <div class="icon_us">
+                                    <i class="la la-user"></i>
+                                    <input type="text" placeholder="Name" class="form-control" required="" name="name">
+                                </div>
+                            </div>
                         </div>
-                     </div>
-                     <div class="col-sm-6">
-                        <div class="form-group">
-                           <label>Company Name</label>
-                           <div class="icon_us">
-                              <i class="la la-building"></i>
-                              <input type="text" placeholder="Company Name" class="form-control" required="">
-                           </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Company Name</label>
+                                <div class="icon_us">
+                                    <i class="la la-building"></i>
+                                    <input type="text" placeholder="Company Name" class="form-control" required="" name="company">
+                                </div>
+                            </div>
                         </div>
-                     </div>
-                  </div>
-                  <div class="row">
-                  <div class="col-sm-6">
-                        <div class="form-group">
-                           <label>Email</label>
-                           <div class="icon_us">
-                              <i class="la la-envelope"></i>
-                              <input type="text" placeholder="Email" class="form-control" required="">
-                           </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Email</label>
+                                <div class="icon_us">
+                                    <i class="la la-envelope"></i>
+                                    <input type="email" placeholder="Email" class="form-control" required="" name="email">
+                                </div>
+                            </div>
                         </div>
-                     </div>
-                     <div class="col-sm-6">
-                        <div class="form-group">
-                           <label>Telephone </label>
-                           <div class="icon_us">
-                              <i class="la la-mobile"></i>
-                              <input type="number"  placeholder="Telephone" class="form-control" required="">
-                           </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Telephone </label>
+                                <div class="icon_us">
+                                    <i class="la la-mobile"></i>
+                                    <input type="number" placeholder="Telephone" class="form-control" required="" name="phone">
+                                </div>
+                            </div>
                         </div>
-                     </div>
-                   
-                  </div>
-                  <div class="row">
-                  <div class="col-sm-6">
-                        <div class="form-group">
-                           <label>Staff Required</label>
-                           <div class="icon_us">
-                              <i class="la la-users"></i>
-                              <input type="text" placeholder="Staff Required" class="form-control" required="">
-                           </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Staff Required</label>
+                                <div class="icon_us">
+                                    <i class="la la-users"></i>
+                                    <input type="text" placeholder="Staff Required" class="form-control" required="" name="staff_required">
+                                </div>
+                            </div>
                         </div>
-                     </div>
-                     <div class="col-sm-6">
-                        <div class="form-group">
-                           <label>Work Location </label>
-                           <div class="icon_us">
-                              <i class="la la-map-marker"></i>
-                              <input type="text"  placeholder="Work Location" class="form-control" required="">
-                           </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Work Location </label>
+                                <div class="icon_us">
+                                    <i class="la la-map-marker"></i>
+                                    <input type="text" placeholder="Work Location" class="form-control" required="" name="work_location">
+                                </div>
+                            </div>
                         </div>
-                     </div>
-                   
-                  </div>
-                  <div class="form-group">
-                           <label>Upload CV </label>
-                           <div class="icon_us">
-                              <i class="la la-cloud-upload"></i>
-                              <input type="file"  class="form-control"  accept=".pdf, .doc, .docx">
-                           </div>
-                           <div id="preview_image"></div>
+
+                    </div>
+                    <div class="form-group">
+                        <label>Upload CV </label>
+                        <div class="icon_us">
+                            <i class="la la-cloud-upload"></i>
+                            <input type="file" class="form-control" accept=".pdf, .doc, .docx" name="resume" required="" >
                         </div>
-                  <div class="form-group tx_add">
-                     <label>Brief description of staff required </label>
-                     <div class="icon_us">
-                        <i class="la la-comments-o"></i>
-                        <textarea name="Brief description of staff required" id="" class="form-control" required=""></textarea>
-                     </div>
-                  </div>
-                  <div class="btnloggib " style="margin-top: 10px;">
-                     <button class="btn btn_theme2 btn-lg btn-block btn_submit" type="submit"> Submit </button>
-                  </div>
-                   
-      </div>
-    
+                        <div id="preview_image"></div>
+                    </div>
+                    <div class="form-group tx_add">
+                        <label>Brief description of staff required </label>
+                        <div class="icon_us">
+                            <i class="la la-comments-o"></i>
+                            <textarea name="description" id="" class="form-control" required=""></textarea>
+                        </div>
+                    </div>
+                    <div id="responseMessage" class="responseMessage"></div>
+                    <div class="btnloggib " style="margin-top: 10px;">
+                        <button class="btn btn_theme2 btn-lg btn-block btn_submit" type="submit"> Submit </button>
+                    </div>
+                </form>
+
+            </div>
+
+        </div>
     </div>
-  </div>
 </div>
 <script>
     const BASE_URL = "<?= site_url(); ?>";
@@ -223,25 +226,52 @@
     }
 </script>
 <script type="text/javascript">
-  function googleTranslateElementInit() {
-    new google.translate.TranslateElement({  
-      pageLanguage: 'en', 
-      layout: google.translate.TranslateElement.InlineLayout.SIMPLE
-    }, 'google_translate_element');
-  }
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement({
+            pageLanguage: 'en',
+            layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+        }, 'google_translate_element');
+    }
 </script>
 <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 <script>
-  $(document).ready(function(){
-    $('#google_translate_element').bind('DOMNodeInserted', function(event) {
-      $('.goog-te-menu-value span:first').html('Translate');
-      $('.goog-te-menu-frame.skiptranslate').load(function(){
-        setTimeout(function(){
-          $('.goog-te-menu-frame.skiptranslate').contents().find('.goog-te-menu2-item-selected .text').html('Translate');    
-        }, 100);
-      });
+    $(document).ready(function() {
+        $('#google_translate_element').bind('DOMNodeInserted', function(event) {
+            $('.goog-te-menu-value span:first').html('Translate');
+            $('.goog-te-menu-frame.skiptranslate').load(function() {
+                setTimeout(function() {
+                    $('.goog-te-menu-frame.skiptranslate').contents().find('.goog-te-menu2-item-selected .text').html('Translate');
+                }, 100);
+            });
+        });
     });
-  });
+</script>
+<script>
+    function request_professional(e) {
+        e.preventDefault();
+        $.ajax({
+            type: 'POST',
+            url: BASE_URL + 'Request-Professional',
+            data: new FormData($('#requestProfessionalForm')[0]),
+            dataType: 'JSON',
+            processData: false,
+            contentType: false,
+            cache: false,
+            beforeSend: function(xhr) {
+                $(".btn_submit").attr('disabled', true);
+                $(".btn_submit").html(LOADING);
+                $("#responseMessage").html('');
+                $("#responseMessage").hide();
+            },
+            success: function(response) {
+                $("#requestProfessionalForm")[0].reset();
+                $(".btn_submit").prop('disabled', false);
+                $(".btn_submit").html(' Submit ');
+                $("#responseMessage").html(response.responseMessage);
+                $("#responseMessage").show();
+            }
+        });
+    }
 </script>
 </body>
 

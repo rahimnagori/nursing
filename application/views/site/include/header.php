@@ -73,14 +73,14 @@
             } else {
             ?>
               <li><a href="<?= site_url('Login') ?>">Login</a></li>
-              <li class="Sign_top" ><a href="<?= site_url('Sign-Up') ?>" class="btn btn_theme" style="background: transparent;color: var(--red);border: 1px solid;">Sign Up</a></li>
+              <li class="Sign_top"><a href="<?= site_url('Sign-Up') ?>" class="btn btn_theme" style="background: transparent;color: var(--red);border: 1px solid;">Sign Up</a></li>
             <?php
             }
             ?>
- <li class="Sign_top"><a href="javascript:voild(0);" data-toggle="modal" data-target="#myModal">Request a professional</a></li>
-<li class="lahhh">
-<div id="google_translate_element"></div>
-</li>
+            <li class="Sign_top"><a href="javascript:void(0);" data-toggle="modal" data-target="#myModal">Request a professional</a></li>
+            <li class="lahhh">
+              <div id="google_translate_element"></div>
+            </li>
           </ul>
         </div>
       </div>
