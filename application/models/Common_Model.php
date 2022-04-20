@@ -55,6 +55,7 @@ class Common_Model extends CI_Model {
   }
 
   public function send_mail($to, $subject, $body, $bcc = null, $attachment = false){
+    $response['status'] = 0;
     $PROJECT = $this->config->item('PROJECT');
     $fromEmail = 'info@nursing.com';
     $config = array();
@@ -87,11 +88,12 @@ class Common_Model extends CI_Model {
     $this->email->message($msg);
     try{
       $this->email->send();
-      return 1;
+      $response['status'] = 1;
     }catch(Exception $e){
-      // echo $e->getMessage(); die;
-      return 0;
+      $response['responseMessage'] = $e->getMessage();
+      $response['status'] = 2;
     }
+    return $response;
 
   }
 

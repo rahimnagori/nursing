@@ -66,7 +66,7 @@ class Admin extends CI_Controller {
           $content = '<p>Hello ' .$userDetail['name'] .',</p>';
           $content .= '<p>Your password has been changed. Here is your new password :</p>';
           $content .= '<p><b>' .$update['password'] .'</b></p>';
-          $this->Common_Model->send_mail($userDetail['email'], $subject, $content);
+          $mailResponse = $this->Common_Model->send_mail($userDetail['email'], $subject, $content);
           $response['status'] = 1;
           $this->session->set_flashdata('message', '<div class="alert alert-success"><strong>Success!</strong> Password changed successfully</div>');
         }else{
@@ -84,14 +84,13 @@ class Admin extends CI_Controller {
   }
 
   public function forget_password(){
+    $output['status'] = 0;
     $this->form_validation->set_rules('email','email','required');
     if($this->form_validation->run()){
       $email = $this->input->post('email');
       $run = $this->Common_Model->fetch_records('admins',array('email' =>$email),false, true);
       if($run){
         $email = $run['email'];
-        $name = $run['name'];
-        $id = $run['id'];
         $subject = "Forget password";
 
         $html = '<p>Hello, '.$run['name'].'</p>';
@@ -99,18 +98,18 @@ class Admin extends CI_Controller {
         $html .= '<p>You indicated that you forgot your login password. We can generate a temporary password for you to log in with, then once logged in you can change your password to anything you like.</p>';
         $html .= '<p>Password: <b>'.$run['password'].'</b></p>';
 
-        $this->Common_Model->send_mail($run['email'],$subject,$html);
-
-        $output['status'] = 1;
-        $output['message'] = 'Please check your mail , We have sent your password in your registered mail id.';
-
+        $mailResponse = $this->Common_Model->send_mail($run['email'],$subject,$html);
+        if($mailResponse['status'] == 1){
+          $output['status'] = 1;
+          $output['message'] = 'Please check your mail, We have sent your password to your registered mail id.';
+        }else{
+          $output['message'] = 'Server error! Unable to sent password to your email at this time.';
+        }
       } else {
-        $output['status'] = 0;
         $output['message'] = 'Email address that you have entered is not registered with us.';
       }
       
     } else {
-      $output['status'] = 0;
       $output['message'] = validation_errors();
     }
     echo json_encode($output);

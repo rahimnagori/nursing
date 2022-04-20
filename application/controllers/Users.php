@@ -168,7 +168,7 @@ class Users extends CI_Controller {
         $body .= "<p><a href='" .$verificationLink ."'>Verify Now</a></p>";
         $body .= "<p>If the above link doesn't work, you may copy paste the below link in your browser also.</p>";
         $body .= "<p>" .$verificationLink ."</p>";
-        $this->Common_Model->send_mail($userdata['email'], $subject, $body);
+        $mailResponse = $this->Common_Model->send_mail($userdata['email'], $subject, $body);
       }
     }else{
       /* User does not exist */
@@ -189,7 +189,7 @@ class Users extends CI_Controller {
           $subject = 'Email successfully verified.';
           $body = '<p>Hello ' .$userdata['first_name'] .' ' .$userdata['last_name'] .',</p>';
           $body .= '<p>Congratulations!! your email has been verified successfully. You may now continue using our services.</p>';
-          $this->Common_Model->send_mail($to, $subject, $body);
+          $mailResponse = $this->Common_Model->send_mail($to, $subject, $body);
           if($this->session->userdata('is_logged_id')){
             redirect('Verify');
           }else{
