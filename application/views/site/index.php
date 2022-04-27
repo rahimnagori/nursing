@@ -102,7 +102,7 @@
                <div class="headding cles_p">
                   <h2>About us</h2>
                   <p>
-                     Pambron Nursing Agency Limited is a Healthcare recruitment agency
+                      <?=$this->config->item('PROJECT');?>  is a Healthcare recruitment agency
                      registered in England and Wales, and we specialise in providing Nurses,
                      Health Care Assistants, Support workers...
                   </p>
@@ -121,7 +121,7 @@
                <div>
                   <div class="headding">
                      <h2>
-                        Experienced in Home Care & Private Nursing
+                        Experienced in Home Care & Private <?=$this->config->item('PROJECT');?>
                      </h2>
                      <p>
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.

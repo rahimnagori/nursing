@@ -116,7 +116,7 @@
     <p>or write to:
       Data Controller
       <br />
-      Pambron Nursing Agency Limited
+      <?=$this->config->item('PROJECT');?>
       <br />
       Unit 7 Daisy Business Park
       <br />

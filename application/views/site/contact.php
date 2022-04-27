@@ -94,7 +94,7 @@
                   <div class="remnper">
                      <label class="checkbox-inline">
                         <input type="checkbox" name="process_policy" id="process_policy" value="1">
-                        I consent to Pambron Nursing Agency Limited process and store my data,and to
+                        I consent to <?=$this->config->item('PROJECT');?> process and store my data,and to
                         use such data in <br> its recruitment process.
                      </label>
 
@@ -102,7 +102,7 @@
                   <div class="remnper">
                      <label class="checkbox-inline">
                         <input type="checkbox" name="collect_policy" id="collect_policy" value="1">
-                        I consent to Pambron Nursing Agency Limited collecting and storing my data in
+                        I consent to <?=$this->config->item('PROJECT');?> collecting and storing my data in
                         accordance with <br> its privacy policy.
                      </label>
 
