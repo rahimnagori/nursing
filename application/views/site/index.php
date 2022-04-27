@@ -121,7 +121,7 @@
                <div>
                   <div class="headding">
                      <h2>
-                        20 Years of Experience in Home Care & Private Nursing
+                        Experienced in Home Care & Private Nursing
                      </h2>
                      <p>
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
