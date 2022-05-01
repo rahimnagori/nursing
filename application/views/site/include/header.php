@@ -17,6 +17,7 @@
 </head>
 
 <body>
+
   <!-- start -->
   <div class="main_nav">
     <nav class="navbar navbar-default">
@@ -36,9 +37,9 @@
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav navbar-right">
-            <!-- <li>
+            <li>
               <a href="<?= site_url() ?>">Home</a>
-            </li> -->
+            </li>
             <li>
               <a href="<?= site_url('About') ?>">About Us</a>
             </li>
@@ -73,13 +74,44 @@
             } else {
             ?>
               <li><a href="<?= site_url('Login') ?>">Login</a></li>
-              <li class="Sign_top"><a href="<?= site_url('Sign-Up') ?>" class="btn btn_theme" style="background: transparent;color: var(--red);border: 1px solid;">Sign Up</a></li>
+              <li class="Sign_top sel1"><a href="<?= site_url('Sign-Up') ?>" class="btn btn_theme" style="background: transparent;color: var(--red);border: 1px solid;">Sign Up</a></li>
             <?php
             }
             ?>
-            <li class="Sign_top"><a href="javascript:void(0);" data-toggle="modal" data-target="#myModal">Request a professional</a></li>
-            <li class="lahhh">
-              <div id="google_translate_element"></div>
+            <li class="Sign_top "><a href="javascript:void(0);" data-toggle="modal" data-target="#myModal">Request a professional</a></li>
+            <li class="flangg_d">
+              <form id="form1" runat="server">
+                <div id="google_translate_element" style="display: none">
+                </div>
+                <li class="">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <span class="flag">
+                    <img src="<?= site_url('assets/site/'); ?>img/English.png">
+                  </span>
+                </a>
+                <ul class="dropdown-menu">
+                <li><a href="javascript:;" id="English" onclick="translateLanguage(this.id);">
+                      <img src="<?= site_url('assets/site/'); ?>img/English.png" alt="" /></a> </li>
+                  <li><a href="javascript:;" id="French" onclick="translateLanguage(this.id);">
+                      <img src="<?= site_url('assets/site/'); ?>img/French.png" alt="" /></a> </li>
+                  <li><a href="javascript:;" id="Spanish" onclick="translateLanguage(this.id);">
+                  
+                      <img src="<?= site_url('assets/site/'); ?>img/Spanish.png" alt="" /></a> </li>
+                  <li><a href="javascript:;" id="Chinese" onclick="translateLanguage(this.id);">
+                  
+                      <img src="<?= site_url('assets/site/'); ?>img/Chinese.png" alt="" /></a> </li>
+                  <li><a href="javascript:;" id="Arabic" onclick="translateLanguage(this.id);">
+                  
+                      <img src="<?= site_url('assets/site/'); ?>img/Arabic.png" alt="" /></a> </li>
+
+
+                  <li><a href="javascript:;" id="Portuguese" onclick="translateLanguage(this.id);">
+                  
+                      <img src="<?= site_url('assets/site/'); ?>img/Portuguese.png" alt="" /></a> </li>
+                </ul>
+              </li>
+                
+              </form>
             </li>
           </ul>
         </div>
