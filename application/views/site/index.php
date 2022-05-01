@@ -123,9 +123,9 @@
                      <h2>
                         Experienced in Home Care & Private <?=$this->config->item('PROJECT');?>
                      </h2>
-                     <p>
+                     <!-- <p>
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                     </p>
+                     </p> -->
                   </div>
                   <div class="row">
                      <div class="col-sm-4 col-xs-4">

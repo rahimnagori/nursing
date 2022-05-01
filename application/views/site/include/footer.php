@@ -29,8 +29,8 @@
                 <div class="link_1 ">
                     <!-- <h5>Know Links</h5> -->
                     <ul class="ul_set">
-                        <li><a href="<?= site_url('Terms'); ?>">Terms & Conditions </a></li>
-                        <!-- <li><a href="<?= site_url('Privacy'); ?>">Privacy Policy </a></li> -->
+                        <!-- <li><a href="<?= site_url('Terms'); ?>">Terms & Conditions </a></li> -->
+                        <li><a href="<?= site_url('Privacy'); ?>">Terms of Use </a></li>
                     </ul>
                 </div>
             </div>
