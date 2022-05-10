@@ -187,8 +187,8 @@
       </div>
    </div>
 </section>
-<!-- <section class="sec5 pad_sec ">
-   <div class="container">
+<section class="sec5 pad_sec ">
+   <!-- <div class="container">
       <div class="don_box1 ">
          <div class="row">
             <div class="col-sm-3 col-xs-6">
@@ -229,8 +229,8 @@
             </div>
          </div>
       </div>
-   </div>
-</section> -->
+   </div> -->
+</section>
 <?php
 if (count($newses)) {
 ?>
