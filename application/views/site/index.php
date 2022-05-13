@@ -120,9 +120,9 @@
             <div class="col-sm-6">
                <div>
                   <div class="headding">
-                     <h2>
+                     <!-- <h2>
                         Experienced in Home Care & Private <?=$this->config->item('PROJECT');?>
-                     </h2>
+                     </h2> -->
                      <!-- <p>
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                      </p> -->

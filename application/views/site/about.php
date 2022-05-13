@@ -45,8 +45,8 @@
                   <div class="icon_1">
                      <img src="<?= site_url('assets/site/'); ?>img/img_15.png">
                   </div>
-                  <h1><span class="counter" data-count="1000">0</span></h1>
-                  <h4> Happy Patients </h4>
+                  <!-- <h1><span class="counter" data-count="1000">0</span></h1>
+                  <h4> Happy Patients </h4> -->
                </div>
             </div>
             <div class="col-sm-3 col-xs-6">
@@ -54,8 +54,8 @@
                   <div class="icon_1">
                      <img src="<?= site_url('assets/site/'); ?>img/img_8.png">
                   </div>
-                  <h1><span class="counter" data-count="3000">0</span></h1>
-                  <h4>Successful Home Care</h4>
+                  <!-- <h1><span class="counter" data-count="3000">0</span></h1>
+                  <h4>Successful Home Care</h4> -->
                </div>
             </div>
             <div class="col-sm-3 col-xs-6">
@@ -63,8 +63,8 @@
                   <div class="icon_1">
                      <img src="<?= site_url('assets/site/'); ?>img/img_2.png">
                   </div>
-                  <h1><span class="counter" data-count="8000">0</span></h1>
-                  <h4>Years Of Experience</h4>
+                  <!-- <h1><span class="counter" data-count="8000">0</span></h1>
+                  <h4>Years Of Experience</h4> -->
                </div>
             </div>
             <div class="col-sm-3 col-xs-6">
@@ -72,8 +72,8 @@
                   <div class="icon_1">
                      <img src="<?= site_url('assets/site/'); ?>img/img_9.png">
                   </div>
-                  <h1><span class="counter" data-count="8000">0</span></h1>
-                  <h4>Professional Nurses</h4>
+                  <!-- <h1><span class="counter" data-count="8000">0</span></h1>
+                  <h4>Professional Nurses</h4> -->
                </div>
             </div>
          </div>
@@ -90,12 +90,12 @@
          </div>
          <div class="col-sm-5">
             <div class="abot_cont">
-               <div class="headding">
+               <!-- <div class="headding">
                   <h2>We Are Available For Home Care Consultation </h2>
                </div>
                <p>
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-               </p>
+               </p> -->
                <a href="<?= site_url('Contact'); ?>" class="btn btn_theme2 btn-lg">Contact Us</a>
             </div>
          </div>
