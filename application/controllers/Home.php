@@ -58,6 +58,8 @@ class Home extends CI_Controller
     $pageData['paymentTypes'] = $this->Common_Model->get_payment_types();
     $pageData['jobLocations'] = $this->Common_Model->fetch_records('job_types');
 
+    $pageData['searchParams']['types'] = (isset($_GET['type'])) ? $_GET['type'] : '';
+
     $this->load->view('site/include/header', $pageData);
     $this->load->view('site/jobs', $pageData);
   }

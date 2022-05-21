@@ -31,7 +31,7 @@
                       <?php
                       foreach ($jobLocations as $jobLocation) {
                       ?>
-                        <option value="<?= $jobLocation['id']; ?>"><?= $jobLocation['name']; ?></option>
+                        <option value="<?= $jobLocation['id']; ?>" <?=($searchParams['types']) ? 'selected' : '';?> ><?= $jobLocation['name']; ?></option>
                       <?php
                       }
                       ?>

@@ -1,7 +1,7 @@
 <style>
    .lahhh #google_translate_element {
-	margin-top: 22px;
-}
+      margin-top: 22px;
+   }
 </style>
 <div class="banner_top">
    <div class="owl-carousel owl-theme slider_arrrw " id="slider1">
@@ -39,11 +39,11 @@
          <div class="row">
             <div class="col-sm-4">
                <div class="box_icon">
-                  <a href="<?= site_url('Jobs') ?>">
-                  <div class="icon_1">
-                     <img src="<?= site_url('assets/site/'); ?>img/hospital.png">
-                  </div>
-                  <h4>HOSPITAL</h4>
+                  <a href="<?= site_url('Jobs?type=1') ?>">
+                     <div class="icon_1">
+                        <img src="<?= site_url('assets/site/'); ?>img/hospital.png">
+                     </div>
+                     <h4>HOSPITAL</h4>
                   </a>
                   <!-- <p>
                      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been.
@@ -52,12 +52,12 @@
             </div>
             <div class="col-sm-4">
                <div class="box_icon">
-               <a href="<?= site_url('Jobs') ?>">
-                  <div class="icon_1">
-                     <img src="<?= site_url('assets/site/'); ?>img/home(1).png">
-                  </div>
-                  <h4>CARE HOME</h4>
-               </a>
+                  <a href="<?= site_url('Jobs?type=2') ?>">
+                     <div class="icon_1">
+                        <img src="<?= site_url('assets/site/'); ?>img/home(1).png">
+                     </div>
+                     <h4>CARE HOME</h4>
+                  </a>
                   <!-- <p>
                      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been.
                   </p> -->
@@ -65,12 +65,12 @@
             </div>
             <div class="col-sm-4">
                <div class="box_icon">
-               <a href="<?= site_url('Jobs') ?>">
-                  <div class="icon_1">
-                     <img src="<?= site_url('assets/site/'); ?>img/home(2).png">
-                  </div>
-                  <h4>OTHER INSTITUTIONS</h4>
-               </a>
+                  <a href="<?= site_url('Jobs?type=3') ?>">
+                     <div class="icon_1">
+                        <img src="<?= site_url('assets/site/'); ?>img/home(2).png">
+                     </div>
+                     <h4>OTHER INSTITUTIONS</h4>
+                  </a>
                   <!-- <p>
                      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been.
                   </p> -->
@@ -102,7 +102,7 @@
                <div class="headding cles_p">
                   <h2>About us</h2>
                   <p>
-                      <?=$this->config->item('PROJECT');?>  is a Healthcare recruitment agency
+                     <?= $this->config->item('PROJECT'); ?> is a Healthcare recruitment agency
                      registered in England and Wales, and we specialise in providing Nurses,
                      Health Care Assistants, Support workers...
                   </p>
@@ -121,7 +121,7 @@
                <div>
                   <div class="headding">
                      <!-- <h2>
-                        Experienced in Home Care & Private <?=$this->config->item('PROJECT');?>
+                        Experienced in Home Care & Private <?= $this->config->item('PROJECT'); ?>
                      </h2> -->
                      <!-- <p>
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
