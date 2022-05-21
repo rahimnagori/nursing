@@ -15,6 +15,7 @@ class Home extends CI_Controller
   {
     $pageData = $this->Common_Model->get_userdata();
     $pageData['newses']  = $this->Common_Model->fetch_records('newses', array('is_deleted' => 0), false, false, 'id');
+    $pageData['jobLocations'] = $this->Common_Model->fetch_records('job_types');
 
     $this->load->view('site/include/header', $pageData);
     $this->load->view('site/index', $pageData);

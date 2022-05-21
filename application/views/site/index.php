@@ -37,7 +37,23 @@
    <div class="container">
       <div class="box_white">
          <div class="row">
-            <div class="col-sm-4">
+            <?php
+               foreach($jobLocations as $jobLocation){
+            ?>
+                  <div class="col-sm-4">
+                     <div class="box_icon">
+                        <a href="<?= site_url('Jobs?type=' .$jobLocation['id']) ?>">
+                           <div class="icon_1">
+                              <img src="<?= site_url($jobLocation['icon']); ?>">
+                           </div>
+                           <h4><?=$jobLocation['name'];?></h4>
+                        </a>
+                     </div>
+                  </div>
+            <?php
+               }
+            ?>
+            <!-- <div class="col-sm-4">
                <div class="box_icon">
                   <a href="<?= site_url('Jobs?type=1') ?>">
                      <div class="icon_1">
@@ -45,37 +61,11 @@
                      </div>
                      <h4>HOSPITAL</h4>
                   </a>
-                  <!-- <p>
+                  <p>
                      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been.
-                  </p> -->
+                  </p>
                </div>
-            </div>
-            <div class="col-sm-4">
-               <div class="box_icon">
-                  <a href="<?= site_url('Jobs?type=2') ?>">
-                     <div class="icon_1">
-                        <img src="<?= site_url('assets/site/'); ?>img/home(1).png">
-                     </div>
-                     <h4>CARE HOME</h4>
-                  </a>
-                  <!-- <p>
-                     Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been.
-                  </p> -->
-               </div>
-            </div>
-            <div class="col-sm-4">
-               <div class="box_icon">
-                  <a href="<?= site_url('Jobs?type=3') ?>">
-                     <div class="icon_1">
-                        <img src="<?= site_url('assets/site/'); ?>img/home(2).png">
-                     </div>
-                     <h4>OTHER INSTITUTIONS</h4>
-                  </a>
-                  <!-- <p>
-                     Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been.
-                  </p> -->
-               </div>
-            </div>
+            </div> -->
          </div>
       </div>
    </div>
