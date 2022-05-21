@@ -234,13 +234,14 @@
         type="text/javascript"></script>
     <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script>
-        function translateLanguage(lang) {
+        function translateLanguage(lang, img) {
 
             var $frame = $('.goog-te-menu-frame:first');
             if (!$frame.size()) {
                 alert("Error: Could not find Google translate frame.");
                 return false;
             }
+            $("#current-selected-language").prop("src", `${BASE_URL}assets/site/img/${img}`);
             $frame.contents().find('.goog-te-menu2-item span.text:contains(' + lang + ')').get(0).click();
             return false;
         }

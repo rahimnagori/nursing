@@ -86,26 +86,26 @@
                 <li class="">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <span class="flag">
-                    <img src="<?= site_url('assets/site/'); ?>img/English.png">
+                    <img src="<?= site_url('assets/site/'); ?>img/English.png" id="current-selected-language" >
                   </span>
                 </a>
                 <ul class="dropdown-menu">
-                <li><a href="javascript:;" id="English" onclick="translateLanguage(this.id);">
+                <li><a href="javascript:;" id="English" onclick="translateLanguage(this.id, 'English.png');">
                       <img src="<?= site_url('assets/site/'); ?>img/English.png" alt="" /></a> </li>
-                  <li><a href="javascript:;" id="French" onclick="translateLanguage(this.id);">
+                  <li><a href="javascript:;" id="French" onclick="translateLanguage(this.id, 'French.png');">
                       <img src="<?= site_url('assets/site/'); ?>img/French.png" alt="" /></a> </li>
-                  <li><a href="javascript:;" id="Spanish" onclick="translateLanguage(this.id);">
+                  <li><a href="javascript:;" id="Spanish" onclick="translateLanguage(this.id, 'Spanish.png');">
                   
                       <img src="<?= site_url('assets/site/'); ?>img/Spanish.png" alt="" /></a> </li>
-                  <li><a href="javascript:;" id="Chinese" onclick="translateLanguage(this.id);">
+                  <li><a href="javascript:;" id="Chinese" onclick="translateLanguage(this.id, 'Chinese.png');">
                   
                       <img src="<?= site_url('assets/site/'); ?>img/Chinese.png" alt="" /></a> </li>
-                  <li><a href="javascript:;" id="Arabic" onclick="translateLanguage(this.id);">
+                  <li><a href="javascript:;" id="Arabic" onclick="translateLanguage(this.id, 'Arabic.png');">
                   
                       <img src="<?= site_url('assets/site/'); ?>img/Arabic.png" alt="" /></a> </li>
 
 
-                  <li><a href="javascript:;" id="Portuguese" onclick="translateLanguage(this.id);">
+                  <li><a href="javascript:;" id="Portuguese" onclick="translateLanguage(this.id, 'Portuguese.png');">
                   
                       <img src="<?= site_url('assets/site/'); ?>img/Portuguese.png" alt="" /></a> </li>
                 </ul>
