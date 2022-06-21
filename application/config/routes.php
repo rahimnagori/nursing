@@ -90,6 +90,10 @@ $route['Contact-Admin'] = 'Chats';
 $route['Message/send'] = 'Chats/add';
 $route['Get-Messages'] = 'Chats/get_messages';
 
+$route['User-Documents'] = 'User_Documents';
+$route['Update-Document'] = 'User_Documents/update';
+$route['Delete-Document'] = 'User_Documents/delete_document';
+
 $route['Add-Post'] = 'Users/post';
 $route['My-Posts'] = 'Users/posts';
 $route['Change-Password'] = 'Users/password';
