@@ -33,7 +33,7 @@
                 <td><?= $serialNumber + 1; ?></td>
                 <td><?= $job['title']; ?></td>
                 <td><?= $job['name'] ?></td>
-                <td>$<?= $job['salary']; ?></td>
+                <td><?=$this->config->item('CURRENCY');?><?= $job['salary']; ?></td>
                 <td>
                   <?php
                   echo $description;
@@ -96,7 +96,7 @@
             <div class="form-group">
               <label> Salary </label>
               <div class="input-group">
-                <span class="input-group-addon">$</span>
+                <span class="input-group-addon"><?=$this->config->item('CURRENCY');?></span>
                 <input type="number" name="salary" class="form-control" required="">
               </div>
             </div>

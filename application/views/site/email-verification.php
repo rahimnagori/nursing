@@ -150,17 +150,17 @@
       <div class="ema_viii2">
         <div class="form_1">
           <div class="icon_img">
-            <img src="<?=site_url('assets/site/');?>img/missing-email.png" class="img_r">
+            <img src="<?= site_url('assets/site/'); ?>img/missing-email.png" class="img_r">
           </div>
           <div class="heade_login">
             <h4>Email Verification </h4>
           </div>
-          <div class="msg">
+          <div class="msg" id="responseMessage">
             <div class="alert alert-success">Please verify your email first to complete registration.</div>
           </div>
           <p>You need to verify your email address. We've sent an email to <b><u>
-                <?=$userDetails['email'];?>
-          </u></b> to verify your address. Please click the link in that email to continue.</p>
+                <?= $userDetails['email']; ?>
+              </u></b> to verify your address. Please click the link in that email to continue.</p>
           <p>Click <a href="javascript:void(0);" onclick="resend_verification_link();">here</a> to resend verification link.</p>
         </div>
       </div>
@@ -171,31 +171,31 @@
 <script>
   function resend_verification_link() {
     $.ajax({
-      url: BASE_URL + 'Resend-Email-Verification',
-      type: 'POST',
-      dataType: 'JSON',
-      beforeSend: function () {
-        $('#responseMessage').html('');
-      }
-    })
-    .done(function(response) {
-      $('#responseMessage').html(response.responseMessage);
-    })
-    .fail(function(error) {
-      alert( "Server error, please try again later." );
-    })
-    .always(function() {
-      
-    });
+        url: BASE_URL + 'Resend-Email-Verification',
+        type: 'POST',
+        dataType: 'JSON',
+        beforeSend: function() {
+          $('#responseMessage').html('');
+        }
+      })
+      .done(function(response) {
+        $('#responseMessage').html(response.responseMessage);
+      })
+      .fail(function(error) {
+        alert("Server error, please try again later.");
+      })
+      .always(function() {
+
+      });
   }
-  
+
   <?php
-    if($userDetails['is_email_verified']){
+  if ($userDetails['is_email_verified']) {
   ?>
-      setTimeout(function(){
-        window.location.href = BASE_URL + 'Profile';
-      }, 5000);
+    setTimeout(function() {
+      window.location.href = BASE_URL + 'Profile';
+    }, 5000);
   <?php
-    }
+  }
   ?>
 </script>

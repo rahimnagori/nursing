@@ -49,9 +49,7 @@
                   <?php
                   $resume = 'No resume uploaded yet';
                   if (!empty($user['resume'])) {
-                  ?>
-                    <a href="<?= $user['resume']; ?>" download> View </a>
-                  <?php
+                    $resume = "<a href='" .$user['resume'] ."' download> View </a>";
                   }
                   ?>
                   <?= $resume; ?>

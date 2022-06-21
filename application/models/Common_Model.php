@@ -167,5 +167,11 @@ class Common_Model extends CI_Model {
     return $formattedPaymentTypes;
   }
 
+  public function get_email_content($email_type){
+    $where['email_type'] = $email_type;
+    $email = $this->fetch_records('emails', $where, 'id, content', true);
+    return $email['content'];
+  }
+
 }
 ?>

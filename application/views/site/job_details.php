@@ -47,7 +47,7 @@
                         <h4><span><i class="fa fa-map-marker"></i>Location</span><?= $jobDetails['title']; ?> </h4>
                     </div>
                     <div class="col-sm-4">
-                        <h4><span><i class="fa fa-usd"></i>Salary </span> $ <?= $jobDetails['salary']; ?> / <?= $paymentTypes[$jobDetails['payment_type']]; ?> </h4>
+                        <h4><span><?=$this->config->item('CURRENCY');?></i>Salary </span> <?=$this->config->item('CURRENCY');?> <?= $jobDetails['salary']; ?> / <?= $paymentTypes[$jobDetails['payment_type']]; ?> </h4>
                     </div>
                     <div class="col-sm-4">
                         <h4><span><i class="fa fa-map-marker"></i>Qualification</span><?= $jobDetails['qualification']; ?></h4>

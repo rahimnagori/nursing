@@ -66,7 +66,7 @@
     <div class="copy_rightt">
         <div class="container">
             <div class="text-center">
-                <p>Copyright © Pambron Nursing Limited 2022</p>
+                <p>Copyright © <?=$this->config->item('PROJECT');?> 2022</p>
             </div>
         </div>
     </div>

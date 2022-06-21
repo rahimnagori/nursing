@@ -19,7 +19,7 @@
   <div class="form-group">
     <label> Salary </label>
     <div class="input-group">
-      <span class="input-group-addon">$</span>
+      <span class="input-group-addon"><?=$this->config->item('CURRENCY');?></span>
       <input type="number" name="salary" class="form-control" required="" value="<?=$jobDetails['salary'];?>" >
     </div>
   </div>
