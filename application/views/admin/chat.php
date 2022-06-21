@@ -94,7 +94,7 @@
   }
 
   function new_message(message) {
-    return `<li class="sender">
+    return `<li class="recever">
          <div class="message-data">
             <div class="mess_dat_img">
                <img src="${BASE_URL}assets/site/img/logo.png">
