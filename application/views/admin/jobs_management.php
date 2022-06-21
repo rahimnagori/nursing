@@ -12,6 +12,7 @@
               <th>S.No.</th>
               <th>Title</th>
               <th>Location</th>
+              <th>Address</th>
               <th>Salary</th>
               <th>Description</th>
               <th>Qualification</th>
@@ -33,6 +34,7 @@
                 <td><?= $serialNumber + 1; ?></td>
                 <td><?= $job['title']; ?></td>
                 <td><?= $job['name'] ?></td>
+                <td><?= $job['address']; ?></td>
                 <td><?=$this->config->item('CURRENCY');?><?= $job['salary']; ?></td>
                 <td>
                   <?php
@@ -87,11 +89,14 @@
                 <?php
                 }
                 ?>
-                <option value="other">Other</option>
+                <!-- <option value="other">Other</option> -->
+                <!-- Adding a new location on selecting other is now disabled. -->
               </select>
             </div>
-            <div class="responseMessage" id="addLocationHtml">
-
+            <div class="responseMessage" id="addLocationHtml"> </div>
+            <div class="form-group">
+              <label> Address </label>
+              <input type="text" name="address" class="form-control" required="">
             </div>
             <div class="form-group">
               <label> Salary </label>

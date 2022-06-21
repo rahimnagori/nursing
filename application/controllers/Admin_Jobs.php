@@ -49,7 +49,15 @@ class Admin_Jobs extends CI_Controller {
   public function add_job(){
     $response['status'] = 0;
     $response['responseMessage'] = $this->Common_Model->error('Something went wrong.');
-    $insert = $this->input->post();
+    $insert['title'] = $this->input->post('title');
+    $insert['description'] = $this->input->post('description');
+    $insert['job_type'] = $this->input->post('job_type');
+    $insert['address'] = $this->input->post('address');
+    $insert['salary'] = $this->input->post('salary');
+    $insert['qualification'] = $this->input->post('qualification');
+    $insert['employment_type'] = $this->input->post('employment_type');
+    $insert['payment_type'] = $this->input->post('payment_type');
+    $insert['last_date'] = $this->input->post('last_date');
     $insert['is_deleted'] = 0;
     $insert['user_id'] = $this->session->userdata('id');
     $insert['created'] = $insert['updated'] = date("Y-m-d H:i:s");
@@ -100,6 +108,12 @@ class Admin_Jobs extends CI_Controller {
     $update['title'] = $this->input->post('title');
     $update['description'] = $this->input->post('description');
     $update['job_type'] = $this->input->post('job_type');
+    $update['address'] = $this->input->post('address');
+    $update['salary'] = $this->input->post('salary');
+    $update['qualification'] = $this->input->post('qualification');
+    $update['employment_type'] = $this->input->post('employment_type');
+    $update['payment_type'] = $this->input->post('payment_type');
+    $update['last_date'] = $this->input->post('last_date');
     $where['id'] = $this->input->post('job_id');
     if($this->Common_Model->update('jobs', $where, $update)){
       $response['status'] = 1;

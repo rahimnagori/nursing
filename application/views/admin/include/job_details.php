@@ -17,6 +17,10 @@
     </select>
   </div>
   <div class="form-group">
+    <label> Address </label>
+    <input type="text" name="address" class="form-control" required="" value="<?=$jobDetails['address'];?>" >
+  </div>
+  <div class="form-group">
     <label> Salary </label>
     <div class="input-group">
       <span class="input-group-addon"><?=$this->config->item('CURRENCY');?></span>
