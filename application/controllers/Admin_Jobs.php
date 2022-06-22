@@ -1,21 +1,25 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Admin_Jobs extends CI_Controller {
+class Admin_Jobs extends CI_Controller
+{
 
-  public function __construct() {
+  public function __construct()
+  {
     parent::__construct();
     $this->load->model('Common_Model');
-    if(!$this->check_login()){
+    if (!$this->check_login()) {
       redirect('Admin');
     }
   }
 
-  public function check_login(){
+  public function check_login()
+  {
     return ($this->session->userdata('is_admin_logged_in')) ? true : false;
   }
 
-  public function index(){
+  public function index()
+  {
     $pageData = [];
     $admin_id = $this->session->userdata('id');
     $where['id'] = $admin_id;
@@ -33,7 +37,8 @@ class Admin_Jobs extends CI_Controller {
     $this->load->view('admin/jobs_management', $pageData);
   }
 
-  public function types(){
+  public function types()
+  {
     $pageData = [];
     $admin_id = $this->session->userdata('id');
     $where['id'] = $admin_id;
@@ -46,7 +51,8 @@ class Admin_Jobs extends CI_Controller {
     $this->load->view('admin/job_types_management', $pageData);
   }
 
-  public function add_job(){
+  public function add_job()
+  {
     $response['status'] = 0;
     $response['responseMessage'] = $this->Common_Model->error('Something went wrong.');
     $insert['title'] = $this->input->post('title');
@@ -61,12 +67,12 @@ class Admin_Jobs extends CI_Controller {
     $insert['is_deleted'] = 0;
     $insert['user_id'] = $this->session->userdata('id');
     $insert['created'] = $insert['updated'] = date("Y-m-d H:i:s");
-    if($insert['job_type'] == 'other' && $insert['name']){
+    if ($insert['job_type'] == 'other' && $insert['name']) {
       $insertJobType['name'] = $insert['name'];
       $insert['job_type'] = $this->Common_Model->insert('job_types', $insertJobType);
       unset($insert['name']);
     }
-    if($this->Common_Model->insert('jobs', $insert)){
+    if ($this->Common_Model->insert('jobs', $insert)) {
       $response['status'] = 1;
       $response['responseMessage'] = $this->Common_Model->success('Job added successfully.');
     }
@@ -74,11 +80,12 @@ class Admin_Jobs extends CI_Controller {
     echo json_encode($response);
   }
 
-  public function delete_job(){
+  public function delete_job()
+  {
     $response['status'] = 0;
     $where['id'] = $this->input->post('delete_job_id');
     $update['is_deleted'] = 1;
-    if($this->Common_Model->update('jobs', $where, $update)){
+    if ($this->Common_Model->update('jobs', $where, $update)) {
       $response['status'] = 1;
       $response['responseMessage'] = $this->Common_Model->success('Job deleted successfully.');
     }
@@ -86,7 +93,8 @@ class Admin_Jobs extends CI_Controller {
     echo json_encode($response);
   }
 
-  public function get_job($id){
+  public function get_job($id)
+  {
     $join[0][] = 'job_types';
     $join[0][] = 'jobs.job_type = job_types.id';
     $join[0][] = 'left';
@@ -102,7 +110,8 @@ class Admin_Jobs extends CI_Controller {
     $this->load->view('admin/include/job_details', $pageData);
   }
 
-  public function update_job(){
+  public function update_job()
+  {
     $response['status'] = 0;
     $response['responseMessage'] = $this->Common_Model->error('Something went wrong.');
     $update['title'] = $this->input->post('title');
@@ -115,7 +124,7 @@ class Admin_Jobs extends CI_Controller {
     $update['payment_type'] = $this->input->post('payment_type');
     $update['last_date'] = $this->input->post('last_date');
     $where['id'] = $this->input->post('job_id');
-    if($this->Common_Model->update('jobs', $where, $update)){
+    if ($this->Common_Model->update('jobs', $where, $update)) {
       $response['status'] = 1;
       $response['responseMessage'] = $this->Common_Model->success('Job updated successfully.');
     }
@@ -123,11 +132,12 @@ class Admin_Jobs extends CI_Controller {
     echo json_encode($response);
   }
 
-  public function add_type(){
+  public function add_type()
+  {
     $response['status'] = 0;
     $response['responseMessage'] = $this->Common_Model->error('Something went wrong.');
     $insert['name'] = $this->input->post('name');
-    if($this->Common_Model->insert('job_types', $insert)){
+    if ($this->Common_Model->insert('job_types', $insert)) {
       $response['status'] = 1;
       $response['responseMessage'] = $this->Common_Model->success('Job type added successfully.');
     }
@@ -135,10 +145,11 @@ class Admin_Jobs extends CI_Controller {
     echo json_encode($response);
   }
 
-  public function delete_type(){
+  public function delete_type()
+  {
     $response['status'] = 0;
     $where['id'] = $this->input->post('delete_job_type_id');
-    if($this->Common_Model->delete('job_types', $where)){
+    if ($this->Common_Model->delete('job_types', $where)) {
       $response['status'] = 1;
       $response['responseMessage'] = $this->Common_Model->success('Job type deleted successfully.');
     }
@@ -146,17 +157,19 @@ class Admin_Jobs extends CI_Controller {
     echo json_encode($response);
   }
 
-  public function get_job_type($id){
+  public function get_job_type($id)
+  {
     $pageData['jobTypeDetails'] = $this->Common_Model->fetch_records('job_types', array('id' => $id), false, true);
     $this->load->view('admin/include/job_type_details', $pageData);
   }
 
-  public function update_job_type(){
+  public function update_job_type()
+  {
     $response['status'] = 0;
     $response['responseMessage'] = $this->Common_Model->error('Something went wrong.');
     $update['name'] = $this->input->post('name');
     $where['id'] = $this->input->post('job_type_id');
-    if($this->Common_Model->update('job_types', $where, $update)){
+    if ($this->Common_Model->update('job_types', $where, $update)) {
       $response['status'] = 1;
       $response['responseMessage'] = $this->Common_Model->success('Job type updated successfully.');
     }
@@ -166,10 +179,11 @@ class Admin_Jobs extends CI_Controller {
 
   /* Not in use below functions */
 
-  public function Add(){
+  public function Add()
+  {
     $response['status'] = 0;
     $insert = $this->input->post();
-    if($_FILES['service_image']['error'] == 0){
+    if ($_FILES['service_image']['error'] == 0) {
       $config['upload_path'] = "assets/site/img/";
       $config['allowed_types'] = 'jpeg|gif|jpg|png';
       $config['encrypt_name'] = true;
@@ -177,33 +191,35 @@ class Admin_Jobs extends CI_Controller {
       if ($this->upload->do_upload('service_image')) {
         $serviceImage = $this->upload->data("file_name");
 
-        $insert['service_image'] = "assets/site/img/" .$serviceImage;
-      }else{
+        $insert['service_image'] = "assets/site/img/" . $serviceImage;
+      } else {
         $response['responseMessage'] = $this->Common_Model->error($this->upload->display_errors());
       }
     }
-    if($this->Common_Model->insert('services', $insert)){
+    if ($this->Common_Model->insert('services', $insert)) {
       $response['status'] = 1;
       $response['responseMessage'] = 'Service Added Successfully.';
     }
     echo json_encode($response);
   }
 
-  public function Get(){
+  public function Get()
+  {
     $whereService['id'] = $this->input->post('service_id');
     $pageData['serviceDetails'] = $this->Common_Model->fetch_records('services', $whereService, false, true);
 
     $this->load->view('admin/edit_service', $pageData);
   }
 
-  public function Update(){
+  public function Update()
+  {
     $response['status'] = 0;
     $response['responseMessage'] = $this->Common_Model->error('Server error, please try again later');
 
     $update = $this->input->post();
     $where['id'] = $update['service_id'];
     unset($update['service_id']);
-    if($_FILES['service_image_update']['error'] == 0){
+    if ($_FILES['service_image_update']['error'] == 0) {
       $config['upload_path'] = "assets/site/img/";
       $config['allowed_types'] = 'jpeg|gif|jpg|png';
       $config['encrypt_name'] = true;
@@ -211,12 +227,12 @@ class Admin_Jobs extends CI_Controller {
       if ($this->upload->do_upload('service_image_update')) {
         $serviceImage = $this->upload->data("file_name");
 
-        $update['service_image'] = "assets/site/img/" .$serviceImage;
-        if(file_exists($update['thumbnail_old'])) unlink($update['thumbnail_old']);
+        $update['service_image'] = "assets/site/img/" . $serviceImage;
+        if (file_exists($update['thumbnail_old'])) unlink($update['thumbnail_old']);
       }
     }
     unset($update['thumbnail_old']);
-    if($this->Common_Model->update('services', $where, $update)){
+    if ($this->Common_Model->update('services', $where, $update)) {
       $response['status'] = 1;
       $response['responseMessage'] = $this->Common_Model->success('Services updated successfully.');
     }
@@ -224,12 +240,13 @@ class Admin_Jobs extends CI_Controller {
     echo json_encode($response);
   }
 
-  public function Delete(){
+  public function Delete()
+  {
     $response['status'] = 0;
     $response['responseMessage'] = $this->Common_Model->error('Server error, please try again later.');
     $where['id'] = $this->input->post('service_id');
     $update['is_deleted'] = 1;
-    if($this->Common_Model->update('services', $where, $update)){
+    if ($this->Common_Model->update('services', $where, $update)) {
       $response['status'] = 1;
       $response['responseMessage'] = $this->Common_Model->success('Service deleted successfully.');
     }
@@ -237,7 +254,8 @@ class Admin_Jobs extends CI_Controller {
     echo json_encode($response);
   }
 
-  public function image($id){
+  public function image($id)
+  {
     $pageData = [];
     $admin_id = $this->session->userdata('id');
     $where['id'] = $admin_id;
@@ -252,11 +270,12 @@ class Admin_Jobs extends CI_Controller {
     $this->load->view('admin/service_images_management', $pageData);
   }
 
-  public function Add_Image(){
+  public function Add_Image()
+  {
     $response['status'] = 0;
     $insert = $this->input->post();
     $insert['is_deleted'] = 0;
-    if($_FILES['service_image']['error'] == 0){
+    if ($_FILES['service_image']['error'] == 0) {
       $config['upload_path'] = "assets/site/img/";
       $config['allowed_types'] = 'jpeg|gif|jpg|png';
       $config['encrypt_name'] = true;
@@ -264,34 +283,36 @@ class Admin_Jobs extends CI_Controller {
       if ($this->upload->do_upload('service_image')) {
         $serviceImage = $this->upload->data("file_name");
 
-        $insert['service_image'] = "assets/site/img/" .$serviceImage;
-      }else{
+        $insert['service_image'] = "assets/site/img/" . $serviceImage;
+      } else {
         $response['responseMessage'] = $this->Common_Model->error($this->upload->display_errors());
       }
     }
     $insert['created'] = date("Y-m-d H:i:s");
-    if($this->Common_Model->insert('service_images', $insert)){
+    if ($this->Common_Model->insert('service_images', $insert)) {
       $response['status'] = 1;
       $response['responseMessage'] = 'Service Image Added Successfully.';
     }
     echo json_encode($response);
   }
 
-  public function Get_Image(){
+  public function Get_Image()
+  {
     $whereService['id'] = $this->input->post('service_image_id');
     $pageData['serviceImageDetails'] = $this->Common_Model->fetch_records('service_images', $whereService, false, true);
 
     $this->load->view('admin/edit_service_image', $pageData);
   }
 
-  public function Update_Image(){
+  public function Update_Image()
+  {
     $response['status'] = 0;
     $response['responseMessage'] = $this->Common_Model->error('Server error, please try again later');
 
     $update = $this->input->post();
     $where['id'] = $update['service_image_id'];
     unset($update['service_image_id']);
-    if($_FILES['service_image_update']['error'] == 0){
+    if ($_FILES['service_image_update']['error'] == 0) {
       $config['upload_path'] = "assets/site/img/";
       $config['allowed_types'] = 'jpeg|gif|jpg|png';
       $config['encrypt_name'] = true;
@@ -299,12 +320,12 @@ class Admin_Jobs extends CI_Controller {
       if ($this->upload->do_upload('service_image_update')) {
         $serviceImage = $this->upload->data("file_name");
 
-        $update['service_image'] = "assets/site/img/" .$serviceImage;
-        if(file_exists($update['thumbnail_old'])) unlink($update['thumbnail_old']);
+        $update['service_image'] = "assets/site/img/" . $serviceImage;
+        if (file_exists($update['thumbnail_old'])) unlink($update['thumbnail_old']);
       }
     }
     unset($update['thumbnail_old']);
-    if($this->Common_Model->update('service_images', $where, $update)){
+    if ($this->Common_Model->update('service_images', $where, $update)) {
       $response['status'] = 1;
       $response['responseMessage'] = $this->Common_Model->success('Service Image updated successfully.');
     }
@@ -312,12 +333,13 @@ class Admin_Jobs extends CI_Controller {
     echo json_encode($response);
   }
 
-  public function Delete_Image(){
+  public function Delete_Image()
+  {
     $response['status'] = 0;
     $response['responseMessage'] = $this->Common_Model->error('Server error, please try again later.');
     $where['id'] = $this->input->post('service_image_id');
     $update['is_deleted'] = 1;
-    if($this->Common_Model->update('service_images', $where, $update)){
+    if ($this->Common_Model->update('service_images', $where, $update)) {
       $response['status'] = 1;
       $response['responseMessage'] = $this->Common_Model->success('Service deleted successfully.');
     }
@@ -325,7 +347,8 @@ class Admin_Jobs extends CI_Controller {
     echo json_encode($response);
   }
 
-  public function Brochure($id){
+  public function Brochure($id)
+  {
     $pageData = [];
     $admin_id = $this->session->userdata('id');
     $where['id'] = $admin_id;
@@ -340,11 +363,12 @@ class Admin_Jobs extends CI_Controller {
     $this->load->view('admin/brochure_management', $pageData);
   }
 
-  public function add_brochure(){
+  public function add_brochure()
+  {
     $response['status'] = 0;
     $insert = $this->input->post();
     $insert['is_deleted'] = 0;
-    if($_FILES['brochure']['error'] == 0){
+    if ($_FILES['brochure']['error'] == 0) {
       $config['upload_path'] = "assets/site/brochure/";
       $config['allowed_types'] = 'pdf';
       $config['encrypt_name'] = true;
@@ -352,34 +376,36 @@ class Admin_Jobs extends CI_Controller {
       if ($this->upload->do_upload('brochure')) {
         $brochure = $this->upload->data("file_name");
 
-        $insert['brochure'] = "assets/site/brochure/" .$brochure;
-      }else{
+        $insert['brochure'] = "assets/site/brochure/" . $brochure;
+      } else {
         $response['responseMessage'] = $this->Common_Model->error($this->upload->display_errors());
       }
     }
     $insert['created'] = date("Y-m-d H:i:s");
-    if($this->Common_Model->insert('service_brochures', $insert)){
+    if ($this->Common_Model->insert('service_brochures', $insert)) {
       $response['status'] = 1;
       $response['responseMessage'] = 'Service Brochure Added Successfully.';
     }
     echo json_encode($response);
   }
 
-  public function Get_Brochure(){
+  public function Get_Brochure()
+  {
     $whereService['id'] = $this->input->post('service_id');
     $pageData['brochureDetails'] = $this->Common_Model->fetch_records('service_brochures', $whereService, false, true);
 
     $this->load->view('admin/edit_brochure', $pageData);
   }
 
-  public function Update_Brochure(){
+  public function Update_Brochure()
+  {
     $response['status'] = 0;
     $response['responseMessage'] = $this->Common_Model->error('Server error, please try again later');
 
     $update = $this->input->post();
     $where['id'] = $update['brochure_id'];
     unset($update['brochure_id']);
-    if($_FILES['brochure_update']['error'] == 0){
+    if ($_FILES['brochure_update']['error'] == 0) {
       $config['upload_path'] = "assets/site/brochure/";
       $config['allowed_types'] = 'pdf';
       $config['encrypt_name'] = true;
@@ -387,12 +413,12 @@ class Admin_Jobs extends CI_Controller {
       if ($this->upload->do_upload('brochure_update')) {
         $serviceImage = $this->upload->data("file_name");
 
-        $update['brochure'] = "assets/site/brochure/" .$serviceImage;
-        if(file_exists($update['brochure_old'])) unlink($update['brochure_old']);
+        $update['brochure'] = "assets/site/brochure/" . $serviceImage;
+        if (file_exists($update['brochure_old'])) unlink($update['brochure_old']);
       }
     }
     unset($update['brochure_old']);
-    if($this->Common_Model->update('service_brochures', $where, $update)){
+    if ($this->Common_Model->update('service_brochures', $where, $update)) {
       $response['status'] = 1;
       $response['responseMessage'] = $this->Common_Model->success('Service brochure updated successfully.');
     }
@@ -400,17 +426,17 @@ class Admin_Jobs extends CI_Controller {
     echo json_encode($response);
   }
 
-  public function Delete_Brochure(){
+  public function Delete_Brochure()
+  {
     $response['status'] = 0;
     $response['responseMessage'] = $this->Common_Model->error('Server error, please try again later.');
     $where['id'] = $this->input->post('brochure_id');
     $update['is_deleted'] = 1;
-    if($this->Common_Model->update('service_brochures', $where, $update)){
+    if ($this->Common_Model->update('service_brochures', $where, $update)) {
       $response['status'] = 1;
       $response['responseMessage'] = $this->Common_Model->success('Brochure deleted successfully.');
     }
     $this->session->set_flashdata('responseMessage', $response['responseMessage']);
     echo json_encode($response);
   }
-
 }

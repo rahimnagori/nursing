@@ -4,14 +4,16 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Jobs extends CI_Controller
 {
 
-    public function __construct(){
+    public function __construct()
+    {
         parent::__construct();
         $this->load->model('Common_Model');
         $this->load->model('Jobs_Model');
         $this->load->library('session');
     }
 
-    public function index(){
+    public function index()
+    {
         $searchParams = $this->input->post();
         $orLikeGroup = [];
         if (!empty($searchParams['searchQuery'])) {
@@ -38,7 +40,8 @@ class Jobs extends CI_Controller
         $this->load->view('site/include/jobs_listings', $pageData);
     }
 
-    public function job_details($id){
+    public function job_details($id)
+    {
         $pageData = $this->Common_Model->get_userdata();
 
         $where = [
@@ -49,7 +52,7 @@ class Jobs extends CI_Controller
             'job_id' => $id
         ];
         $pageData['jobDetails'] = $this->Common_Model->fetch_records('jobs', $where, false, true);
-        if(empty($pageData['jobDetails'])){
+        if (empty($pageData['jobDetails'])) {
             $response['responseMessage'] = $this->Common_Model->error("Job not found or invalid job!!");
             $this->session->set_flashdata('responseMessage', $response['responseMessage']);
             redirect('Jobs');
@@ -62,7 +65,8 @@ class Jobs extends CI_Controller
         $this->load->view('site/include/footer', $pageData);
     }
 
-    public function apply(){
+    public function apply()
+    {
         $response['status'] = 0;
         $response['responseMessage'] = $this->Common_Model->error('Something went wrong, please try again later.');
         $jobId = $this->input->post('id');
@@ -90,7 +94,8 @@ class Jobs extends CI_Controller
         echo json_encode($response);
     }
 
-    public function applied(){
+    public function applied()
+    {
         $pageData = $this->Common_Model->get_userdata();
 
         $join[0][] = 'jobs';

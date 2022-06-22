@@ -1,21 +1,25 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Admin_Contacts extends CI_Controller {
+class Admin_Contacts extends CI_Controller
+{
 
-  public function __construct() {
+  public function __construct()
+  {
     parent::__construct();
     $this->load->model('Common_Model');
-    if(!$this->check_login()){
+    if (!$this->check_login()) {
       redirect('Admin');
     }
   }
 
-  public function check_login(){
+  public function check_login()
+  {
     return ($this->session->userdata('is_admin_logged_in')) ? true : false;
   }
 
-  public function index(){
+  public function index()
+  {
     $pageData = [];
     $admin_id = $this->session->userdata('id');
     $where['id'] = $admin_id;

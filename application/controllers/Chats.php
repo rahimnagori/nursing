@@ -4,39 +4,43 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Chats extends CI_Controller
 {
 
-    public function __construct(){
+    public function __construct()
+    {
         parent::__construct();
         $this->load->model('Common_Model');
         $this->load->library('session');
         $this->check_login();
     }
 
-    private function check_login(){
+    private function check_login()
+    {
         return ($this->session->userdata('is_user_logged_in')) ? true : false;
     }
 
-    public function index(){
-        if(!$this->check_login()){
-          $responseMessage = $this->Common_Model->error('Please login to continue.');
-          $this->session->set_flashdata('responseMessage', $responseMessage);
-          redirect('');
+    public function index()
+    {
+        if (!$this->check_login()) {
+            $responseMessage = $this->Common_Model->error('Please login to continue.');
+            $this->session->set_flashdata('responseMessage', $responseMessage);
+            redirect('');
         }
         $pageData = $this->Common_Model->get_userdata();
         $userId = $this->session->userdata('id');
         $pageData['chatDetails'] = $this->Common_Model->fetch_records('chats', array('user_id' => $userId), false, true);
-        if(empty($pageData['chatDetails'])){
-          $insert['user_id'] = $userId;
-          $userId = $this->Common_Model->insert('chats', $insert);
-          $pageData['chatDetails'] = $this->Common_Model->fetch_records('chats', array('user_id' => $userId), false, true);
+        if (empty($pageData['chatDetails'])) {
+            $insert['user_id'] = $userId;
+            $userId = $this->Common_Model->insert('chats', $insert);
+            $pageData['chatDetails'] = $this->Common_Model->fetch_records('chats', array('user_id' => $userId), false, true);
         }
         $pageData['messages'] = $this->Common_Model->fetch_records('messages', array('chat_id' => $pageData['chatDetails']['id']));
-    
+
         $this->load->view('site/include/header', $pageData);
         $this->load->view('site/chat', $pageData);
         $this->load->view('site/include/footer', $pageData);
     }
 
-    public function add(){
+    public function add()
+    {
         $response['status'] = 0;
         $response['responseMessage'] = $this->Common_Model->error('Something went wrong, please try again later.');
 
@@ -56,7 +60,8 @@ class Chats extends CI_Controller
         echo json_encode($response);
     }
 
-    public function get_messages(){
+    public function get_messages()
+    {
         $where['chat_id'] = $this->input->post('chat_id');
         // $pageData['messages'] = $this->Common_Model->fetch_records('messages', $where);
         $join[0][] = 'user_docs';
@@ -66,17 +71,17 @@ class Chats extends CI_Controller
         $pageData['messages'] = $this->Common_Model->join_records('messages', $join, array('messages.chat_id' => $where['chat_id']), $select, 'messages.id', 'ASC');
 
         $where['is_admin'] = 1;
-        $this->Common_Model->update('messages', $where , array('is_read' => 1));    
-    
-        $this->load->view('site/messages', $pageData);
+        $this->Common_Model->update('messages', $where, array('is_read' => 1));
 
+        $this->load->view('site/messages', $pageData);
     }
 
-    public function send_file(){
+    public function send_file()
+    {
         $response['responseMessage'] = $this->Common_Model->error('Something went wrong, please try again later.');
         $response['status'] = 0;
 
-        if($_FILES['chat_file']['error'] == 0){
+        if ($_FILES['chat_file']['error'] == 0) {
             $config['upload_path'] = "assets/site/documents/";
             $config['allowed_types'] = 'jpeg|gif|jpg|png|doc|docx|pdf';
             $config['encrypt_name'] = true;
@@ -85,7 +90,7 @@ class Chats extends CI_Controller
                 $chatFile = $this->upload->data("file_name");
 
                 $insert['user_id'] = $this->session->userdata('id');
-                $insert['document'] = $config['upload_path'] .$chatFile;
+                $insert['document'] = $config['upload_path'] . $chatFile;
                 $insert['doc_type'] = 2;
                 $documentId = $this->Common_Model->insert('user_docs', $insert);
                 if ($documentId) {
@@ -97,14 +102,15 @@ class Chats extends CI_Controller
                     $response['responseMessage'] = $this->Common_Model->success('Document sent successfully.');
                     $response['document']['id'] = $documentId;
                 }
-            }else{
-              $response['responseMessage'] = $this->Common_Model->error($this->upload->display_errors());
+            } else {
+                $response['responseMessage'] = $this->Common_Model->error($this->upload->display_errors());
             }
         }
         echo json_encode($response);
     }
 
-    private function createMessage(){
+    private function createMessage()
+    {
         $insert['message'] = $this->input->post('message');
         $insert['chat_id'] = $this->input->post('chat_id');
         $insert['sender_id'] = $this->session->userdata('id');

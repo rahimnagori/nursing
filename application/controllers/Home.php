@@ -144,7 +144,8 @@ class Home extends CI_Controller
     echo json_encode($response);
   }
 
-  public function request_professional(){
+  public function request_professional()
+  {
     $response['status'] = 0;
     $response['responseMessage'] = $this->Common_Model->error('Something went wrong.');
     $this->load->library('form_validation');
@@ -165,17 +166,17 @@ class Home extends CI_Controller
       $insert['description'] = $this->input->post('description');
       $insert['created'] = $insert['updated'] = date("Y-m-d H:i:s");
 
-      if(!empty($_FILES)){
-        if($_FILES['resume']['error'] == 0){
+      if (!empty($_FILES)) {
+        if ($_FILES['resume']['error'] == 0) {
           $config['upload_path'] = "assets/site/resume/";
           $config['allowed_types'] = 'doc|docx|pdf';
           $config['encrypt_name'] = true;
           $this->load->library("upload", $config);
           if ($this->upload->do_upload('resume')) {
             $resume = $this->upload->data("file_name");
-    
-            $insert['resume'] = $config['upload_path'] .$resume;
-          }else{
+
+            $insert['resume'] = $config['upload_path'] . $resume;
+          } else {
             $response['status'] = 2;
             $response['responseMessage'] = $this->Common_Model->error($this->upload->display_errors());
           }
@@ -185,7 +186,7 @@ class Home extends CI_Controller
         $response['status'] = 1;
         $response['responseMessage'] = $this->Common_Model->success('Request sent successfully.');
       }
-    }else{
+    } else {
       $response['status'] = 2;
       $response['responseMessage'] = $this->Common_Model->error(validation_errors());
     }
