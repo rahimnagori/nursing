@@ -30,7 +30,7 @@
                         <div class="image_uplod1">
                            <img src="<?= site_url('assets/site/'); ?>img/icon_us2.png" class="tradup_img1">
                            <form id="documentForm" name="documentForm" onsubmit="upload_document(event);">
-                              <input type="file" onchange="$('#documentForm').submit();" name="document" accept=".doc, .docx, .pdf" class="uplldui">
+                              <input type="file" id="upload_file_input" onchange="check_files();" name="document" accept=".doc, .docx, .pdf" class="uplldui">
                            </form>
                         </div>
                      </div>
@@ -94,6 +94,13 @@
                $("#responseMessage").show();
             }
          });
+      }
+   }
+
+   function check_files(){
+      let inputFile = $("#upload_file_input")[0].files[0];
+      if(inputFile != undefined){
+         $('#documentForm').submit();
       }
    }
 
