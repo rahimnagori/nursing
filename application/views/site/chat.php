@@ -1,7 +1,7 @@
 <div class="pad_sec">
    <div class="container">
       <div class="back_bk">
-      <a href="<?=site_url('Profile');?>"><i class="fa fa-arrow-left"></i> Back</a>
+         <a href="<?= site_url('Profile'); ?>"><i class="fa fa-arrow-left"></i> Back</a>
       </div>
       <div class="man_chat">
          <div class="row">
@@ -21,16 +21,15 @@
                         <div class="input-group">
                            <input type="text" name="message" id="message" placeholder="Message" class="form-control" required>
                            <input type="hidden" name="chat_id" id="chat_id" value="<?= $chatDetails['id']; ?>">
-                           
+
                            <span class="fil_upload">
                               <span class="fil_1">
-                              <i class="fa fa-paperclip" aria-hidden="true"></i>
-                              <input type="file" id="chat_file" name="chat_file" onchange="check_file();" accept=".doc, .docx, .pdf, image/*" />
+                                 <i class="fa fa-paperclip" aria-hidden="true"></i>
+                                 <input type="file" id="chat_file" name="chat_file" onchange="check_file();" accept=".doc, .docx, .pdf, image/*" />
                               </span>
-                              </span>
+                           </span>
                            <span class="input-group-btn">
                               <button class="btn btn_theme2 btn_submit" type="submit"><i class="la la-paper-plane"></i> Send</button>
-                              
                               <!-- <button class="btn btn_upload" type="button" id="upload_button" ><i class="fa fa-upload"></i></button> -->
                            </span>
                         </div>
@@ -94,7 +93,7 @@
          scrollTop: $("" + div)[0].scrollHeight
       }, 1000);
    }
-   
+
    function get_message() {
       $.ajax({
          type: 'POST',
@@ -117,15 +116,15 @@
       get_message();
    }, 1000);
 
-   
-   function check_file(){
+
+   function check_file() {
       let inputFile = $("#chat_file")[0].files[0];
-      if(inputFile != undefined){
+      if (inputFile != undefined) {
          send_file(inputFile);
       }
    }
 
-   function send_file(inputFile){
+   function send_file(inputFile) {
       let formData = new FormData();
       formData.append('chat_file', inputFile);
       formData.append('chat_id', $("#chat_id").val());
@@ -147,7 +146,7 @@
       });
    }
 
-   function delete_file(document_id){
+   function delete_file(document_id) {
       $.ajax({
          type: 'PUT',
          url: BASE_URL + 'DELETE-CHAT-DOCUMENT',
