@@ -115,7 +115,7 @@
 
    let load_chat = setInterval(function() {
       get_message();
-   }, 5000);
+   }, 1000);
 
    
    function check_file(){
