@@ -89,4 +89,19 @@ class Jobs extends CI_Controller
         }
         echo json_encode($response);
     }
+
+    public function applied(){
+        $pageData = $this->Common_Model->get_userdata();
+
+        // $join[0][] = 'job_types';
+        // $join[0][] = 'jobs.job_type = job_types.id';
+        // $join[0][] = 'left';
+        // $whereJoin['jobs.is_deleted'] = 0;
+        // $select = 'jobs.*, job_types.name';
+        // $pageData['jobs'] = $this->Jobs_Model->join_records('jobs', $join, $select, $whereJoin, $orLikeGroup,  'jobs.id', 'DESC');
+
+        $this->load->view('site/include/header', $pageData);
+        $this->load->view('site/job_details', $pageData);
+        $this->load->view('site/include/footer', $pageData);
+    }
 }

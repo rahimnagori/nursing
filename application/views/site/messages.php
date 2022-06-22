@@ -13,7 +13,10 @@ foreach ($messages as $message) {
                 <?php
                     if($message['is_document'] == 1){
                 ?>
-                        <a target="_blank" href="<?=site_url($message['document']);?>">View</a><i class="fa fa-file"></i><a href="<?=site_url($message['document']);?>" download>Download</a>
+                        <a class="action_button btn btn-xs" target="_blank" href="<?=site_url($message['document']);?>"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                        <i class="fa fa-file"></i>
+                        <a class="action_button btn btn-xs" href="<?=site_url($message['document']);?>" download><i class="fa fa-download" aria-hidden="true"></i></a>
+                        <a href="javascript:void(0);" class="btn btn-danger btn-xs" onclick="delete_file(<?=$message['document_id'];?>)"><i class="fa fa-trash" aria-hidden="true"></i></a>
                 <?php
                     }
                     ?>

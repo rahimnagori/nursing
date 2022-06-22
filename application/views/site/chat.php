@@ -136,4 +136,23 @@
          }
       });
    }
+
+   function delete_file(document_id){
+      $.ajax({
+         type: 'PUT',
+         url: BASE_URL + 'DELETE-CHAT-DOCUMENT',
+         data: {
+            document_id: document_id
+         },
+         dataType: 'json',
+         beforeSend: function(xhr) {
+            $(".action_button").attr('disabled', true);
+            $(".action_button").html("<i class='fa fa-spin fa-spinner'></i>");
+         },
+         success: function(response) {
+            $(".action_button").attr('disabled', false);
+            $(".action_button").html("<i class='fa fa-upload'></i>");
+         }
+      });
+   }
 </script>
