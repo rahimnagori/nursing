@@ -8,18 +8,38 @@ foreach ($messages as $message) {
             </div>
             <div class="messge_cont">
                 <p>
-                    <span class="message_box"><?= $message['message']; ?></span>
-                </p>
-                <?php
+                    <span class="message_box"><?= $message['message']; ?>
+                    <?php
                     if($message['is_document'] == 1){
                 ?>
-                        <a class="action_button btn btn-xs" target="_blank" href="<?=site_url($message['document']);?>" data-toggle="tooltip" title="View File" ><i class="fa fa-eye" aria-hidden="true"></i></a>
-                        <i class="fa fa-file"></i>
-                        <a class="action_button btn btn-xs" href="<?=site_url($message['document']);?>"  data-toggle="tooltip" title="Download File" download><i class="fa fa-download" aria-hidden="true"></i></a>
-                        <a href="javascript:void(0);" class="btn btn-danger btn-xs" onclick="delete_file(<?=$message['document_id'];?>)" data-toggle="tooltip" title="Delete File"><i class="fa fa-trash" aria-hidden="true"></i></a>
-                <?php
+                    <i class="fa fa-file size_m"></i>
+                
+                    <span class="user_dropp2">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="fa fa-ellipsis-v"></i>
+                </a>
+                <span class="dropdown-menu">
+                  <span><a class="" target="_blank" href="<?=site_url($message['document']);?>"   ><i class="fa fa-eye" aria-hidden="true"></i> View File</a></span>
+                  <span><a class="" href="<?=site_url($message['document']);?>"    download><i class="fa fa-download" aria-hidden="true"></i> Download File</a></span>
+                <span><a href="javascript:void(0);" class="" onclick="delete_file(<?=$message['document_id'];?>)"  ><i class="fa fa-trash" aria-hidden="true"></i> Delete File</a></span>
+                </span>
+              </span>
+              <?php
                     }
                     ?>
+                </span> 
+
+
+                  
+
+
+                </p>
+               
+                        
+
+                        
+                        
+                
                 <span class="time"><i class="fa fa-clock-o"></i> <?= date("d M,Y h:i A", strtotime($message['created'])); ?></span>
             </div>
         </div>
