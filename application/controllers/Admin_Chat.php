@@ -64,7 +64,12 @@ class Admin_Chat extends CI_Controller {
 
   public function get_messages(){
     $where['chat_id'] = $this->input->post('chat_id');
-    $pageData['messages'] = $this->Common_Model->fetch_records('messages', $where);
+    // $pageData['messages'] = $this->Common_Model->fetch_records('messages', $where);
+    $join[0][] = 'user_docs';
+    $join[0][] = 'messages.document_id = user_docs.id';
+    $join[0][] = 'left';
+    $select = 'messages.*, user_docs.document';
+    $pageData['messages'] = $this->Common_Model->join_records('messages', $join, array('messages.chat_id' => $where['chat_id']), $select, 'messages.id', 'ASC');
     $where['is_admin'] = 0;
     $this->Common_Model->update('messages', $where , array('is_read' => 1));
   

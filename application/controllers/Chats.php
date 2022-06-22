@@ -63,7 +63,7 @@ class Chats extends CI_Controller
         $join[0][] = 'messages.document_id = user_docs.id';
         $join[0][] = 'left';
         $select = 'messages.*, user_docs.document';
-        $pageData['messages'] = $this->Common_Model->join_records('messages', $join, false, $select, 'messages.id', 'ASC');
+        $pageData['messages'] = $this->Common_Model->join_records('messages', $join, array('messages.chat_id' => $where['chat_id']), $select, 'messages.id', 'ASC');
 
         $where['is_admin'] = 1;
         $this->Common_Model->update('messages', $where , array('is_read' => 1));    
