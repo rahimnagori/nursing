@@ -18,7 +18,13 @@
                            <div class="image_uplod1">
                               <img src="<?= site_url('assets/site/'); ?>img/img_2.png" class="tradup_img2">
                               <div class="btttponm_psuiui">
-                                 <button type="button" onclick="delete_document(<?= $userDocument['id']; ?>);" class="btn btn-danger">X</button>
+                                
+                                 
+                                 <button class="btn btn_theme" data-toggle="tooltip" data-placement="left" title="View"><i class="fa fa-eye"></i></button>
+                                 <button class="btn btn_theme" data-toggle="tooltip" data-placement="left" title="Download"><i class="fa fa-download"></i></button>
+                                 <button type="button" onclick="delete_document(<?= $userDocument['id']; ?>);" class="btn btn-danger" data-toggle="tooltip" data-placement="left" title="Delete">
+                                 <i class="fa fa-trash"></i>
+                              </button>
                               </div>
                            </div>
                            <?= ($userDocument['doc_name']) ? "<p>" . $userDocument['doc_name'] . "</p>" : ''; ?>
@@ -30,7 +36,8 @@
                         <div class="image_uplod1">
                            <img src="<?= site_url('assets/site/'); ?>img/icon_us2.png" class="tradup_img1">
                            <form id="documentForm" name="documentForm" onsubmit="upload_document(event);">
-                              <input type="file" id="upload_file_input" onchange="check_files();" name="document" accept=".doc, .docx, .pdf" class="uplldui">
+                           <input type="text" class="form-control fon_text">   
+                           <input type="file" id="upload_file_input" onchange="check_files();" name="document" accept=".doc, .docx, .pdf" class="uplldui">
                            </form>
                         </div>
                      </div>
@@ -115,3 +122,4 @@
       </div>`;
    }
 </script>
+

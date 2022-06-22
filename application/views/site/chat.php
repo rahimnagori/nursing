@@ -1,11 +1,14 @@
 <div class="pad_sec">
    <div class="container">
+      <div class="back_bk">
+      <a href="<?=site_url('Profile');?>"><i class="fa fa-arrow-left"></i> Back</a>
+      </div>
       <div class="man_chat">
          <div class="row">
             <div class="col-sm-12">
                <div class="right_messge">
                   <div class="hedadeer_riht">
-                     <h4><a href="<?=site_url('Profile');?>"><i class="fa fa-arrow-left"></i></a> Message</h4>
+                     <h4> Message</h4>
                   </div>
                   <div class="cha_magge_us2">
                      <ul class="ul_set append_new_message">
@@ -18,10 +21,17 @@
                         <div class="input-group">
                            <input type="text" name="message" id="message" placeholder="Message" class="form-control" required>
                            <input type="hidden" name="chat_id" id="chat_id" value="<?= $chatDetails['id']; ?>">
+                           
+                           <span class="fil_upload">
+                              <span class="fil_1">
+                              <i class="fa fa-paperclip" aria-hidden="true"></i>
+                              <input type="file" id="chat_file" name="chat_file" onchange="check_file();" accept=".doc, .docx, .pdf, image/*" />
+                              </span>
+                              </span>
                            <span class="input-group-btn">
                               <button class="btn btn_theme2 btn_submit" type="submit"><i class="la la-paper-plane"></i> Send</button>
-                              <input type="file" id="chat_file" name="chat_file" onchange="check_file();" accept=".doc, .docx, .pdf, image/*" />
-                              <button class="btn btn_upload" type="button" id="upload_button" ><i class="fa fa-upload"></i></button>
+                              
+                              <!-- <button class="btn btn_upload" type="button" id="upload_button" ><i class="fa fa-upload"></i></button> -->
                            </span>
                         </div>
                      </form>
