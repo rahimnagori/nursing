@@ -10,6 +10,13 @@ foreach ($messages as $message) {
                 <p>
                     <span class="message_box"><?= $message['message']; ?></span>
                 </p>
+                <?php
+                    if($message['is_document'] == 1){
+                ?>
+                        <a target="_blank" href="<?=site_url($message['document']);?>">View</a><i class="fa fa-file"></i><a href="<?=site_url($message['document']);?>" download>Download</a>
+                <?php
+                    }
+                    ?>
                 <span class="time"><i class="fa fa-clock-o"></i> <?= date("d M,Y h:i A", strtotime($message['created'])); ?></span>
             </div>
         </div>

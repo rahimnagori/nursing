@@ -48,6 +48,7 @@ class User_Documents extends CI_Controller
                 if ($this->upload->do_upload('document')) {
                     $insert['document'] = $config['upload_path'] . $this->upload->data("file_name");
                     $insert['user_id'] = $this->session->userdata('id');
+                    $insert['doc_type'] = 1;
                     $documentId = $this->Common_Model->insert('user_docs', $insert);
                     if ($documentId) {
                         $response['status'] = 1;

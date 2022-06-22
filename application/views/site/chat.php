@@ -5,7 +5,7 @@
             <div class="col-sm-12">
                <div class="right_messge">
                   <div class="hedadeer_riht">
-                     <h4>Message</h4>
+                     <h4><a href="<?=site_url('Profile');?>"><i class="fa fa-arrow-left"></i></a> Message</h4>
                   </div>
                   <div class="cha_magge_us2">
                      <ul class="ul_set append_new_message">
@@ -20,6 +20,8 @@
                            <input type="hidden" name="chat_id" id="chat_id" value="<?= $chatDetails['id']; ?>">
                            <span class="input-group-btn">
                               <button class="btn btn_theme2 btn_submit" type="submit"><i class="la la-paper-plane"></i> Send</button>
+                              <input type="file" id="chat_file" name="chat_file" onchange="check_file();" accept=".doc, .docx, .pdf, image/*" />
+                              <button class="btn btn_upload" type="button" id="upload_button" ><i class="fa fa-upload"></i></button>
                            </span>
                         </div>
                      </form>
@@ -51,9 +53,6 @@
             let message = $("#message").val();
             let message_div = new_message(message);
             $(".append_new_message").append(message_div);
-            // if(!load_chat){
-            //    clearInterval(load_chat);
-            // }
          },
          success: function(response) {
             $("#message").val('');
@@ -106,5 +105,35 @@
 
    let load_chat = setInterval(function() {
       get_message();
-   }, 1000);
+   }, 5000);
+
+   
+   function check_file(){
+      let inputFile = $("#chat_file")[0].files[0];
+      if(inputFile != undefined){
+         send_file(inputFile);
+      }
+   }
+
+   function send_file(inputFile){
+      let formData = new FormData();
+      formData.append('chat_file', inputFile);
+      formData.append('chat_id', $("#chat_id").val());
+      $.ajax({
+         type: 'POST',
+         url: BASE_URL + 'Send-File',
+         data: formData,
+         processData: false,
+         contentType: false,
+         dataType: 'json',
+         beforeSend: function(xhr) {
+            $("#upload_button").attr('disabled', true);
+            $("#upload_button").html("<i class='fa fa-spin fa-spinner'></i>");
+         },
+         success: function(response) {
+            $("#upload_button").attr('disabled', false);
+            $("#upload_button").html("<i class='fa fa-upload'></i>");
+         }
+      });
+   }
 </script>
