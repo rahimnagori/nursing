@@ -1,3 +1,5 @@
 application/config/config.php
 application/config/database.php
+assets/site/documents
+assets/site/resume
 .htaccess

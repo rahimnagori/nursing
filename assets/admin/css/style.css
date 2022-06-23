@@ -354,11 +354,11 @@ body {
     transition: all ease-in-out 0.5s;
 }
 
-.sidebar2>ul>li>a>i {
-    position: absolute;
-    left: 15px;
-    font-size: 22px;
-    top: 10px;
+.sidebar2 > ul > li > a > i {
+	position: absolute;
+	left: 13px;
+	font-size: 19px;
+	top: 12px;
 }
 
 .sidebar2>ul>li>a:after {
@@ -410,6 +410,7 @@ body {
 
 .sidebar2>ul>li.dropdown .dropdown-menu>li>a>i {
     margin-right: 5px;
+    vertical-align: middle;
 }
 
 
@@ -836,7 +837,7 @@ body {
 }
 
 .auto_scol_left {
-    height: 400px;
+    height: 415px;
     overflow-x: hidden;
     overflow-y: auto;
     background: #fff;
@@ -893,7 +894,48 @@ body {
     padding: 4px 10px;
     display: inline-block;
 }
+.messge_cont p .message_box {
+	padding-right: 20px;
+	position: relative;
+}
+.size_m {
+	font-size: 65px;
+	padding: 10px 15px;
+}
 
+.user_dropp2 .dropdown-menu span {
+	width: 100%;
+	display: inline-block;
+}
+.user_dropp2 .dropdown-menu span a {
+	display: inline-block;
+	width: 100%;
+	color: #000;
+	padding: 7px 14px;
+	border-bottom: 1px solid #e1e1e1;
+	font-size: 15px;
+}
+.user_dropp2 .dropdown-menu span a i {
+	margin-right: 5px;
+}
+.user_dropp2 .dropdown-menu {
+	padding: 0;
+	border: none;
+}
+.size_m {
+	font-size: 65px;
+	padding: 10px 15px;
+}
+.messge_cont p .message_box .user_dropp2 .fa.fa-ellipsis-v {
+	font-size: 15px;
+	width: 15px;
+	text-align: center;
+}
+.messge_cont p .message_box .user_dropp2 {
+	position: absolute;
+	right: 5px;
+	top: 5px;
+}
 .messge_cont span.time {
     display: inline-block;
     width: 100%;
@@ -987,7 +1029,9 @@ body {
 
 /*chat messange close*/
 
-
+.messge_send .input-group > input {
+	height: 45px;
+}
 /*media start*/
 
 @media(min-width: 768px) {
