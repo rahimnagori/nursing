@@ -16,7 +16,7 @@
               foreach ($chats as $chat) {
               ?>
                 <li>
-                  <a href="#" onclick="load_new_chat(<?=$chat['id'];?>);" >
+                  <a href="#" onclick="load_new_chat(<?= $chat['id']; ?>, '<?= $chat['first_name'] . ' ' . $chat['last_name']; ?>');">
                     <span class="chat_user_img">
                       <img src="<?= site_url('assets/site/img/'); ?>logo.png">
                       <span class="chat_stas online1 "></span>
@@ -36,7 +36,7 @@
       <div class="col-sm-8">
         <div class="right_messge">
           <div class="hedadeer_riht">
-            <h4>Message</h4>
+            <h4>Message <span class="pull-right" id="username"><?= $chatDetails['username']; ?></span></h4>
           </div>
           <div class="cha_magge_us2">
             <ul class="ul_set append_new_message">
@@ -137,7 +137,8 @@
     }, 1000);
   }
 
-  function load_new_chat(user_id){
+  function load_new_chat(user_id, username) {
     $("#chat_id").val(user_id);
+    $("#username").html(username);
   }
 </script>

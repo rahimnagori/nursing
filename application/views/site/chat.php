@@ -24,7 +24,7 @@
 
                            <span class="fil_upload">
                               <span class="fil_1">
-                                 <i class="fa fa-paperclip" aria-hidden="true"></i>
+                                 <i class="fa fa-paperclip" aria-hidden="true" id="upload_button"></i>
                                  <input type="file" id="chat_file" name="chat_file" onchange="check_file();" accept=".doc, .docx, .pdf, image/*" />
                               </span>
                            </span>
@@ -136,12 +136,12 @@
          contentType: false,
          dataType: 'json',
          beforeSend: function(xhr) {
-            $("#upload_button").attr('disabled', true);
-            $("#upload_button").html("<i class='fa fa-spin fa-spinner'></i>");
+            $("#upload_button").removeClass("fa-paperclip");
+            $("#upload_button").addClass("fa-spin fa-spinner");
          },
          success: function(response) {
-            $("#upload_button").attr('disabled', false);
-            $("#upload_button").html("<i class='fa fa-upload'></i>");
+            $("#upload_button").removeClass("fa-spin fa-spinner");
+            $("#upload_button").addClass("fa-paperclip");
          }
       });
    }

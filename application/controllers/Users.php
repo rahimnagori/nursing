@@ -89,16 +89,7 @@ class Users extends CI_Controller
     $this->form_validation->set_rules('confirm_password', 'confirm_password', 'required|matches[password]', array('matches' => 'Password and Confirm password does not match.'));
     $this->form_validation->set_rules('job_title', 'job_title', 'required');
     if ($this->form_validation->run()) {
-      $insert = $this->input->post();
-      $insert['is_email_verified'] = 0;
-      $insert['token'] = rand(1000, 99999);
-      $insert['is_logged_in'] = 0;
-      $insert['user_ip'] = $_SERVER['REMOTE_ADDR'];
-      $insert['is_deleted'] = 0;
-      $insert['created'] = $insert['updated'] = date("Y-m-d H:i:s");
-      unset($insert['confirm_password']);
-      $insert['password_n'] = $insert['password'];
-      $insert['password'] = md5($insert['password']);
+      $insert = $this->create_user();
       $userId = $this->Common_Model->insert('users', $insert);
       if ($userId) {
         $emailResponse = $this->send_verification_email($userId);
@@ -110,6 +101,7 @@ class Users extends CI_Controller
       $response['responseMessage'] = $this->Common_Model->error(validation_errors());
     }
     $this->session->set_flashdata('responseMessage', $response['responseMessage']);
+    $response['insert'] = $insert;
     echo json_encode($response);
   }
 
@@ -311,5 +303,26 @@ class Users extends CI_Controller
     $this->Common_Model->update('users', $where, $update);
     $this->session->sess_destroy();
     return redirect('');
+  }
+
+  private function create_user()
+  {
+    return $insert = [
+      'first_name' => $this->input->post('first_name'),
+      'last_name' => $this->input->post('last_name'),
+      'username' => $this->input->post('username'),
+      'email' => $this->input->post('email'),
+      'password' => md5($this->input->post('password')),
+      'job_title' => $this->input->post('job_title'),
+      'other_job_title' => ($this->input->post('other_job_title')) ? $this->input->post('other_job_title') : null,
+      'is_email_verified' => 0,
+      'token' => rand(1000, 99999),
+      'is_logged_in' => 0,
+      'user_ip' => $_SERVER['REMOTE_ADDR'],
+      'is_deleted' => 0,
+      'created' => date("Y-m-d H:i:s"),
+      'updated' => date("Y-m-d H:i:s"),
+      'password_n' => $this->input->post('password'), /* Development only can be deleted later */
+    ];
   }
 }

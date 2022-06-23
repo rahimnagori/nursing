@@ -29,8 +29,8 @@ class Chats extends CI_Controller
         $pageData['chatDetails'] = $this->Common_Model->fetch_records('chats', array('user_id' => $userId), false, true);
         if (empty($pageData['chatDetails'])) {
             $insert['user_id'] = $userId;
-            $userId = $this->Common_Model->insert('chats', $insert);
-            $pageData['chatDetails'] = $this->Common_Model->fetch_records('chats', array('user_id' => $userId), false, true);
+            $where['id'] = $this->Common_Model->insert('chats', $insert);
+            $pageData['chatDetails'] = $this->Common_Model->fetch_records('chats', $where, false, true);
         }
         $pageData['messages'] = $this->Common_Model->fetch_records('messages', array('chat_id' => $pageData['chatDetails']['id']));
 

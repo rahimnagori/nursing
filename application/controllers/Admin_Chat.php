@@ -19,16 +19,17 @@ class Admin_Chat extends CI_Controller
     $where['id'] = $admin_id;
     $pageData['adminData'] = $this->Common_Model->fetch_records('admins', $where, false, true);
     $whereUsers['is_deleted'] = 0;
-    $pageData['users'] = $this->Common_Model->fetch_records('users', $whereUsers);
+    // $pageData['users'] = $this->Common_Model->fetch_records('users', $whereUsers);
     $join[0][] = 'users';
     $join[0][] = 'chats.user_id = users.id';
     $join[0][] = 'left';
-    $select = '*';
+    $select = 'chats.*, users.first_name, users.last_name, users.email';
     $pageData['chats'] = $this->Common_Model->join_records('chats', $join, false, $select, 'chats.id', 'DESC');
     if (!empty($pageData['chats'])) {
       $whereMessage['chat_id'] = $pageData['chats'][0]['id'];
       $pageData['messages'] = $this->Common_Model->fetch_records('messages', $whereMessage);
       $pageData['chatDetails']['id'] = $pageData['chats'][0]['id'];
+      $pageData['chatDetails']['username'] = $pageData['chats'][0]['first_name'] . ' ' . $pageData['chats'][0]['last_name'];
       $pageData['chatDetails']['receiverId'] = $pageData['chats'][0]['user_id'];
     }
 
