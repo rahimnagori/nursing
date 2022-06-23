@@ -53,10 +53,11 @@ class Admin_Chat extends CI_Controller
       $insert['chat_id'] = $this->input->post('chat_id');
       $insert['sender_id'] = $this->session->userdata('id');
       $insert['is_admin'] = 1;
-      $insert['receiver_id'] = 1;
+      $insert['receiver_id'] = $this->get_receiver($insert['chat_id']);
       $insert['is_read'] = 0;
       $insert['created'] = date("Y-m-d H:i:s");
       if ($this->Common_Model->insert('messages', $insert)) {
+        $this->check_notify_user($insert['receiver_id']);
         $response['status'] = 1;
         $response['responseMessage'] = $this->Common_Model->success('Message sent successfully.');
       }
@@ -81,5 +82,45 @@ class Admin_Chat extends CI_Controller
     $this->Common_Model->update('messages', $where, array('is_read' => 1));
 
     $this->load->view('site/messages', $pageData);
+  }
+
+  private function notify_user($userId, $email)
+  {
+    $userDetails = $this->Common_Model->fetch_records('users', array('id' => $userId), false, true);
+
+    $subject = 'You have a new message.';
+    $body = "<p>Dear " . $userDetails['first_name'] . " " . $userDetails['last_name'] . ",</p>";
+    $body .= $email['content'];
+    // if ($this->config->item('ENVIRONMENT') == 'production') {
+    $this->Common_Model->send_mail($userDetails['email'], $subject, $body);
+    $insertSentMail = [
+      'user_id' => $userId,
+      'email_id' => $email['id'],
+      'sent_at' => date("Y-m-d H:i:s")
+    ];
+    $this->Common_Model->insert('sent_mails', $insertSentMail);
+    // }
+  }
+
+  private function check_notify_user($userId)
+  {
+    $email = $this->Common_Model->fetch_records('emails', array('email_type' => 2), false, true);
+
+    $whereSentMail = [
+      'user_id' => $userId,
+      'email_id' => $email['id'],
+      'sent_at <' => date("Y-m-d 00:00:00")
+    ];
+
+    $isMailSent = $this->Common_Model->fetch_records('sent_mails', $whereSentMail, false, true);
+    if (empty($isMailSent)) {
+      $this->notify_user($userId, $email);
+    }
+  }
+
+  private function get_receiver($chat_id)
+  {
+    $chatDetails = $this->Common_Model->fetch_records('chats', array('id' => $chat_id), false, true);
+    return $chatDetails['user_id'];
   }
 }
