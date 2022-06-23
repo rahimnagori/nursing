@@ -64,6 +64,9 @@
             $(".append_new_message").append(message_div);
          },
          success: function(response) {
+            if(!load_chat){
+               fetch_new_message();
+            }
             $("#message").val('');
             $(".btn_submit").prop('disabled', false);
             $(".btn_submit").html(' Send ');
@@ -107,14 +110,22 @@
          },
          success: function(response) {
             $(".append_new_message").html(response);
-            scroll_to_bottom(".cha_magge_us2");
          }
       });
    }
 
-   let load_chat = setInterval(function() {
-      get_message();
-   }, 1000);
+   let load_chat = null;
+
+   function fetch_new_message(){
+      load_chat = setInterval(function() {
+         get_message();
+      }, 1000);
+   }
+
+   function open_file_options(){
+      clearInterval(load_chat);
+      load_chat = null;
+   }
 
 
    function check_file() {
@@ -142,6 +153,7 @@
          success: function(response) {
             $("#upload_button").removeClass("fa-spin fa-spinner");
             $("#upload_button").addClass("fa-paperclip");
+            scroll_to_bottom(".cha_magge_us2");
          }
       });
    }
@@ -164,4 +176,6 @@
          }
       });
    }
+
+   fetch_new_message();
 </script>

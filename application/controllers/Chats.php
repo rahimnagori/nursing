@@ -60,6 +60,18 @@ class Chats extends CI_Controller
         echo json_encode($response);
     }
 
+    private function createMessage()
+    {
+        $insert['message'] = $this->input->post('message');
+        $insert['chat_id'] = $this->input->post('chat_id');
+        $insert['sender_id'] = $this->session->userdata('id');
+        $insert['is_admin'] = 0;
+        $insert['receiver_id'] = 1;
+        $insert['is_read'] = 0;
+        $insert['created'] = date("Y-m-d H:i:s");
+        return $insert;
+    }
+
     public function get_messages()
     {
         $where['chat_id'] = $this->input->post('chat_id');
@@ -109,15 +121,9 @@ class Chats extends CI_Controller
         echo json_encode($response);
     }
 
-    private function createMessage()
-    {
-        $insert['message'] = $this->input->post('message');
-        $insert['chat_id'] = $this->input->post('chat_id');
-        $insert['sender_id'] = $this->session->userdata('id');
-        $insert['is_admin'] = 0;
-        $insert['receiver_id'] = 1;
-        $insert['is_read'] = 0;
-        $insert['created'] = date("Y-m-d H:i:s");
-        return $insert;
+    public function delete_document(){
+        $response['responseMessage'] = $this->Common_Model->error('Something went wrong, please try again later.');
+        $response['status'] = 0;
+        echo json_encode($response);
     }
 }
