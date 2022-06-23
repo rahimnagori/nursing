@@ -11,7 +11,7 @@
             <h1><?=count($jobs);?></h1>
           </div>
           <div class="ussicon">
-            <i class="fa fa-calendar"></i>
+            <i class="fa fa-briefcase"></i>
           </div>
         </div>
       </div>
@@ -22,7 +22,7 @@
             <h1><?=count($users);?></h1>
           </div>
           <div class="ussicon">
-            <i class="fa fa-briefcase"></i>
+            <i class="fa fa-users"></i>
           </div>
         </div>
       </div>
@@ -45,6 +45,28 @@
           </div>
           <div class="ussicon">
             <i class="fa fa-user-o"></i>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="dashboard-tile1 detail1 ">
+          <div class="content1">
+            <p>Unread messages</p>
+            <h1>480</h1>
+          </div>
+          <div class="ussicon">
+            <i class="fa fa-comments"></i>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="dashboard-tile1 detail1 ">
+          <div class="content1">
+            <p>Total messages</p>
+            <h1>480</h1>
+          </div>
+          <div class="ussicon">
+            <i class="fa fa-commenting"></i>
           </div>
         </div>
       </div>
