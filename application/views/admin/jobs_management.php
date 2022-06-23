@@ -10,6 +10,7 @@
           <thead>
             <tr>
               <th>S.No.</th>
+              <th>Reference</th>
               <th>Title</th>
               <th>Location</th>
               <th>Address</th>
@@ -32,10 +33,11 @@
             ?>
               <tr>
                 <td><?= $serialNumber + 1; ?></td>
+                <td><?= $job['job_ref']; ?></td>
                 <td><?= $job['title']; ?></td>
                 <td><?= $job['name'] ?></td>
                 <td><?= $job['address']; ?></td>
-                <td><?=$this->config->item('CURRENCY');?><?= $job['salary']; ?></td>
+                <td><?= $this->config->item('CURRENCY'); ?><?= $job['salary']; ?></td>
                 <td>
                   <?php
                   echo $description;
@@ -45,7 +47,7 @@
                 <td><?= $job['qualification']; ?></td>
                 <td><?= ($job['employment_type'] == 1) ? 'Permanent' : 'Temporary'; ?></td>
                 <td><?= $paymentTypes[$job['payment_type']]; ?></td>
-                <td class="<?=$elementClass;?>"><?= date("d M, Y", strtotime($job['last_date'])); ?></td>
+                <td class="<?= $elementClass; ?>"><?= date("d M, Y", strtotime($job['last_date'])); ?></td>
                 <td><?= date("d M, Y", strtotime($job['created'])); ?></td>
                 <td><?= date("d M, Y", strtotime($job['updated'])); ?></td>
                 <td>
@@ -101,7 +103,7 @@
             <div class="form-group">
               <label> Salary </label>
               <div class="input-group">
-                <span class="input-group-addon"><?=$this->config->item('CURRENCY');?></span>
+                <span class="input-group-addon"><?= $this->config->item('CURRENCY'); ?></span>
                 <input type="number" name="salary" class="form-control" required="">
               </div>
             </div>
@@ -127,14 +129,14 @@
             <div class="form-group">
               <label> Payment Type </label>
               <?php
-                foreach($paymentTypes as $key => $paymentType){
+              foreach ($paymentTypes as $key => $paymentType) {
               ?>
-                  <label class="radio"> <?=$paymentType;?>
-                    <input type="radio" value="<?=$key;?>" checked="checked" name="payment_type">
-                    <span class="checkround"></span>
-                  </label>
+                <label class="radio"> <?= $paymentType; ?>
+                  <input type="radio" value="<?= $key; ?>" checked="checked" name="payment_type">
+                  <span class="checkround"></span>
+                </label>
               <?php
-                }
+              }
               ?>
             </div>
             <div class="form-group">

@@ -55,18 +55,8 @@ class Admin_Jobs extends CI_Controller
   {
     $response['status'] = 0;
     $response['responseMessage'] = $this->Common_Model->error('Something went wrong.');
-    $insert['title'] = $this->input->post('title');
-    $insert['description'] = $this->input->post('description');
-    $insert['job_type'] = $this->input->post('job_type');
-    $insert['address'] = $this->input->post('address');
-    $insert['salary'] = $this->input->post('salary');
-    $insert['qualification'] = $this->input->post('qualification');
-    $insert['employment_type'] = $this->input->post('employment_type');
-    $insert['payment_type'] = $this->input->post('payment_type');
-    $insert['last_date'] = $this->input->post('last_date');
-    $insert['is_deleted'] = 0;
-    $insert['user_id'] = $this->session->userdata('id');
-    $insert['created'] = $insert['updated'] = date("Y-m-d H:i:s");
+    $insert = $this->create_job();
+
     if ($insert['job_type'] == 'other' && $insert['name']) {
       $insertJobType['name'] = $insert['name'];
       $insert['job_type'] = $this->Common_Model->insert('job_types', $insertJobType);
@@ -114,15 +104,7 @@ class Admin_Jobs extends CI_Controller
   {
     $response['status'] = 0;
     $response['responseMessage'] = $this->Common_Model->error('Something went wrong.');
-    $update['title'] = $this->input->post('title');
-    $update['description'] = $this->input->post('description');
-    $update['job_type'] = $this->input->post('job_type');
-    $update['address'] = $this->input->post('address');
-    $update['salary'] = $this->input->post('salary');
-    $update['qualification'] = $this->input->post('qualification');
-    $update['employment_type'] = $this->input->post('employment_type');
-    $update['payment_type'] = $this->input->post('payment_type');
-    $update['last_date'] = $this->input->post('last_date');
+    $update = $this->create_job(true);
     $where['id'] = $this->input->post('job_id');
     if ($this->Common_Model->update('jobs', $where, $update)) {
       $response['status'] = 1;
@@ -175,6 +157,29 @@ class Admin_Jobs extends CI_Controller
     }
     $this->session->set_flashdata('responseMessage', $response['responseMessage']);
     echo json_encode($response);
+  }
+
+  private function create_job($update = false)
+  {
+    $data = [
+      'title' => $this->input->post('title'),
+      'description' => $this->input->post('description'),
+      'job_type' => $this->input->post('job_type'),
+      'address' => $this->input->post('address'),
+      'salary' => $this->input->post('salary'),
+      'qualification' => $this->input->post('qualification'),
+      'employment_type' => $this->input->post('employment_type'),
+      'payment_type' => $this->input->post('payment_type'),
+      'last_date' => $this->input->post('last_date'),
+      'updated' => date("Y-m-d H:i:s"),
+    ];
+    if (!$update) {
+      $data['created'] = date("Y-m-d H:i:s");
+      $data['is_deleted'] = 0;
+      $data['user_id'] = $this->session->userdata('id');
+      $data['job_ref'] = $this->Common_Model->get_job_reference($data);
+    }
+    return $data;
   }
 
   /* Not in use below functions */
@@ -347,96 +352,96 @@ class Admin_Jobs extends CI_Controller
     echo json_encode($response);
   }
 
-  public function Brochure($id)
-  {
-    $pageData = [];
-    $admin_id = $this->session->userdata('id');
-    $where['id'] = $admin_id;
+  // public function Brochure($id)
+  // {
+  //   $pageData = [];
+  //   $admin_id = $this->session->userdata('id');
+  //   $where['id'] = $admin_id;
 
-    $adminData = $this->Common_Model->fetch_records('admins', $where, false, true);
-    $pageData['adminData'] = $adminData;
+  //   $adminData = $this->Common_Model->fetch_records('admins', $where, false, true);
+  //   $pageData['adminData'] = $adminData;
 
-    $pageData['serviceDetails'] = $this->Common_Model->fetch_records('services', array('id' => $id), false, true);
+  //   $pageData['serviceDetails'] = $this->Common_Model->fetch_records('services', array('id' => $id), false, true);
 
-    $pageData['serviceBrochures'] = $this->Common_Model->fetch_records('service_brochures', array('service_id' => $id, 'is_deleted' => 0));
+  //   $pageData['serviceBrochures'] = $this->Common_Model->fetch_records('service_brochures', array('service_id' => $id, 'is_deleted' => 0));
 
-    $this->load->view('admin/brochure_management', $pageData);
-  }
+  //   $this->load->view('admin/brochure_management', $pageData);
+  // }
 
-  public function add_brochure()
-  {
-    $response['status'] = 0;
-    $insert = $this->input->post();
-    $insert['is_deleted'] = 0;
-    if ($_FILES['brochure']['error'] == 0) {
-      $config['upload_path'] = "assets/site/brochure/";
-      $config['allowed_types'] = 'pdf';
-      $config['encrypt_name'] = true;
-      $this->load->library("upload", $config);
-      if ($this->upload->do_upload('brochure')) {
-        $brochure = $this->upload->data("file_name");
+  // public function add_brochure()
+  // {
+  //   $response['status'] = 0;
+  //   $insert = $this->input->post();
+  //   $insert['is_deleted'] = 0;
+  //   if ($_FILES['brochure']['error'] == 0) {
+  //     $config['upload_path'] = "assets/site/brochure/";
+  //     $config['allowed_types'] = 'pdf';
+  //     $config['encrypt_name'] = true;
+  //     $this->load->library("upload", $config);
+  //     if ($this->upload->do_upload('brochure')) {
+  //       $brochure = $this->upload->data("file_name");
 
-        $insert['brochure'] = "assets/site/brochure/" . $brochure;
-      } else {
-        $response['responseMessage'] = $this->Common_Model->error($this->upload->display_errors());
-      }
-    }
-    $insert['created'] = date("Y-m-d H:i:s");
-    if ($this->Common_Model->insert('service_brochures', $insert)) {
-      $response['status'] = 1;
-      $response['responseMessage'] = 'Service Brochure Added Successfully.';
-    }
-    echo json_encode($response);
-  }
+  //       $insert['brochure'] = "assets/site/brochure/" . $brochure;
+  //     } else {
+  //       $response['responseMessage'] = $this->Common_Model->error($this->upload->display_errors());
+  //     }
+  //   }
+  //   $insert['created'] = date("Y-m-d H:i:s");
+  //   if ($this->Common_Model->insert('service_brochures', $insert)) {
+  //     $response['status'] = 1;
+  //     $response['responseMessage'] = 'Service Brochure Added Successfully.';
+  //   }
+  //   echo json_encode($response);
+  // }
 
-  public function Get_Brochure()
-  {
-    $whereService['id'] = $this->input->post('service_id');
-    $pageData['brochureDetails'] = $this->Common_Model->fetch_records('service_brochures', $whereService, false, true);
+  // public function Get_Brochure()
+  // {
+  //   $whereService['id'] = $this->input->post('service_id');
+  //   $pageData['brochureDetails'] = $this->Common_Model->fetch_records('service_brochures', $whereService, false, true);
 
-    $this->load->view('admin/edit_brochure', $pageData);
-  }
+  //   $this->load->view('admin/edit_brochure', $pageData);
+  // }
 
-  public function Update_Brochure()
-  {
-    $response['status'] = 0;
-    $response['responseMessage'] = $this->Common_Model->error('Server error, please try again later');
+  // public function Update_Brochure()
+  // {
+  //   $response['status'] = 0;
+  //   $response['responseMessage'] = $this->Common_Model->error('Server error, please try again later');
 
-    $update = $this->input->post();
-    $where['id'] = $update['brochure_id'];
-    unset($update['brochure_id']);
-    if ($_FILES['brochure_update']['error'] == 0) {
-      $config['upload_path'] = "assets/site/brochure/";
-      $config['allowed_types'] = 'pdf';
-      $config['encrypt_name'] = true;
-      $this->load->library("upload", $config);
-      if ($this->upload->do_upload('brochure_update')) {
-        $serviceImage = $this->upload->data("file_name");
+  //   $update = $this->input->post();
+  //   $where['id'] = $update['brochure_id'];
+  //   unset($update['brochure_id']);
+  //   if ($_FILES['brochure_update']['error'] == 0) {
+  //     $config['upload_path'] = "assets/site/brochure/";
+  //     $config['allowed_types'] = 'pdf';
+  //     $config['encrypt_name'] = true;
+  //     $this->load->library("upload", $config);
+  //     if ($this->upload->do_upload('brochure_update')) {
+  //       $serviceImage = $this->upload->data("file_name");
 
-        $update['brochure'] = "assets/site/brochure/" . $serviceImage;
-        if (file_exists($update['brochure_old'])) unlink($update['brochure_old']);
-      }
-    }
-    unset($update['brochure_old']);
-    if ($this->Common_Model->update('service_brochures', $where, $update)) {
-      $response['status'] = 1;
-      $response['responseMessage'] = $this->Common_Model->success('Service brochure updated successfully.');
-    }
-    $this->session->set_flashdata('responseMessage', $response['responseMessage']);
-    echo json_encode($response);
-  }
+  //       $update['brochure'] = "assets/site/brochure/" . $serviceImage;
+  //       if (file_exists($update['brochure_old'])) unlink($update['brochure_old']);
+  //     }
+  //   }
+  //   unset($update['brochure_old']);
+  //   if ($this->Common_Model->update('service_brochures', $where, $update)) {
+  //     $response['status'] = 1;
+  //     $response['responseMessage'] = $this->Common_Model->success('Service brochure updated successfully.');
+  //   }
+  //   $this->session->set_flashdata('responseMessage', $response['responseMessage']);
+  //   echo json_encode($response);
+  // }
 
-  public function Delete_Brochure()
-  {
-    $response['status'] = 0;
-    $response['responseMessage'] = $this->Common_Model->error('Server error, please try again later.');
-    $where['id'] = $this->input->post('brochure_id');
-    $update['is_deleted'] = 1;
-    if ($this->Common_Model->update('service_brochures', $where, $update)) {
-      $response['status'] = 1;
-      $response['responseMessage'] = $this->Common_Model->success('Brochure deleted successfully.');
-    }
-    $this->session->set_flashdata('responseMessage', $response['responseMessage']);
-    echo json_encode($response);
-  }
+  // public function Delete_Brochure()
+  // {
+  //   $response['status'] = 0;
+  //   $response['responseMessage'] = $this->Common_Model->error('Server error, please try again later.');
+  //   $where['id'] = $this->input->post('brochure_id');
+  //   $update['is_deleted'] = 1;
+  //   if ($this->Common_Model->update('service_brochures', $where, $update)) {
+  //     $response['status'] = 1;
+  //     $response['responseMessage'] = $this->Common_Model->success('Brochure deleted successfully.');
+  //   }
+  //   $this->session->set_flashdata('responseMessage', $response['responseMessage']);
+  //   echo json_encode($response);
+  // }
 }
