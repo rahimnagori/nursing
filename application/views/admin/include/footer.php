@@ -16,6 +16,13 @@ $('#extent_tbl1').DataTable();
   const BASE_URL = "<?=site_url();?>";
   const LOADING = "<i class='fa fa-spin fa-spinner' aria-hidden='true'></i> Processing ... ";
 </script>
+<script>
+  $(function(){
+
+$('.sidebar2 li a').filter(function(){return this.href==location.href}).parent().addClass('active').siblings().removeClass('active')
+
+})
+</script>
 
 </body>
 </html>

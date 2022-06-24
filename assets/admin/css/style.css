@@ -370,12 +370,16 @@ body {
     width: 3px;
 }
 
-.sidebar2>ul>li>a:hover {
+.sidebar2>ul>li>a:hover,
+.sidebar2>ul>li.active>a
+{
     color: var(--red);
     background: rgba(248, 67, 101, 0.05);
 }
 
-.sidebar2>ul>li>a:hover:after {
+.sidebar2>ul>li>a:hover:after,
+.sidebar2>ul>li.active>a:after
+{
     background: var(--red);
 }
 
@@ -801,7 +805,7 @@ body {
     display: inline-block;
     min-height: 50px;
     overflow: hidden;
-    padding: 10px 15px 5px 60px;
+    padding: 10px 15px 11px 60px;
     position: relative;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -823,7 +827,7 @@ body {
     height: 42px;
     left: 10px;
     position: absolute;
-    top: 15px;
+    top: 12px;
     width: 42px;
 }
 
@@ -993,7 +997,7 @@ body {
 
 .auto_scol_left ul li.active a,
 .auto_scol_left ul li:hover a {
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+    background: #f4f4f4;
 }
 
 .auto_scol_left ul li+li {
@@ -1031,6 +1035,41 @@ body {
 
 .messge_send .input-group > input {
 	height: 45px;
+}
+.modal_lg .modal-dialog {
+	max-width: 900px;
+	width: 100%;
+}
+.box_n1 li {
+	position: relative;
+	min-height: 69px;
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	font-size: 18px;
+	border-bottom: 1px solid #e1e1e1;
+	padding: 10px 0;
+	padding-left: 50px;
+	justify-content: space-between;
+}
+.box_n1 li img {
+	position: absolute;
+	width: 40px;
+	left: 0;
+	height: 40px;
+	object-fit: contain;
+}
+
+.box_n1 li a {
+	margin: 0 1px;
+	border: 1px solid #e1e1e1;
+	width: 25px;
+	height: 25px;
+	display: inline-block;
+	text-align: center;
+	border-radius: 100%;
+	line-height: 25px;
+	font-size: 14px;
 }
 /*media start*/
 
