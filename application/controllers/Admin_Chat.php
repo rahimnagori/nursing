@@ -91,15 +91,15 @@ class Admin_Chat extends CI_Controller
     $subject = 'You have a new message.';
     $body = "<p>Dear " . $userDetails['first_name'] . " " . $userDetails['last_name'] . ",</p>";
     $body .= $email['content'];
-    // if ($this->config->item('ENVIRONMENT') == 'production') {
-    $this->Common_Model->send_mail($userDetails['email'], $subject, $body);
-    $insertSentMail = [
-      'user_id' => $userId,
-      'email_id' => $email['id'],
-      'sent_at' => date("Y-m-d H:i:s")
-    ];
-    $this->Common_Model->insert('sent_mails', $insertSentMail);
-    // }
+    if ($this->config->item('ENVIRONMENT') == 'production') {
+      $this->Common_Model->send_mail($userDetails['email'], $subject, $body);
+      $insertSentMail = [
+        'user_id' => $userId,
+        'email_id' => $email['id'],
+        'sent_at' => date("Y-m-d H:i:s")
+      ];
+      $this->Common_Model->insert('sent_mails', $insertSentMail);
+    }
   }
 
   private function check_notify_user($userId)

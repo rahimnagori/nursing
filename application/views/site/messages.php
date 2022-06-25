@@ -20,7 +20,7 @@ foreach ($messages as $message) {
                                 <span class="dropdown-menu">
                                     <span><a class="" target="_blank" href="<?= site_url($message['document']); ?>"><i class="fa fa-eye" aria-hidden="true"></i> View File</a></span>
                                     <span><a class="" href="<?= site_url($message['document']); ?>" download><i class="fa fa-download" aria-hidden="true"></i> Download File</a></span>
-                                    <span><a href="javascript:void(0);" class="" onclick="delete_file(<?= $message['document_id']; ?>)"><i class="fa fa-trash" aria-hidden="true"></i> Delete File</a></span>
+                                    <span><a href="javascript:void(0);" class="" onclick="delete_file(<?= $message['id']; ?>)"><i class="fa fa-trash" aria-hidden="true"></i> Delete File</a></span>
                                 </span>
                             </span>
                         <?php

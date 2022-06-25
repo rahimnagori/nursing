@@ -42,6 +42,7 @@
    </div>
 </div>
 
+<script src="<?= site_url('assets/common/js/chat.js'); ?>"></script>
 
 <script>
    function send_message(e) {
@@ -60,11 +61,11 @@
             $("#responseMessage").html('');
             $("#responseMessage").hide();
             let message = $("#message").val();
-            let message_div = new_message(message);
+            let message_div = new_message(message, 'sender');
             $(".append_new_message").append(message_div);
          },
          success: function(response) {
-            if(!load_chat){
+            if (!load_chat) {
                fetch_new_message();
             }
             $("#message").val('');
@@ -73,28 +74,6 @@
             scroll_to_bottom(".cha_magge_us2");
          }
       });
-   }
-
-   function new_message(message) {
-      return `<li class="sender">
-         <div class="message-data">
-            <div class="mess_dat_img">
-               <img src="${BASE_URL}assets/site/img/logo.png">
-            </div>
-            <div class="messge_cont">
-               <p>
-                  <span class="message_box">${message}</span>
-               </p>
-               <span class="time"><i class="fa fa-clock-o"></i> Just now</span>
-            </div>
-         </div>
-      </li>`
-   }
-
-   function scroll_to_bottom(div) {
-      $("" + div).animate({
-         scrollTop: $("" + div)[0].scrollHeight
-      }, 1000);
    }
 
    function get_message() {
@@ -113,20 +92,6 @@
          }
       });
    }
-
-   let load_chat = null;
-
-   function fetch_new_message(){
-      load_chat = setInterval(function() {
-         get_message();
-      }, 1000);
-   }
-
-   function open_file_options(){
-      clearInterval(load_chat);
-      load_chat = null;
-   }
-
 
    function check_file() {
       let inputFile = $("#chat_file")[0].files[0];
@@ -154,25 +119,6 @@
             $("#upload_button").removeClass("fa-spin fa-spinner");
             $("#upload_button").addClass("fa-paperclip");
             scroll_to_bottom(".cha_magge_us2");
-         }
-      });
-   }
-
-   function delete_file(document_id) {
-      $.ajax({
-         type: 'PUT',
-         url: BASE_URL + 'DELETE-CHAT-DOCUMENT',
-         data: {
-            document_id: document_id
-         },
-         dataType: 'json',
-         beforeSend: function(xhr) {
-            $(".action_button").attr('disabled', true);
-            $(".action_button").html("<i class='fa fa-spin fa-spinner'></i>");
-         },
-         success: function(response) {
-            $(".action_button").attr('disabled', false);
-            $(".action_button").html("<i class='fa fa-upload'></i>");
          }
       });
    }

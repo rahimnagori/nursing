@@ -121,9 +121,24 @@ class Chats extends CI_Controller
         echo json_encode($response);
     }
 
-    public function delete_document(){
+    public function delete_document()
+    {
         $response['responseMessage'] = $this->Common_Model->error('Something went wrong, please try again later.');
         $response['status'] = 0;
+        $whereMessage['id'] = $this->input->post('message_id');
+        $messageDetails = $this->Common_Model->fetch_records('messages', $whereMessage, false, true);
+        $whereUserDoc['id'] = $messageDetails['document_id'];
+        $documentDetails = $this->Common_Model->fetch_records('user_docs', $whereUserDoc, false, true);
+        if (file_exists(($documentDetails['document']))) {
+            unlink($documentDetails['document']);
+            $this->Common_Model->delete('user_docs', $whereUserDoc);
+        }
+        $updateMessage['message']  = '<i>This file is deleted</i>';
+        $updateMessage['document_id']  = 0;
+        $updateMessage['is_document']  = 0;
+        $this->Common_Model->update('messages', $whereMessage, $updateMessage);
+        $response['responseMessage'] = $this->Common_Model->success('File deleted successfully.');
+        $response['status'] = 1;
         echo json_encode($response);
     }
 }

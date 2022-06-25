@@ -64,6 +64,8 @@
 
 <?php include 'include/footer.php'; ?>
 
+<script src="<?= site_url('assets/common/js/chat.js'); ?>"></script>
+
 <script>
   function send_message(e) {
     e.preventDefault();
@@ -81,32 +83,19 @@
         $("#responseMessage").html('');
         $("#responseMessage").hide();
         let message = $("#message").val();
-        let message_div = new_message(message);
+        let message_div = new_message(message, 'recever');
         $(".append_new_message").append(message_div);
       },
       success: function(response) {
+        if (!load_chat) {
+          fetch_new_message();
+        }
         $("#message").val('');
         $(".btn_submit").prop('disabled', false);
         $(".btn_submit").html(' Send ');
         scroll_to_bottom(".cha_magge_us2");
       }
     });
-  }
-
-  function new_message(message) {
-    return `<li class="recever">
-         <div class="message-data">
-            <div class="mess_dat_img">
-               <img src="${BASE_URL}assets/site/img/logo.png">
-            </div>
-            <div class="messge_cont">
-               <p>
-                  <span class="message_box">${message}</span>
-               </p>
-               <span class="time"><i class="fa fa-clock-o"></i> Just now</span>
-            </div>
-         </div>
-      </li>`
   }
 
   function get_message() {
@@ -122,23 +111,14 @@
       },
       success: function(response) {
         $(".append_new_message").html(response);
-        scroll_to_bottom(".cha_magge_us2");
       }
     });
-  }
-
-  let load_chat = setInterval(function() {
-    get_message();
-  }, 1000);
-
-  function scroll_to_bottom(div) {
-    $("" + div).animate({
-      scrollTop: $("" + div)[0].scrollHeight
-    }, 1000);
   }
 
   function load_new_chat(user_id, username) {
     $("#chat_id").val(user_id);
     $("#username").html(username);
   }
+
+  fetch_new_message();
 </script>
