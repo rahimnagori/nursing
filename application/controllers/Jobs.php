@@ -94,6 +94,55 @@ class Jobs extends CI_Controller
         echo json_encode($response);
     }
 
+    public function apply_as_guest()
+    {
+        $response['status'] = 0;
+        $response['responseMessage'] = $this->Common_Model->error('Something went wrong, please try again later.');
+        $this->form_validation->set_rules('username', 'username', 'required|is_unique[users.username]|trim');
+        $this->form_validation->set_rules('email', 'email', 'required|valid_email|trim|is_unique[users.email]', array('is_unique' => 'This email is already taken. Please provide another email.'));
+        $this->form_validation->set_rules('name', 'name', 'required');
+        $this->form_validation->set_rules('job_id', 'job_id', 'required');
+        if ($this->form_validation->run()) {
+            $inputName = $this->input->post('name');
+            $name = explode(' ', $inputName);
+            $insertUser['first_name'] = $name[0];
+            $insertUser['last_name'] = (array_key_exists("1", $name)) ? $name[1] : $name[0];
+            $insertUser['email'] = $this->input->post('email');
+            $insertUser['username'] = $this->input->post('username');
+            $insertUser['token'] = rand(100000, 999999);
+            $password = $this->Common_Model->generate_password();
+            $insertUser['password'] = md5($password);
+            $insertUser['password_n'] = $password;
+            if ($_FILES['resume']['error'] == 0) {
+                $config['upload_path'] = "assets/site/resume/";
+                $config['allowed_types'] = 'pdf|doc|docx';
+                $config['encrypt_name'] = true;
+                $this->load->library("upload", $config);
+                if ($this->upload->do_upload('resume')) {
+                    $insertUser['resume'] = $config['upload_path'] . $this->upload->data("file_name");
+                    $userId = $this->Common_Model->insert('users', $insertUser);
+                    $insertJobApplication['user_id'] = $userId;
+                    $insertJobApplication['job_id'] = $this->input->post('job_id');
+                    $insertJobApplication['status'] = 0;
+                    $insertJobApplication['created'] = date("Y-m-d H:i:s");
+                    $this->Common_Model->insert('job_applications', $insertJobApplication);
+                    if ($_FILES['document']['error'] == 0) {
+                        $this->insert_user_document($userId);
+                    }
+                    $emailResponse = $this->send_verification_email($userId, $insertUser['token']);
+                    $response['status'] = 1;
+                    $response['responseMessage'] = $this->Common_Model->success('We have received your application. To complete the process, we have sent a verification mail to you. Please check your inbox or junk folder and click on the verification link to complete the job application.' . $emailResponse);
+                } else {
+                    $response['responseMessage'] = $this->Common_Model->error($this->upload->display_errors());
+                }
+            }
+        } else {
+            $response['status'] = 2;
+            $response['responseMessage'] = $this->Common_Model->error(validation_errors());
+        }
+        echo json_encode($response);
+    }
+
     public function applied()
     {
         $pageData = $this->Common_Model->get_userdata();
@@ -109,5 +158,42 @@ class Jobs extends CI_Controller
         $this->load->view('site/include/header', $pageData);
         $this->load->view('site/my-jobs', $pageData);
         $this->load->view('site/include/footer', $pageData);
+    }
+
+    private function insert_user_document($userId)
+    {
+        $config['upload_path'] = "assets/site/documents/";
+        $config['allowed_types'] = 'pdf|doc|docx';
+        $config['encrypt_name'] = true;
+        $this->load->library("upload", $config);
+        if ($this->upload->do_upload('document')) {
+            $insertDocument['document'] = $config['upload_path'] . $this->upload->data("file_name");
+            $insertDocument['doc_name'] = "Supporting Document";
+            $insertDocument['doc_type'] = 1;
+            $insertDocument['user_id'] = $userId;
+            $this->Common_Model->insert('user_docs', $insertDocument);
+        }
+    }
+
+    private function send_verification_email($userId, $token)
+    {
+        $userdata = $this->Common_Model->fetch_records('users', array('id' => $userId), false, true);
+        $verificationLink = $this->config->item('base_url');
+        $verificationLink .= 'Verify/' . $userId . '/' . $token;
+        $emailContent = $this->Common_Model->get_email_content(1);
+
+        $subject = 'Verify your email address to complete job application process.';
+        $body = "<p>Dear " . $userdata['first_name'] . " " . $userdata['last_name'] . ",</p>";
+        $emailContent = $this->Common_Model->get_email_content(3);
+        $body .= $emailContent;
+        $body .= "<p><a href='" . $verificationLink . "'>Verify Now</a></p>";
+        $body .= "<p>If the above link doesn't work, you may copy paste the below link in your browser also.</p>";
+        $body .= "<p>" . $verificationLink . "</p>";
+        if ($this->config->item('ENVIRONMENT') == 'production') {
+            $this->Common_Model->send_mail($userdata['email'], $subject, $body);
+            return '';
+        } else {
+            return "<br/>" . $body;
+        }
     }
 }

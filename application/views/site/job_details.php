@@ -26,7 +26,7 @@
                     }
                     if (!$this->session->userdata('id')) {
                         ?>
-                        <button class="btn btn_theme2 btn_r btn_submit" onclick="login();">Login to Apply</button>
+                        <button class="btn btn_theme2 btn_r btn_submit" data-toggle="modal" data-target="#applyConfirmationModal">Apply</button>
                     <?php
                     }
                     ?>
@@ -47,7 +47,7 @@
                         <h4><span><i class="fa fa-map-marker"></i>Location</span><?= $jobDetails['title']; ?> </h4>
                     </div>
                     <div class="col-sm-4">
-                        <h4><span><?=$this->config->item('CURRENCY');?></i>Salary </span> <?=$this->config->item('CURRENCY');?> <?= $jobDetails['salary']; ?> / <?= $paymentTypes[$jobDetails['payment_type']]; ?> </h4>
+                        <h4><span><?= $this->config->item('CURRENCY'); ?></i>Salary </span> <?= $this->config->item('CURRENCY'); ?> <?= $jobDetails['salary']; ?> / <?= $paymentTypes[$jobDetails['payment_type']]; ?> </h4>
                     </div>
                     <div class="col-sm-4">
                         <h4><span><i class="fa fa-map-marker"></i>Qualification</span><?= $jobDetails['qualification']; ?></h4>
@@ -64,6 +64,74 @@
             </div>
         </div>
     </div>
+    <!-- Modal -->
+    <div id="applyConfirmationModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Apply for this Job</h4>
+                </div>
+                <div class="modal-body">
+                    <p><a href="<?= site_url('Sign Up'); ?>">Sign Up</a> and Apply</p>
+                    <p>Or Apply as a Guest</p>
+                    <button class="btn btn_theme2" onclick="$('#guest-application-form').show();"> Apply </button>
+                    <div id="guest-application-form">
+                        <form role="form" method="POST" id="guestApplicationForm" name="guestApplicationForm" onsubmit="apply_as_guest(event);">
+                            <div class="formn_me">
+                                <div class="form-group">
+                                    <label>Username </label>
+                                    <div class="icon_us">
+                                        <i class="la la-user"></i>
+                                        <input type="text" name="username" placeholder="Enter Username" class="form-control" required>
+                                        <input type="hidden" id="job_id" name="job_id" required value="<?= $jobDetails['id']; ?>" >
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Name </label>
+                                    <div class="icon_us">
+                                        <i class="la la-user"></i>
+                                        <input type="text" name="name" placeholder="Enter Name" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Email </label>
+                                    <div class="icon_us">
+                                        <i class="la la-envelope"></i>
+                                        <input type="email" name="email" placeholder="Enter Email" class="form-control" required id="email">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Resume / CV </label>
+                                    <div class="icon_us">
+                                        <i class="la la-file"></i>
+                                        <input type="file" name="resume" class="form-control" required accept=".pdf, .doc, .docx">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Supporting Document </label>
+                                    <div class="icon_us">
+                                        <i class="la la-file"></i>
+                                        <input type="file" name="document" class="form-control" accept=".pdf, .doc, .docx">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12" id="responseMessageSecond"></div>
+                                </div>
+                                <div class="btnloggib ">
+                                    <button type="submit" class="btn btn_theme2 btn-lg btn-block btn_submit_apply">Apply</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script>
@@ -72,13 +140,12 @@
             type: 'POST',
             url: BASE_URL + 'Apply',
             data: {
-                id: <?= $jobDetails['id']; ?>
+                id: $("#job_id").val()
             },
             dataType: 'json',
             beforeSend: function(xhr) {
                 $(".btn_submit").attr('disabled', true);
                 $(".btn_submit").html(LOADING);
-                $("#job-listings").html(LOADING);
                 $("#responseMessage").hide();
             },
             success: function(response) {
@@ -96,7 +163,29 @@
         });
     }
 
-    function login(){
-        window.location.href = "../Login";
+    function apply_as_guest(e) {
+        e.preventDefault();
+        $.ajax({
+            type: 'POST',
+            url: BASE_URL + 'Apply-Guest',
+            data: new FormData($('#guestApplicationForm')[0]),
+            dataType: 'JSON',
+            processData: false,
+            contentType: false,
+            cache: false,
+            beforeSend: function(xhr) {
+                $(".btn_submit_apply").attr('disabled', true);
+                $(".btn_submit_apply").html(LOADING);
+                $("#responseMessageSecond").hide();
+            },
+            success: function(response) {
+                $("#responseMessageSecond").html(response.responseMessage);
+                $("#responseMessageSecond").show();
+                if (response.status == 1) {
+                    $(".btn_submit_apply").html('Applied');
+                    /* Rest the form here */
+                }
+            }
+        });
     }
 </script>

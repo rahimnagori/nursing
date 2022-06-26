@@ -95,13 +95,13 @@ class Users extends CI_Controller
         $emailResponse = $this->send_verification_email($userId);
         $response['status'] = 1;
         $response['responseMessage'] = $this->Common_Model->success('Check your email to complete registration. If you have not found mail in Inbox please check your junk folder.' . $emailResponse);
+        $response['insert'] = $insert;
       }
     } else {
       $response['status'] = 2;
       $response['responseMessage'] = $this->Common_Model->error(validation_errors());
     }
     $this->session->set_flashdata('responseMessage', $response['responseMessage']);
-    $response['insert'] = $insert;
     echo json_encode($response);
   }
 
@@ -252,6 +252,8 @@ class Users extends CI_Controller
         $response['responseMessage'] = $this->Common_Model->error($this->upload->display_errors());
       }
     }
+    $update['first_name'] = $this->input->post('first_name');
+    $update['last_name'] = $this->input->post('last_name');
     $update['address'] = $this->input->post('address');
     $update['phone'] = $this->input->post('phone');
     $update['national_insurance_number'] = $this->input->post('national_insurance_number');

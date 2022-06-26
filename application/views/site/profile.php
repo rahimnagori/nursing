@@ -14,13 +14,13 @@
                         <div class="col-sm-6">
                            <div class="form-group">
                               <label>First Name</label>
-                              <span class="form-control"><?= $userDetails['first_name']; ?></span>
+                              <input type="text" name="first_name" placeholder="First Name" class="form-control" value="<?= $userDetails['first_name']; ?>" required>
                            </div>
                         </div>
                         <div class="col-sm-6">
                            <div class="form-group">
                               <label>Last Name</label>
-                              <span class="form-control"><?= $userDetails['last_name']; ?></span>
+                              <input type="text" name="last_name" placeholder="Last Name" class="form-control" value="<?= $userDetails['last_name']; ?>" required>
                            </div>
                         </div>
                      </div>

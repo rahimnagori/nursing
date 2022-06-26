@@ -63,6 +63,7 @@ $route['Jobs'] = 'Home/jobs';
 $route['Search-Jobs'] = 'Jobs';
 $route['Job-Details/(:any)'] = 'Jobs/job_details/$1';
 $route['Apply'] = 'Jobs/apply';
+$route['Apply-Guest'] = 'Jobs/apply_as_guest';
 $route['Applied-Jobs'] = 'Jobs/applied';
 
 $route['Contact'] = 'Home/contact';
