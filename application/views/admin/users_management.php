@@ -9,18 +9,17 @@
           <thead>
             <tr>
               <th>S.No.</th>
-              <th>Username</th>
-              <th>Email</th>
               <th>Name</th>
+              <!-- <th>Username</th> -->
+              <th>Email</th>
               <th>Job Title</th>
               <th>Address</th>
               <th>Phone</th>
               <th>National Insurance Number</th>
               <th>UK Work Permit</th>
-              <!-- <th>Resume</th> -->
               <th>Last Login</th>
               <th>Created</th>
-              <th>Updated</th>
+              <!-- <th>Updated</th> -->
               <th>Action</th>
             </tr>
           </thead>
@@ -32,91 +31,89 @@
             ?>
               <tr>
                 <td><?= $serialNumber + 1; ?></td>
-                <td><?= $user['username']; ?></td>
+                <td>
+                  <?= $user['first_name'] . ' ' . $user['last_name']; ?>
+                  [<?= $user['username']; ?>]
+                </td>
+                <!-- <td><?= $user['username']; ?></td> -->
                 <td>
                   <?= $user['email']; ?>
                   <strong><span class="text-<?= $statusClass; ?>">
                       (<?= $emailStatus; ?>)
                     </span></strong>
                 </td>
-                <td><?= $user['first_name'] . ' ' . $user['last_name']; ?></td>
                 <td>Job Title</td>
                 <td><?= $user['address']; ?></td>
                 <td><?= $user['phone']; ?></td>
                 <td><?= $user['national_insurance_number']; ?></td>
-                <td><?= $user['uk_work_permit']; ?></td>
-                
+                <td><?= ($user['uk_work_permit']) ? '<i class="fa fa-check" aria-hidden="true"></i>' : ''; ?></td>
+
                 <td><?= ($user['last_login']) ? date("d M, Y", strtotime($user['last_login'])) : 'Not logged in yet'; ?></td>
                 <td><?= date("d M, Y", strtotime($user['created'])); ?></td>
-                <td><?= date("d M, Y", strtotime($user['updated'])); ?></td>
+                <!-- <td><?= date("d M, Y", strtotime($user['updated'])); ?></td> -->
                 <td>
-                  <a href="#" class="btn btn-info btn-xs">Send Mail</a>
+                  <!-- <a href="#" class="btn btn-info btn-xs">Send Mail</a>
                   <a href="#" class="btn btn-info btn-xs">Edit</a>
-                  <a href="#" class="btn btn-danger btn-xs">Delete</a>
-                  <a href="#" data-toggle="modal" data-target="#view_desss" class="btn btn-info btn-xs">Details</a>
+                  <a href="#" class="btn btn-danger btn-xs">Delete</a> -->
+                  <a href="#" data-toggle="modal" data-target="#view_desss_<?=$user['id'];?>" class="btn btn-info btn-xs">Documents</a>
                 </td>
-                          
-<!-- Modal -->
-<div class="modal fade " id="view_desss" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <form id="addForm" name="addForm" onsubmit="add_job_type(event);">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title">Details</h4>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="la la-times-circle"></i></span></button>
-        </div>
 
-        <div class="modal-body">
-        <div class="box_n1">
-                    <ul class="ul_set">
-                      <li>
-                        <img src="<?=site_url('assets/admin/');?>img/img_2.png" alt=""> Resume File 
-                      <span>
-                        <?php
-                  $resume = 'No resume uploaded yet';
-                  if (!empty($user['resume'])) {
-                    $resume = "<a href='" .$user['resume'] ."' download> <i class='fa fa-eye'></i> </a>";
-                  }
-                  ?>
-                  <?= $resume; ?>
-                        <a href="javascript:void(0); "><i class="fa fa-download"></i></a>
-                        <a href="javascript:void(0);"><i class="fa fa-trash"></i></a>
-                    </span>
-                    </li>
-                      <li>
-                        <img src="<?=site_url('assets/admin/');?>img/img_2.png" alt=""> Certificate
-                      <span>
-                        <a href="javascript:void(0); "><i class="fa fa-eye"></i></a>
-                        <a href="javascript:void(0); "><i class="fa fa-download"></i></a>
-                        <a href="javascript:void(0);"><i class="fa fa-trash"></i></a>
-                    </span>
-                    </li>
-                      <li>
-                        <img src="<?=site_url('assets/admin/');?>img/img_2.png" alt=""> Certificate 2 
-                      <span>
-                        <a href="javascript:void(0); "><i class="fa fa-eye"></i></a>
-                        <a href="javascript:void(0); "><i class="fa fa-download"></i></a>
-                        <a href="javascript:void(0);"><i class="fa fa-trash"></i></a>
-                    </span>
-                    </li>
-                      <li>
-                        <img src="<?=site_url('assets/admin/');?>img/img_2.png" alt=""> Certificate 2 
-                      <span>
-                        <a href="javascript:void(0); "><i class="fa fa-eye"></i></a>
-                        <a href="javascript:void(0); "><i class="fa fa-download"></i></a>
-                        <a href="javascript:void(0);"><i class="fa fa-trash"></i></a>
-                    </span>
-                    </li>
-                    </ul>
+                <!-- Modal -->
+                <div class="modal fade " id="view_desss_<?=$user['id'];?>" tabindex="-1" role="dialog">
+                  <div class="modal-dialog" role="document">
+                    <form id="addForm" name="addForm" onsubmit="add_job_type(event);">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h4 class="modal-title">Details</h4>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="la la-times-circle"></i></span></button>
+                        </div>
+
+                        <div class="modal-body">
+                          <div class="box_n1">
+                            <ul class="ul_set">
+                              <li>
+                                <img src="<?= site_url('assets/admin/'); ?>img/img_2.png" alt=""> Resume File
+                                <span>
+                                  <?php
+                                  if (!empty($user['resume'])) {
+                                  ?>
+                                    <a href="<?= site_url($user['resume']); ?>" target="_blank"> <i class='fa fa-eye'></i> </a>
+                                    <a href="<?= site_url($user['resume']); ?>"><i class="fa fa-download"></i></a>
+                                    <!-- <a href="javascript:void(0);"><i class="fa fa-trash"></i></a> -->
+                                  <?php
+                                  } else {
+                                  ?>
+                                    <span class="text-danger pull-right"> No resume uploaded yet. </span>
+                                  <?php
+                                  }
+                                  ?>
+                                </span>
+                              </li>
+                              <?php
+                              foreach ($user['userDocuments'] as $userDoc) {
+                              ?>
+                                <li>
+                                  <?=($userDoc['doc_type'] == 2) ? '<i class="fa fa-comment" aria-hidden="true"></i>' : '';?>
+                                  <img src="<?= site_url('assets/admin/'); ?>img/img_2.png" alt=""> <?=($userDoc['doc_name']) ? $userDoc['doc_name'] : "<i>(No name)</i>"; ?>
+                                  <span>
+                                    <a href="<?= site_url($userDoc['document']); ?>" target="_blank"><i class="fa fa-eye"></i></a>
+                                    <a href="<?= site_url($userDoc['document']); ?>" download><i class="fa fa-download"></i></a>
+                                    <!-- <a href="javascript:void(0);"><i class="fa fa-trash"></i></a> -->
+                                  </span>
+                                </li>
+                              <?php
+                              }
+                              ?>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
                   </div>
-        </div>
-      </div>
-    </form>
-  </div>
-</div>
-<!-- Modal close-->
+                </div>
+                <!-- Modal close-->
               </tr>
-    
+
             <?php
             }
             ?>

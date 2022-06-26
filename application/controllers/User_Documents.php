@@ -47,6 +47,7 @@ class User_Documents extends CI_Controller
                 $this->load->library("upload", $config);
                 if ($this->upload->do_upload('document')) {
                     $insert['document'] = $config['upload_path'] . $this->upload->data("file_name");
+                    $insert['doc_name'] = $this->input->post('doc_name');
                     $insert['user_id'] = $this->session->userdata('id');
                     $insert['doc_type'] = 1;
                     $documentId = $this->Common_Model->insert('user_docs', $insert);
@@ -54,6 +55,8 @@ class User_Documents extends CI_Controller
                         $response['status'] = 1;
                         $response['responseMessage'] = $this->Common_Model->success('Document added successfully.');
                         $response['document']['id'] = $documentId;
+                        $response['document']['name'] = $insert['doc_name'];
+                        $response['document']['path'] = $insert['document'];
                         $response['totalDocuments'] = $existingFiles + 1;
                     }
                 } else {

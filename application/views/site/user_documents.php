@@ -18,10 +18,8 @@
                            <div class="image_uplod1">
                               <img src="<?= site_url('assets/site/'); ?>img/img_2.png" class="tradup_img2">
                               <div class="btttponm_psuiui">
-                                
-                                 
-                                 <button class="btn btn_theme" data-toggle="tooltip" data-placement="left" title="View"><i class="fa fa-eye"></i></button>
-                                 <button class="btn btn_theme" data-toggle="tooltip" data-placement="left" title="Download"><i class="fa fa-download"></i></button>
+                                 <a href="<?=site_url($userDocument['document']);?>" class="btn btn_theme" data-toggle="tooltip" data-placement="left" title="View" target="_blank" ><i class="fa fa-eye"></i></a>
+                                 <a href="<?=site_url($userDocument['document']);?> class="btn btn_theme" data-toggle="tooltip" data-placement="left" title="Download" download ><i class="fa fa-download"></i></a>
                                  <button type="button" onclick="delete_document(<?= $userDocument['id']; ?>);" class="btn btn-danger" data-toggle="tooltip" data-placement="left" title="Delete">
                                  <i class="fa fa-trash"></i>
                               </button>
@@ -36,8 +34,8 @@
                         <div class="image_uplod1">
                            <img src="<?= site_url('assets/site/'); ?>img/icon_us2.png" class="tradup_img1">
                            <form id="documentForm" name="documentForm" onsubmit="upload_document(event);">
-                           <input type="text" class="form-control fon_text">   
-                           <input type="file" id="upload_file_input" onchange="check_files();" name="document" accept=".doc, .docx, .pdf" class="uplldui">
+                              <input type="text" id="doc_name" name="doc_name" class="form-control fon_text" required="" placeholder="Name of Document" >   
+                              <input type="file" id="upload_file_input" onchange="check_files();" name="document" accept=".doc, .docx, .pdf" class="uplldui">
                            </form>
                         </div>
                      </div>
@@ -66,6 +64,7 @@
          },
          success: function(response) {
             if (response.status == 1) {
+               $("#doc_name").val('');
                $("#document_div").prepend(documentDiv(response.document));
             }
             if (response.totalDocuments >= 4) {
@@ -114,12 +113,17 @@
    const documentDiv = (document) => {
       return `<div class="col-sm-2" id="document_div_index_${document.id}">
          <div class="image_uplod1">
-            <img src="${BASE_URL}assets/site/img/img_2.png" class="tradup_img2">
+            <img src="<?= site_url('assets/site/'); ?>img/img_2.png" class="tradup_img2">
             <div class="btttponm_psuiui">
-               <button type="button" onclick="delete_document(${document.id});" class="btn btn-danger">X</button>
+               <a href="${BASE_URL + document.path}" class="btn btn_theme" data-toggle="tooltip" data-placement="left" title="View" target="_blank" ><i class="fa fa-eye"></i></a>
+               <a href="${BASE_URL + document.path}" class="btn btn_theme" data-toggle="tooltip" data-placement="left" title="Download" download ><i class="fa fa-download"></i></a>
+               <button type="button" onclick="delete_document(${document.id});" class="btn btn-danger" data-toggle="tooltip" data-placement="left" title="Delete">
+               <i class="fa fa-trash"></i>
+            </button>
             </div>
          </div>
-      </div>`;
+         <p>${document.name}</p>
+      </div>`
    }
 </script>
 

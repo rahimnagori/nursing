@@ -22,6 +22,12 @@ class Admin_Users extends CI_Controller
     $pageData['adminData'] = $adminData;
 
     $pageData['users'] = $this->Common_Model->fetch_records('users', array('is_deleted' => 0));
+    foreach($pageData['users'] as $key => $user){
+      $whereDocs = [
+        'user_id' => $user['id']
+      ];
+      $pageData['users'][$key]['userDocuments'] = $this->Common_Model->fetch_records('user_docs', $whereDocs);
+    }
 
     $this->load->view('admin/users_management', $pageData);
   }
