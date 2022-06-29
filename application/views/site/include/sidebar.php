@@ -5,7 +5,7 @@
       <li><a href="<?=site_url('Contact-Admin');?>"><i class="la la-comments"></i> Contact Admin</a></li>
       <li><a href="<?=site_url('User-Documents');?>"><i class="la la-file-text-o"></i> Documents</a></li>
       <li><a href="<?=site_url('Jobs');?>"><i class="la la-search"></i> Job Search</a></li>
-      <li><a href="<?=site_url('Applied-Jobs');?>"><i class="la la-briefcase"></i> Applied Jobs</a></li>
+      <li><a href="<?=site_url('Applied-Jobs');?>"><i class="la la-briefcase"></i> Job Applications</a></li>
       <li><a href="<?=site_url('Logout');?>"><i class="la la-sign-out"></i> Logout</a></li>
    </ul>
 </div>

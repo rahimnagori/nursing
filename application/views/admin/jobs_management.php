@@ -78,6 +78,10 @@
         <div class="modal-body">
           <div class="optio_raddipo">
             <div class="form-group">
+              <label> Job Reference </label>
+              <input type="text" name="job_ref" class="form-control" required="">
+            </div>
+            <div class="form-group">
               <label> Title </label>
               <input type="text" name="title" class="form-control" required="">
             </div>

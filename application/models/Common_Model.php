@@ -211,15 +211,21 @@ class Common_Model extends CI_Model
     return substr($string, 0, 1);
   }
 
-  public function generate_password()
+  public function generate_password($passwordLength)
   {
     $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
     $pass = array();
     $alphaLength = strlen($alphabet) - 1;
-    for ($i = 0; $i < 8; $i++) {
+    for ($i = 0; $i <= $passwordLength; $i++) {
       $n = rand(0, $alphaLength);
       $pass[] = $alphabet[$n];
     }
     return implode($pass);
+  }
+
+  public function generate_username($userdata)
+  {
+    $totalUsers = count($this->fetch_records('users')) + 1;
+    return $userdata['first_name'] . $totalUsers . $this->generate_password(4);
   }
 }

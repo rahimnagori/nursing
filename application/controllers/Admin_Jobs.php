@@ -162,6 +162,7 @@ class Admin_Jobs extends CI_Controller
   private function create_job($update = false)
   {
     $data = [
+      'job_ref' => $this->input->post('job_ref'),
       'title' => $this->input->post('title'),
       'description' => $this->input->post('description'),
       'job_type' => $this->input->post('job_type'),
@@ -177,7 +178,7 @@ class Admin_Jobs extends CI_Controller
       $data['created'] = date("Y-m-d H:i:s");
       $data['is_deleted'] = 0;
       $data['user_id'] = $this->session->userdata('id');
-      $data['job_ref'] = $this->Common_Model->get_job_reference($data);
+      // $data['job_ref'] = $this->Common_Model->get_job_reference($data);
     }
     return $data;
   }

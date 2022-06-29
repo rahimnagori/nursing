@@ -1,3 +1,9 @@
+<style>
+    #guest-application-form {
+        display: none;
+    }
+</style>
+
 <div class="pad_sec">
     <div class="container">
         <div class="white_box2 job_deshhh">
@@ -74,24 +80,26 @@
                     <h4 class="modal-title">Apply for this Job</h4>
                 </div>
                 <div class="modal-body">
-                    <p><a href="<?= site_url('Sign Up'); ?>">Sign Up</a> and Apply</p>
-                    <p>Or Apply as a Guest</p>
-                    <button class="btn btn_theme2" onclick="$('#guest-application-form').show();"> Apply </button>
+                    <div class="text-center">
+                        <p><a href="<?= site_url('Sign-Up'); ?>">Sign Up</a> and Apply</p>
+                        <p>Or Apply as a Guest</p>
+                        <button class="btn btn_theme2" onclick="$('#guest-application-form').show();"> Apply </button>
+                    </div>
                     <div id="guest-application-form">
                         <form role="form" method="POST" id="guestApplicationForm" name="guestApplicationForm" onsubmit="apply_as_guest(event);">
                             <div class="formn_me">
-                                <div class="form-group">
+                                <!-- <div class="form-group">
                                     <label>Username </label>
                                     <div class="icon_us">
                                         <i class="la la-user"></i>
                                         <input type="text" name="username" placeholder="Enter Username" class="form-control" required>
-                                        <input type="hidden" id="job_id" name="job_id" required value="<?= $jobDetails['id']; ?>" >
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="form-group">
                                     <label>Name </label>
                                     <div class="icon_us">
                                         <i class="la la-user"></i>
+                                        <input type="hidden" id="job_id" name="job_id" required value="<?= $jobDetails['id']; ?>">
                                         <input type="text" name="name" placeholder="Enter Name" class="form-control" required>
                                     </div>
                                 </div>
@@ -179,11 +187,13 @@
                 $("#responseMessageSecond").hide();
             },
             success: function(response) {
+                $(".btn_submit_apply").attr('disabled', false);
+                $(".btn_submit_apply").html('Apply');
                 $("#responseMessageSecond").html(response.responseMessage);
                 $("#responseMessageSecond").show();
                 if (response.status == 1) {
                     $(".btn_submit_apply").html('Applied');
-                    /* Rest the form here */
+                    /* Reset the form here */
                 }
             }
         });

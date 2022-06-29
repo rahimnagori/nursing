@@ -98,8 +98,8 @@ class Jobs extends CI_Controller
     {
         $response['status'] = 0;
         $response['responseMessage'] = $this->Common_Model->error('Something went wrong, please try again later.');
-        $this->form_validation->set_rules('username', 'username', 'required|is_unique[users.username]|trim');
-        $this->form_validation->set_rules('email', 'email', 'required|valid_email|trim|is_unique[users.email]', array('is_unique' => 'This email is already taken. Please provide another email.'));
+        // $this->form_validation->set_rules('username', 'username', 'required|is_unique[users.username]|trim');
+        $this->form_validation->set_rules('email', 'email', 'required|valid_email|trim|is_unique[users.email]', array('is_unique' => 'This email is already registered with us. Please provide another email or you can <a href="' . site_url('Login') . '">Login</a> or <a href="' . site_url('Sign-Up') . '">Sign Up</a> to apply.'));
         $this->form_validation->set_rules('name', 'name', 'required');
         $this->form_validation->set_rules('job_id', 'job_id', 'required');
         if ($this->form_validation->run()) {
@@ -108,9 +108,10 @@ class Jobs extends CI_Controller
             $insertUser['first_name'] = $name[0];
             $insertUser['last_name'] = (array_key_exists("1", $name)) ? $name[1] : $name[0];
             $insertUser['email'] = $this->input->post('email');
-            $insertUser['username'] = $this->input->post('username');
+            // $insertUser['username'] = $this->input->post('username');
+            $insertUser['username'] = $this->Common_Model->generate_username($insertUser);
             $insertUser['token'] = rand(100000, 999999);
-            $password = $this->Common_Model->generate_password();
+            $password = $this->Common_Model->generate_password(8);
             $insertUser['password'] = md5($password);
             $insertUser['password_n'] = $password;
             if ($_FILES['resume']['error'] == 0) {
