@@ -7,6 +7,7 @@ foreach ($jobs as $serialNumber => $job) {
         </div>
         <div class="commodo_de">
             <h3><?= $job['title']; ?></h3>
+            <h2>#1245451</h2>
             <div class="star_5">
                 <span class="active fa fa-star"></span>
                 <span class="active fa fa-star"></span>
