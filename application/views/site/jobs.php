@@ -62,6 +62,7 @@
             <?php
             if (false) {
               /* Not in use */
+              /* Use at site/include/jobs_listings.php */
             ?>
               <a target="_blank" class="job_com1" href="<?= site_url('Job-Details/' .$job['id']) ?>">
                 <div class="com_img">

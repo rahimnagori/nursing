@@ -16,7 +16,7 @@
             <a href="<?=site_url('Admin-Jobs');?>"><i class="fa fa-dot-circle-o"></i> Jobs</a>
           </li>
           <li>
-            <a href="<?=site_url('Job-Types');?>"><i class="fa fa-dot-circle-o"></i> Job Location</a>
+            <a href="<?=site_url('Job-Types');?>"><i class="fa fa-dot-circle-o"></i> Work Location</a>
           </li>
         </ul>
       </li>

@@ -2,9 +2,10 @@
     #guest-application-form {
         display: none;
     }
+
     .job_com1 {
-	min-height: 125px;
-}
+        min-height: 125px;
+    }
 </style>
 
 <div class="pad_sec">
@@ -16,7 +17,7 @@
                 </div>
                 <div class="commodo_de">
                     <h3><?= $jobDetails['title']; ?></h3>
-                    <h2>#1245545</h2>
+                    <h2>#<?= $jobDetails['job_ref']; ?></h2>
                     <div class="star_5">
                         <span class="active fa fa-star"></span>
                         <span class="active fa fa-star"></span>
@@ -24,7 +25,7 @@
                         <span class="active fa fa-star"></span>
                         <span class="fa fa-star"></span>
                     </div>
-                   
+
                     <!-- <button class="btn btn_theme2 btn_r"> <i class="fa fa-heart-o"></i> Save</button> -->
                 </div>
             </a>
@@ -39,7 +40,7 @@
                 <div class="responseMessage" id="responseMessage"></div>
                 <div class="row d_flex">
                     <div class="col-sm-4">
-                        <h4><span><i class="fa fa-map-marker"></i>Location</span><?= $jobDetails['title']; ?> </h4>
+                        <h4><span><i class="fa fa-map-marker"></i>Work Location</span><?= $jobTypes[$jobDetails['job_type']]; ?> </h4>
                     </div>
                     <div class="col-sm-4">
                         <h4><span><?= $this->config->item('CURRENCY'); ?></i>Salary </span> <?= $this->config->item('CURRENCY'); ?> <?= $jobDetails['salary']; ?> / <?= $paymentTypes[$jobDetails['payment_type']]; ?> </h4>
@@ -54,13 +55,13 @@
                         <h4><span><i class="fa fa-calendar"></i> Last Date </span><?= date("d M, Y", strtotime($jobDetails['last_date'])); ?></h4>
                     </div>
                     <div class="col-sm-4">
-                        <h4><span><i class="fa fa-map-marker"></i> Address </span> Indore</h4>
+                        <h4><span><i class="fa fa-map-marker"></i> Address </span> <?= $jobDetails['address']; ?></h4>
                     </div>
                 </div>
                 <h3>Job Description</h3>
                 <?= $jobDetails['description']; ?>
-               <div class="text-right">
-               <?php
+                <div class="text-right">
+                    <?php
                     if ($this->session->userdata('id') && $userDetails['resume']) {
                         if ($isJobApplied) {
                             echo "<a >You have already applied for this job.</a>";
@@ -76,7 +77,7 @@
                     <?php
                     }
                     ?>
-               </div>
+                </div>
             </div>
         </div>
     </div>

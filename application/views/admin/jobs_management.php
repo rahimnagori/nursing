@@ -12,7 +12,7 @@
               <th>S.No.</th>
               <th>Reference</th>
               <th>Title</th>
-              <th>Location</th>
+              <th>Work Location</th>
               <th>Address</th>
               <th>Salary</th>
               <th>Description</th>

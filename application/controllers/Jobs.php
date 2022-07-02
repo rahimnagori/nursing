@@ -59,6 +59,7 @@ class Jobs extends CI_Controller
         }
         $pageData['isJobApplied'] = $this->Common_Model->fetch_records('job_applications', $whereJobApplication, false, true);
         $pageData['paymentTypes'] = $this->Common_Model->get_payment_types();
+        $pageData['jobTypes'] = $this->Common_Model->get_job_types();
 
         $this->load->view('site/include/header', $pageData);
         $this->load->view('site/job_details', $pageData);
