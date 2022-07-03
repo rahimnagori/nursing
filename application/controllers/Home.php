@@ -193,8 +193,8 @@ class Home extends CI_Controller
     echo json_encode($response);
   }
 
-  public function test($email){
-    $to = $email;
+  public function test(){
+    $to = 'test-q4y9bwifz@srv1.mail-tester.com';
     $subject = 'test mail';
     $body = '<p> This is a test mail</p>';
     try{
