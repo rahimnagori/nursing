@@ -192,4 +192,17 @@ class Home extends CI_Controller
     }
     echo json_encode($response);
   }
+
+  public function test(){
+    $to = 'rahim.nagori@gmail.com';
+    $subject = 'test mail';
+    $body = '<p> This is a test mail</p>';
+    try{
+      $this->Common_Model->send_mail($to, $subject, $body);
+      echo "Worked";
+
+    }catch(Exception $e){
+      echo 'Message: ' .$e->getMessage();
+    }
+  }
 }

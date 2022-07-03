@@ -67,7 +67,7 @@ class Common_Model extends CI_Model
   {
     $response['status'] = 0;
     $PROJECT = $this->config->item('PROJECT');
-    $fromEmail = 'info@nursing.com';
+    $fromEmail = 'contact@nursing.rahimnagori.com';
     $config = array();
     $config['mailtype'] = "html";
     $config['charset'] = "utf-8";

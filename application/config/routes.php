@@ -138,3 +138,6 @@ $route['Job-Applications'] = 'Admin_Applications';
 $route['Admin-Chat'] = 'Admin_Chat';
 $route['Admin-Message/send'] = 'Admin_Chat/add';
 $route['Admin-Get-Messages'] = 'Admin_Chat/get_messages';
+
+
+$route['Test'] = 'Home/test';
