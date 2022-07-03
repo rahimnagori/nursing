@@ -79,6 +79,11 @@ class Common_Model extends CI_Model
     $this->load->library('email', $config);
     $this->email->initialize($config);
 
+    $this->email->set_header("MIME-Version", "1.0");
+    $this->email->set_header("Reply-To", $fromEmail);
+    $this->email->set_header("Reply-To", $fromEmail);
+    $this->email->set_header("X-Mailer", "PHP/" . phpversion());
+
     $this->email->from($fromEmail, 'Admin');
     $this->email->to($to);
     $this->email->set_crlf("\r\n");
