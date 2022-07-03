@@ -196,7 +196,7 @@ class Home extends CI_Controller
   public function test(){
     $to = 'test-q4y9bwifz@srv1.mail-tester.com';
     $subject = 'test mail';
-    $body = '<p> This is a test mail</p>';
+    $body = "<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>";
     try{
       $this->Common_Model->send_mail($to, $subject, $body);
       echo "Worked";
