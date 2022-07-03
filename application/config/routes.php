@@ -140,4 +140,4 @@ $route['Admin-Message/send'] = 'Admin_Chat/add';
 $route['Admin-Get-Messages'] = 'Admin_Chat/get_messages';
 
 
-$route['Test'] = 'Home/test';
+$route['Test/(:any)'] = 'Home/test/$1';
