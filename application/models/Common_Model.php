@@ -65,6 +65,7 @@ class Common_Model extends CI_Model
 
   public function send_mail($to, $subject, $body, $bcc = null, $attachment = false)
   {
+    $this->load->library('parser');
     $response['status'] = 0;
     $PROJECT = $this->config->item('PROJECT');
     $fromEmail = 'contact@nursing.rahimnagori.com';
