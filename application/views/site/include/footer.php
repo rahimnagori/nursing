@@ -278,6 +278,13 @@
   $('[data-toggle="tooltip"]').tooltip()
 })
 </script>
+<script>
+  $(function(){
+
+$('.left_side ul li a').filter(function(){return this.href==location.href}).parent().addClass('active').siblings().removeClass('active')
+
+})
+</script>
 </body>
 
 </html>

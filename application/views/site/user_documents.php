@@ -8,7 +8,7 @@
 <div class="card_bodym">
    <div id="responseMessage"></div>
    <label>Upload Support Document</label>
-   <div class="row uuss_rowws" id="document_div">
+   <div class="row uuss_rowws d_flex" id="document_div">
       <?php
       foreach ($userDocuments as $userDocument) {
       ?>
