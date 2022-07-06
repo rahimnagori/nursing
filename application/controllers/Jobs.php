@@ -55,7 +55,7 @@ class Jobs extends CI_Controller
         $pageData = $this->get_job_details_data($id);
 
         $this->load->view('site/include/header', $pageData);
-        $this->load->view('site/job_details', $pageData);
+        $this->load->view('site/user_job_details', $pageData);
         $this->load->view('site/include/footer', $pageData);
     }
 
