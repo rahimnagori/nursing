@@ -28,6 +28,14 @@ class Common_Model extends CI_Model
     return ($singleRecords) ? $query->row_array() : $query->result_array();
   }
 
+  public function get_user($where)
+  {
+    $this->db->or_where('username', $where);
+    $this->db->or_where('email', $where);
+    $query = $this->db->get('users');
+    return $query->row_array();
+  }
+
   public function update($table, $where, $updateData)
   {
     $this->db->where($where);

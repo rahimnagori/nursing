@@ -35,31 +35,24 @@ class Users extends CI_Controller
     $this->form_validation->set_rules('username', 'username', 'required|trim');
     $this->form_validation->set_rules('password', 'password', 'required');
     if ($this->form_validation->run()) {
-      $isUserExist = false;
-      $where['username'] = $this->input->post('username');
-      $where['password'] = md5($this->input->post('password'));
-      $userDetailsWithUsername = $this->Common_Model->fetch_records('users', $where);
-      if (!empty($userDetailsWithUsername)) {
-        $isUserExist = true;
-        $userDetails = $userDetailsWithUsername;
-      }
-      $where['email'] = $this->input->post('username');
-      unset($where['username']);
-      $userDetailsWithEmail = $this->Common_Model->fetch_records('users', $where);
-      if (!empty($userDetailsWithEmail)) {
-        $isUserExist = true;
-        $userDetails = $userDetailsWithEmail;
-      }
-      if ($isUserExist) {
-        $update['is_logged_in'] = 1;
-        $update['last_login'] = date("Y-m-d H:i:s");
-        $this->Common_Model->update('users', $where, $update);
-        $this->session->set_userdata(array('id' => $userDetails[0]['id'], 'is_user_logged_in' => true, 'userdata' => $userDetails[0]));
-        $response['status'] = 1;
-        $response['responseMessage'] = $this->Common_Model->success('Logged in successfully.');
+      $where = $this->input->post('username');
+      $userdata = $this->Common_Model->get_user($where);
+      $password = md5($this->input->post('password'));
+      if ($userdata) {
+        if ($password == $userdata['password']) {
+          $update['is_logged_in'] = 1;
+          $update['last_login'] = date("Y-m-d H:i:s");
+          $this->Common_Model->update('users', array('id' => $userdata['id']), $update);
+          $this->session->set_userdata(array('id' => $userdata['id'], 'is_user_logged_in' => true, 'userdata' => $userdata));
+          $response['status'] = 1;
+          $response['responseMessage'] = $this->Common_Model->success('Logged in successfully.');
+        } else {
+          $response['status'] = 2;
+          $response['responseMessage'] = $this->Common_Model->error('Your password is not correct. Try remembering the correct password');
+        }
       } else {
         $response['status'] = 2;
-        $response['responseMessage'] = $this->Common_Model->error('User does not exists. Either username or password is wrong.');
+        $response['responseMessage'] = $this->Common_Model->error('User does not exists. Click on <a href="' . site_url('Sign-Up') . '">Sign Up</a> to register');
       }
     } else {
       $response['status'] = 2;
@@ -116,7 +109,7 @@ class Users extends CI_Controller
     if ($pageData['userDetails']['is_email_verified'] != 1) {
       redirect('Verify');
     }
-    
+
     $whereDoc = [
       'user_id' => $this->session->userdata('id'),
       'doc_type' => 1 /* Profile */
