@@ -1,3 +1,9 @@
+<style>
+   .tradup_img2 {
+	object-fit: contain;
+	padding: 10px;
+}
+</style>
 <h4 class="hedding_right">Documents <small>You can add up to 8 documents at max.</small></h4>
 <div class="card_bodym">
    <div id="responseMessage"></div>
@@ -8,7 +14,7 @@
       ?>
          <div class="col-sm-3" id="document_div_index_<?= $userDocument['id']; ?>">
             <div class="image_uplod1">
-               <img src="<?= site_url('assets/site/'); ?>img/img_2.png" class="tradup_img2">
+               <img src="<?= site_url('assets/site/'); ?>img/doc.svg" class="tradup_img2">
                <div class="btttponm_psuiui">
                   <a href="<?= site_url($userDocument['document']); ?>" class="btn btn_theme" data-toggle="tooltip" data-placement="left" title="View" target="_blank"><i class="fa fa-eye"></i></a>
                   <a href="<?= site_url($userDocument['document']); ?>" class="btn btn_theme" data-toggle="tooltip" data-placement="left" title="Download" download><i class="fa fa-download"></i></a>
