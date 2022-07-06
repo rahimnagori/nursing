@@ -79,6 +79,7 @@
                      </div>
                   </form>
                </div>
+               <?php include 'user_documents.php'; ?>
             </div>
          </div>
       </div>

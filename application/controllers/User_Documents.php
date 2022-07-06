@@ -39,7 +39,7 @@ class User_Documents extends CI_Controller
         $response['status'] = 0;
         $existingFiles = $this->check_file_count();
 
-        if ($existingFiles < 4) {
+        if ($existingFiles < 8) {
             if ($_FILES['document']['error'] == 0) {
                 $config['upload_path'] = "assets/site/documents/";
                 $config['allowed_types'] = 'pdf|doc|docx';
@@ -64,7 +64,7 @@ class User_Documents extends CI_Controller
                 }
             }
         } else {
-            $response['responseMessage'] = $this->Common_Model->error('Maximum upto 4 files are allowed.');
+            $response['responseMessage'] = $this->Common_Model->error('Maximum upto 8 files are allowed.');
             $response['status'] = 2;
         }
         echo json_encode($response);
