@@ -49,7 +49,7 @@
                      <div class="row">
                         <div class="form-group">
                            <div class="col-sm-12">
-                              <label>Resumeddd <small>(Uploading new resume will remove the old)</small></label>
+                              <label>Resume <small>(Uploading new resume will remove the old)</small></label>
                               <input type="file" name="resume" accept=".doc, .docx, .pdf" >
                               <input type="hidden" name="old_resume" value="<?=$userDetails['resume'];?>" >
                               <?php

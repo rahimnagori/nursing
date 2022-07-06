@@ -48,7 +48,7 @@ class Users extends CI_Controller
           $response['responseMessage'] = $this->Common_Model->success('Logged in successfully.');
         } else {
           $response['status'] = 2;
-          $response['responseMessage'] = $this->Common_Model->error('Your password is not correct. Try remembering the correct password');
+          $response['responseMessage'] = $this->Common_Model->error('Your password is not correct. Try entering the correct password');
         }
       } else {
         $response['status'] = 2;

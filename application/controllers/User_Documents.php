@@ -39,7 +39,7 @@ class User_Documents extends CI_Controller
         $response['status'] = 0;
         $existingFiles = $this->check_file_count();
 
-        if ($existingFiles < 8) {
+        if ($existingFiles <= 8) {
             if ($_FILES['document']['error'] == 0) {
                 $config['upload_path'] = "assets/site/documents/";
                 $config['allowed_types'] = 'pdf|doc|docx';

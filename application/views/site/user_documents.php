@@ -60,7 +60,7 @@
                $("#doc_name").val('');
                $("#document_div").prepend(documentDiv(response.document));
             }
-            if (response.totalDocuments >= 8) {
+            if (response.totalDocuments > 8) {
                $("#add_new_document").hide();
             }
             $("#responseMessage").html(response.responseMessage);
@@ -87,7 +87,7 @@
                if (response.status == 1) {
                   $("#document_div_index_" + document_id).remove();
                }
-               if (response.totalDocuments < 8) {
+               if (response.totalDocuments <= 8) {
                   $("#add_new_document").show();
                }
                $("#responseMessage").html(response.responseMessage);
@@ -107,7 +107,7 @@
    const documentDiv = (document) => {
       return `<div class="col-sm-3" id="document_div_index_${document.id}">
          <div class="image_uplod1">
-            <img src="<?= site_url('assets/site/'); ?>img/img_2.png" class="tradup_img2">
+            <img src="<?= site_url('assets/site/'); ?>img/doc.svg" class="tradup_img2">
             <div class="btttponm_psuiui">
                <a href="${BASE_URL + document.path}" class="btn btn_theme" data-toggle="tooltip" data-placement="left" title="View" target="_blank" ><i class="fa fa-eye"></i></a>
                <a href="${BASE_URL + document.path}" class="btn btn_theme" data-toggle="tooltip" data-placement="left" title="Download" download ><i class="fa fa-download"></i></a>
