@@ -18,11 +18,11 @@
                            <div class="image_uplod1">
                               <img src="<?= site_url('assets/site/'); ?>img/img_2.png" class="tradup_img2">
                               <div class="btttponm_psuiui">
-                                 <a href="<?=site_url($userDocument['document']);?>" class="btn btn_theme" data-toggle="tooltip" data-placement="left" title="View" target="_blank" ><i class="fa fa-eye"></i></a>
-                                 <a href="<?=site_url($userDocument['document']);?> class="btn btn_theme" data-toggle="tooltip" data-placement="left" title="Download" download ><i class="fa fa-download"></i></a>
+                                 <a href="<?= site_url($userDocument['document']); ?>" class="btn btn_theme" data-toggle="tooltip" data-placement="left" title="View" target="_blank"><i class="fa fa-eye"></i></a>
+                                 <a href="<?= site_url($userDocument['document']); ?>" class="btn btn_theme" data-toggle="tooltip" data-placement="left" title="Download" download><i class="fa fa-download"></i></a>
                                  <button type="button" onclick="delete_document(<?= $userDocument['id']; ?>);" class="btn btn-danger" data-toggle="tooltip" data-placement="left" title="Delete">
-                                 <i class="fa fa-trash"></i>
-                              </button>
+                                    <i class="fa fa-trash"></i>
+                                 </button>
                               </div>
                            </div>
                            <?= ($userDocument['doc_name']) ? "<p>" . $userDocument['doc_name'] . "</p>" : ''; ?>
@@ -34,7 +34,7 @@
                         <div class="image_uplod1">
                            <img src="<?= site_url('assets/site/'); ?>img/icon_us2.png" class="tradup_img1">
                            <form id="documentForm" name="documentForm" onsubmit="upload_document(event);">
-                              <input type="text" id="doc_name" name="doc_name" class="form-control fon_text" required="" placeholder="Name of Document" >   
+                              <input type="text" id="doc_name" name="doc_name" class="form-control fon_text" required="" placeholder="Name of Document">
                               <input type="file" id="upload_file_input" onchange="check_files();" name="document" accept=".doc, .docx, .pdf" class="uplldui">
                            </form>
                         </div>
@@ -72,6 +72,7 @@
             }
             $("#responseMessage").html(response.responseMessage);
             $("#responseMessage").show();
+            $("#upload_file_input").val('');
          }
       });
    }
@@ -103,9 +104,9 @@
       }
    }
 
-   function check_files(){
+   function check_files() {
       let inputFile = $("#upload_file_input")[0].files[0];
-      if(inputFile != undefined){
+      if (inputFile != undefined) {
          $('#documentForm').submit();
       }
    }
@@ -126,4 +127,3 @@
       </div>`
    }
 </script>
-
