@@ -31,7 +31,7 @@
                       <?php
                       foreach ($jobLocations as $jobLocation) {
                       ?>
-                        <option value="<?= $jobLocation['id']; ?>" <?=($searchParams['types'] == $jobLocation['id']) ? 'selected' : '';?> ><?= $jobLocation['name']; ?></option>
+                        <option value="<?= $jobLocation['id']; ?>" <?= ($searchParams['types'] == $jobLocation['id']) ? 'selected' : ''; ?>><?= $jobLocation['name']; ?></option>
                       <?php
                       }
                       ?>
@@ -57,14 +57,14 @@
           </div>
         </div>
         <div class="col-sm-8">
-          <?=$this->session->flashdata('responseMessage');?>
+          <?= $this->session->flashdata('responseMessage'); ?>
           <div class="job_list2" id="job-listings">
             <?php
             if (false) {
               /* Not in use */
               /* Use at site/include/jobs_listings.php */
             ?>
-              <a target="_blank" class="job_com1" href="<?= site_url('Job-Details/' .$job['id']) ?>">
+              <a target="_blank" class="job_com1" href="<?= site_url('Job-Details/' . $job['id']) ?>">
                 <div class="com_img">
                   <img src="<?= site_url('assets/site/'); ?>img/logo.png">
                 </div>
@@ -81,9 +81,9 @@
                   <div class="set_losnn">
                     <h4><i class="fa fa-briefcase"></i> <?= $job['qualification']; ?> </h4>
                     <h4 class="spb_m"><i class="fa fa-map-marker"></i> <?= $job['name']; ?> </h4>
-                    <h4 class="spb_m"><?=$this->config->item('CURRENCY');?> <?= $job['salary']; ?> / <?= $paymentTypes[$job['payment_type']]; ?> </h4>
+                    <h4 class="spb_m"><?= $this->config->item('CURRENCY'); ?> <?= $job['salary']; ?> / <?= $paymentTypes[$job['payment_type']]; ?> </h4>
                     <h4 class="spb_m"><i class="fa fa-calendar"></i> <?= date("d M, Y", strtotime($job['last_date'])); ?> </h4>
-                  
+
                   </div>
                 </div>
               </a>
@@ -123,39 +123,6 @@
   </div>
 </div>
 
-<?php
-  include('include/footer.php');
-?>
+<?php include('include/footer.php'); ?>
 
-<script>
-  function search_jobs() {
-    $.ajax({
-      type: 'POST',
-      url: BASE_URL + 'Search-Jobs',
-      data: new FormData($('#searchForm')[0]),
-      dataType: 'HTML',
-      processData: false,
-      contentType: false,
-      cache: false,
-      beforeSend: function(xhr) {
-        $(".btn_submit").attr('disabled', true);
-        $(".btn_submit").html(LOADING);
-        // $("#responseMessage").html('');
-        // $("#responseMessage").hide();
-        $("#job-listings").html(LOADING);
-      },
-      success: function(response) {
-        $(".btn_submit").prop('disabled', false);
-        $(".btn_submit").html(' Search ');
-        $("#job-listings").html(response);
-      }
-    });
-  }
-
-  function submit_form(e) {
-    e.preventDefault();
-    search_jobs();
-  }
-
-  search_jobs();
-</script>
+<script src="<?= site_url('assets/site/js/jobs.js'); ?>"></script>
