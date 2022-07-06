@@ -55,14 +55,16 @@ class Home extends CI_Controller
     $this->load->view('site/jobs', $pageData);
   }
 
-  public function user_jobs(){
+  public function user_jobs()
+  {
     $pageData = $this->get_jobs_pagedata();
 
     $this->load->view('site/include/header', $pageData);
     $this->load->view('site/user-jobs', $pageData);
   }
 
-  private function get_jobs_pagedata(){
+  private function get_jobs_pagedata()
+  {
     $pageData = $this->Common_Model->get_userdata();
     $join[0][] = 'job_types';
     $join[0][] = 'jobs.job_type = job_types.id';

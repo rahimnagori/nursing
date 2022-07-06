@@ -1,7 +1,7 @@
 <?php
 foreach ($jobs as $serialNumber => $job) {
 ?>
-    <a target="_blank" class="job_com1" href="<?= site_url('Job-Details/' . $job['id']) ?>">
+    <a target="_blank" class="job_com1" href="<?= site_url($jobDetailsPath . $job['id']) ?>">
         <div class="com_img">
             <img src="<?= site_url('assets/site/'); ?>img/logo.png">
         </div>

@@ -20,6 +20,7 @@
                 <div class="icon_us">
                   <i class="la la-search"></i>
                   <input type="text" name="searchQuery" placeholder="Search" class="form-control">
+                  <input type="hidden" name="jobDetailsPath" value="Job-Details/" />
                 </div>
               </div>
               <div class="row">
