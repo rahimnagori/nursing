@@ -60,25 +60,25 @@
                 </div>
                 <h3>Job Description</h3>
                 <?= $jobDetails['description']; ?>
-                <div class="text-right">
-                    <?php
-                    if ($this->session->userdata('id') && $userDetails['resume']) {
-                        if ($isJobApplied) {
-                            echo "<a >You have already applied for this job.</a>";
-                        } else {
-                    ?>
-                            <button class="btn btn_theme2 btn_r btn_submit" type="button" onclick="apply();">Apply Now</button>
-                        <?php
-                        }
-                    }
-                    if (!$this->session->userdata('id')) {
-                        ?>
-                        <button class="btn btn_theme2 btn_r btn_submit" data-toggle="modal" data-target="#applyConfirmationModal">Apply</button>
-                    <?php
-                    }
-                    ?>
-                </div>
             </div>
+        </div>
+        <div class="text-right">
+            <?php
+            if ($this->session->userdata('id') && $userDetails['resume']) {
+                if ($isJobApplied) {
+                    echo "<a >You have already applied for this job.</a>";
+                } else {
+            ?>
+                    <button class="btn btn_theme2 btn_r btn_submit" type="button" onclick="apply();">Apply Now</button>
+                <?php
+                }
+            }
+            if (!$this->session->userdata('id')) {
+                ?>
+                <button class="btn btn_theme2 btn_r btn_submit" data-toggle="modal" data-target="#applyConfirmationModal">Apply</button>
+            <?php
+            }
+            ?>
         </div>
     </div>
     <!-- Modal -->
