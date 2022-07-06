@@ -49,6 +49,22 @@ class Home extends CI_Controller
 
   public function jobs()
   {
+    $pageData = $this->get_jobs_pagedata();
+
+    $this->load->view('site/include/header', $pageData);
+    $this->load->view('site/jobs', $pageData);
+  }
+
+  public function user_jobs()
+  {
+    $pageData = $this->get_jobs_pagedata();
+
+    $this->load->view('site/include/header', $pageData);
+    $this->load->view('site/user-jobs', $pageData);
+  }
+
+  private function get_jobs_pagedata()
+  {
     $pageData = $this->Common_Model->get_userdata();
     $join[0][] = 'job_types';
     $join[0][] = 'jobs.job_type = job_types.id';
@@ -60,9 +76,7 @@ class Home extends CI_Controller
     $pageData['jobLocations'] = $this->Common_Model->fetch_records('job_types');
 
     $pageData['searchParams']['types'] = (isset($_GET['type'])) ? $_GET['type'] : '';
-
-    $this->load->view('site/include/header', $pageData);
-    $this->load->view('site/jobs', $pageData);
+    return $pageData;
   }
 
   public function contact()

@@ -37,10 +37,29 @@ class Jobs extends CI_Controller
         $select = 'jobs.*, job_types.name';
         $pageData['jobs'] = $this->Jobs_Model->join_records('jobs', $join, $select, $whereJoin, $orLikeGroup,  'jobs.id', 'DESC');
         $pageData['paymentTypes'] = $this->Common_Model->get_payment_types();
+        $pageData['jobDetailsPath'] = $searchParams['jobDetailsPath'];
         $this->load->view('site/include/jobs_listings', $pageData);
     }
 
     public function job_details($id)
+    {
+        $pageData = $this->get_job_details_data($id);
+
+        $this->load->view('site/include/header', $pageData);
+        $this->load->view('site/job_details', $pageData);
+        $this->load->view('site/include/footer', $pageData);
+    }
+
+    public function user_job_details($id)
+    {
+        $pageData = $this->get_job_details_data($id);
+
+        $this->load->view('site/include/header', $pageData);
+        $this->load->view('site/user_job_details', $pageData);
+        $this->load->view('site/include/footer', $pageData);
+    }
+
+    private function get_job_details_data($id)
     {
         $pageData = $this->Common_Model->get_userdata();
 
@@ -60,10 +79,7 @@ class Jobs extends CI_Controller
         $pageData['isJobApplied'] = $this->Common_Model->fetch_records('job_applications', $whereJobApplication, false, true);
         $pageData['paymentTypes'] = $this->Common_Model->get_payment_types();
         $pageData['jobTypes'] = $this->Common_Model->get_job_types();
-
-        $this->load->view('site/include/header', $pageData);
-        $this->load->view('site/job_details', $pageData);
-        $this->load->view('site/include/footer', $pageData);
+        return $pageData;
     }
 
     public function apply()

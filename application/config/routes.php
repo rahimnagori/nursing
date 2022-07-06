@@ -103,6 +103,9 @@ $route['User-Documents'] = 'User_Documents';
 $route['Update-Document'] = 'User_Documents/update';
 $route['Delete-Document'] = 'User_Documents/delete_document';
 
+$route['User-Jobs'] = 'Home/user_jobs';
+$route['User-Job-Details/(:any)'] = 'Jobs/user_job_details/$1';
+
 $route['Add-Post'] = 'Users/post';
 $route['My-Posts'] = 'Users/posts';
 $route['Change-Password'] = 'Users/password';
