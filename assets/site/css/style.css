@@ -216,7 +216,7 @@ p {
     position: fixed;
     left: 0;
     right: 0;
-    z-index: 9999;
+    z-index: 1;
 }
 
 .main_nav .navbar-default .navbar-nav>li.user_dropp.open .dropdown-menu,
@@ -1821,7 +1821,13 @@ table.dataTable.order-column.stripe tbody tr.odd>.sorting_1 {
 .filter .row .col-sm-6 {
     padding: 0 5px;
 }
+.spac_min {
+    margin: 0 -5px;
+}
 
+.spac_min [class*="col-sm"]{
+    padding: 0 5px;
+}
 .set_losnn {
     margin: 0 -10px;
 }

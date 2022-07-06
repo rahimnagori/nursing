@@ -1,3 +1,8 @@
+<style>
+   .sec_btn {
+	padding: 10px 15px;
+}
+</style>
 <div class="dasboadd">
 
    <div class="container">
@@ -8,24 +13,26 @@
          <div class="col-sm-9">
             <div class="right_box">
                <h4 class="hedding_right">Search Jobs</h4>
-               <div class="row">
-                  <div class="col-sm-12">
+               <div class="card_bodym">
+                  
                      <!-- Filters -->
                      <form id="searchForm" name="searchForm" method="post" onsubmit="submit_form(event);">
-                        <h4 style="margin-bottom: 20px;">Filters</h4>
-                        <h5>Search</h5>
-                        <div class="form-group">
+                     <h4 style="margin-bottom: 20px;">Filters</h4>
+                     <div class="row spac_min">
+                     <div class="col-sm-10">
+                        <div class="spac_min">
+                           <div class="col-sm-4">
+                           <div class="form-group">
                            <div class="icon_us">
                               <i class="la la-search"></i>
                               <input type="text" name="searchQuery" placeholder="Search" class="form-control">
                            </div>
                         </div>
-                        <div class="row">
-                           <div class="col-sm-6">
-                              <h5>Where</h5>
-                              <div class="form-group">
+                           </div>
+                           <div class="col-sm-4">
+                           <div class="form-group">
                                  <select name="locations" class="form-control">
-                                    <option value="0">Any</option>
+                                    <option value="0">Where</option>
                                     <?php
                                     foreach ($jobLocations as $jobLocation) {
                                     ?>
@@ -36,11 +43,10 @@
                                  </select>
                               </div>
                            </div>
-                           <div class="col-sm-6">
-                              <h5>Payment Type</h5>
-                              <div class="form-group">
+                           <div class="col-sm-4">
+                           <div class="form-group">
                                  <select name="payment_type" class="form-control">
-                                    <option value="0">Any</option>
+                                    <option value="0">Payment Type</option>
                                     <option value="1">Hourly</option>
                                     <option value="2">Weekly</option>
                                     <option value="3">Monthly</option>
@@ -48,12 +54,18 @@
                               </div>
                            </div>
                         </div>
-                        <button class="btn btn_theme2 btn-lg btn-block btn_submit" type="button" onclick="search_jobs()">
+                     </div>
+                     <div class="col-sm-2">
+                     <button class="btn btn_theme2 btn-lg btn-block btn_submit sec_btn" type="button" onclick="search_jobs()">
                            Search
                         </button>
-                     </form>
+                     </div>
                   </div>
-               </div>
+                        
+                        
+                        
+                       
+                     </form>
                <div class="row">
                   <!-- Job listings -->
                   <div class="col-sm-12">
@@ -119,6 +131,8 @@
                      </nav>
                   </div>
                </div>
+</div>
+
             </div>
          </div>
       </div>
