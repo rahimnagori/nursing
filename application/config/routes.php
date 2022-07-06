@@ -81,6 +81,11 @@ $route['Log-In'] = 'Users/login';
 $route['Sign-Up'] = 'Users/signup';
 $route['Register'] = 'Users/register';
 
+$route['Forget'] = 'Users/forget';
+$route['Reset-Password'] = 'Users/reset';
+$route['Reset/(:any)/(:any)'] = 'Users/reset_password/$1/$2';
+$route['Update-Password'] = 'Users/update_new_password';
+
 $route['Profile'] = 'Users/profile';
 $route['Verify'] = 'Users/verify';
 $route['Resend-Email-Verification'] = 'Users/resend';

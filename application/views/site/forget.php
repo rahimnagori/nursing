@@ -1,9 +1,9 @@
 <div class="inner_cont">
    <div class="container">
-      <h4>Login</h4>
+      <h4>Forget Password</h4>
       <p>
          <span><a href="<?= site_url(); ?>">Home</a></span>
-         <span>Login</span>
+         <span>Forget</span>
       </p>
    </div>
 </div>
@@ -12,61 +12,44 @@
       <div class="logi_des">
          <div class="login_box1">
             <div class="login_hedding">
-               <h4>Login</h4>
+               <h4>Reset Password</h4>
             </div>
             <div class="formn_me">
-               <form id="loginForm" name="loginForm" onsubmit="log_user_in(event);">
+               <form id="resetPasswordForm" name="resetPasswordForm" onsubmit="reset_user(event);">
                   <div class="form-group">
-                     <label>Username </label>
+                     <label>Username or Email </label>
                      <div class="icon_us">
                         <i class="la la-envelope"></i>
-                        <input type="text" name="username" placeholder="Username" class="form-control" required="">
-                     </div>
-                  </div>
-                  <div class="form-group">
-                     <label>Password</label>
-                     <div class="icon_us">
-                        <i class="la la-unlock"></i>
-                        <input type="password" name="password" placeholder="Password" class="form-control" required="">
+                        <input type="text" name="username" placeholder="Username or Email" class="form-control" required="">
                      </div>
                   </div>
                   <div class="remnper">
-                     <div class="pull-left">
-                        <label class="checkbox-inline">
-                           <input type="checkbox" name="" id="remember" value="1">
-                           Remember Me
-                        </label>
-                     </div>
                      <div class="pull-right">
-                        <a href="<?= site_url('Forget'); ?>">
-                           Forgot password?
+                        Remember Password? Try
+                        <a href="<?= site_url('Login'); ?>">
+                           Login
                         </a>
                      </div>
                   </div>
                   <?= $this->session->flashdata('responseMessage'); ?>
                   <div class="responseMessage" id="responseMessage"></div>
                   <div class="btnloggib ">
-                     <button class="btn btn_theme2 btn-lg btn-block btn_submit" type="submit">Login</button>
+                     <button class="btn btn_theme2 btn-lg btn-block btn_submit" type="submit">Reset</button>
                   </div>
                </form>
             </div>
-         </div>
-         <div class="donit">
-            <p>
-               if you don't have account? <a href="<?= site_url('Sign-Up'); ?>">Sign Up</a>
-            </p>
          </div>
       </div>
    </div>
 </div>
 
 <script>
-   function log_user_in(e) {
+   function reset_user(e) {
       e.preventDefault();
       $.ajax({
          type: 'POST',
-         url: BASE_URL + 'Log-In',
-         data: new FormData($('#loginForm')[0]),
+         url: BASE_URL + 'Reset-Password',
+         data: new FormData($('#resetPasswordForm')[0]),
          dataType: 'JSON',
          processData: false,
          contentType: false,
@@ -79,8 +62,8 @@
          },
          success: function(response) {
             $(".btn_submit").prop('disabled', false);
-            $(".btn_submit").html(' Add ');
-            if (response.status == 1) location.reload();
+            $(".btn_submit").html(' Reset ');
+            $("#resetPasswordForm")[0].reset();
             $("#responseMessage").html(response.responseMessage);
             $("#responseMessage").show();
          }

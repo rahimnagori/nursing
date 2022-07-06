@@ -98,6 +98,40 @@ class Users extends CI_Controller
     echo json_encode($response);
   }
 
+  public function forget()
+  {
+    if ($this->check_login()) {
+      redirect('Profile');
+    }
+    $pageData = [];
+    $this->load->view('site/include/header', $pageData);
+    $this->load->view('site/forget', $pageData);
+    $this->load->view('site/include/footer', $pageData);
+  }
+
+  public function reset()
+  {
+    $response['status'] = 0;
+    $response['responseMessage'] = $this->Common_Model->error('Something went wrong, please try again later.');
+    $this->form_validation->set_rules('username', 'username', 'required|trim');
+    if ($this->form_validation->run()) {
+      $where = $this->input->post('username');
+      $userdata = $this->Common_Model->get_user($where);
+      if ($userdata) {
+        $emailResponse = $this->send_reset_mail($userdata['id']);
+        $response['status'] = 1;
+        $response['responseMessage'] = $this->Common_Model->success('Check your email to complete password reset. If you have not found mail in Inbox please check your junk folder.' . $emailResponse);
+      } else {
+        $response['status'] = 0;
+        $response['responseMessage'] = $this->Common_Model->error('You are not registered with us. Click on <a href="' . site_url('Sign-Up') . '">Sign Up</a> to register.');
+      }
+    } else {
+      $response['status'] = 2;
+      $response['responseMessage'] = $this->Common_Model->error(validation_errors());
+    }
+    echo json_encode($response);
+  }
+
   public function profile()
   {
     if (!$this->check_login()) {
@@ -184,6 +218,51 @@ class Users extends CI_Controller
     }
   }
 
+  private function send_reset_mail($userId)
+  {
+    $userdata = $this->Common_Model->fetch_records('users', array('id' => $userId), false, true);
+    if ($userdata) {
+      $token = rand(100000, 999999);
+      $update['token'] = $token;
+      $this->Common_Model->update('users', array('id' => $userId), $update);
+      $verificationLink = $this->config->item('base_url');
+      $verificationLink .= 'Reset/' . $userdata['id'] . '/' . $token;
+      $emailContent = $this->Common_Model->get_email_content(4);
+
+      $subject = 'Password reset request received';
+      $body = "<p>Dear " . $userdata['first_name'] . " " . $userdata['last_name'] . ",</p>";
+      $body .= $emailContent;
+      $body .= "<p><a href='" . $verificationLink . "'>Reset Now</a></p>";
+      $body .= "<p>If the above link doesn't work, you may copy paste the below link in your browser also.</p>";
+      $body .= "<p>" . $verificationLink . "</p>";
+      if ($this->config->item('ENVIRONMENT') == 'production') {
+        $this->Common_Model->send_mail($userdata['email'], $subject, $body);
+        return '';
+      } else {
+        return "<br/>" . $body;
+      }
+    } else {
+      /* User does not exist */
+    }
+  }
+
+  private function send_password_change_confirmation($user_id)
+  {
+    $userdata = $this->Common_Model->fetch_records('users', array('id' => $user_id), false, true);
+    if ($userdata) {
+      $to = $userdata['email'];
+      $subject = 'Password reset successfully.';
+      $body = '<p>Hello ' . $userdata['first_name'] . ' ' . $userdata['last_name'] . ',</p>';
+      $body .= '<p>Congratulations!! your password has been reset successfully. You may now continue using our services.</p>';
+      if ($this->config->item('ENVIRONMENT') == 'production') {
+        $this->Common_Model->send_mail($userdata['email'], $subject, $body);
+        return '';
+      } else {
+        return "<br/>" . $body;
+      }
+    }
+  }
+
   public function email_verification($user_id, $token)
   {
     $where['token'] = $token;
@@ -218,6 +297,51 @@ class Users extends CI_Controller
       $this->session->set_flashdata('responseMessage', $message);
       redirect('');
     }
+  }
+
+  public function reset_password($user_id, $token)
+  {
+    $where['token'] = $token;
+    $where['id'] = $user_id;
+    $userdata = $this->Common_Model->fetch_records('users', $where, false, true);
+    if ($userdata) {
+      $pageData = [];
+      $this->session->set_userdata(array('resetPasswordId' => $user_id));
+      $this->load->view('site/include/header', $pageData);
+      $this->load->view('site/reset-password', $pageData);
+      $this->load->view('site/include/footer', $pageData);
+    } else {
+      $message = $this->Common_Model->error('You are not authorized.');
+      $this->session->set_flashdata('responseMessage', $message);
+      redirect('Login');
+    }
+  }
+
+  public function update_new_password()
+  {
+    $response['status'] = 0;
+    $response['responseMessage'] = $this->Common_Model->error('Something went wrong, please try again later.');
+    $this->form_validation->set_rules('password', 'password', 'required|trim');
+    $this->form_validation->set_rules('confirm_password', 'confirm_password', 'required|matches[password]', array('matches' => 'Password and Confirm password does not match.'));
+    if ($this->form_validation->run()) {
+      $userId = $this->session->userdata('resetPasswordId');
+      if ($userId) {
+        $update['token'] = null;
+        $update['password'] = md5($this->input->post('password'));
+        if ($this->Common_Model->update('users', array('id' => $userId), $update)) {
+          $emailResponse = $this->send_password_change_confirmation($userId);
+          $response['status'] = 1;
+          $response['responseMessage'] = $this->Common_Model->success('Password updated successfully. You may now <a href="' . site_url('Login') . '">Login</a> and start applying for jobs.' . $emailResponse);
+        }
+      } else {
+        $response['status'] = 2;
+        $response['responseMessage'] = $this->Common_Model->error('You are not authorized.');
+      }
+    } else {
+      $response['status'] = 2;
+      $response['responseMessage'] = $this->Common_Model->error(validation_errors());
+    }
+    echo json_encode($response);
   }
 
   public function update()
