@@ -116,6 +116,13 @@ class Users extends CI_Controller
     if ($pageData['userDetails']['is_email_verified'] != 1) {
       redirect('Verify');
     }
+    
+    $whereDoc = [
+      'user_id' => $this->session->userdata('id'),
+      'doc_type' => 1 /* Profile */
+    ];
+    $pageData['userDocuments'] = $this->Common_Model->fetch_records('user_docs', $whereDoc);
+
     $this->load->view('site/include/header', $pageData);
     $this->load->view('site/profile', $pageData);
     $this->load->view('site/include/footer', $pageData);

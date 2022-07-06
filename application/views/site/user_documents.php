@@ -1,47 +1,34 @@
-<div class="dasboadd">
-   <div class="container">
-      <div class="row">
-         <div class="col-sm-3">
-            <?php include 'include/sidebar.php'; ?>
-         </div>
-         <div class="col-sm-9">
-            <div class="right_box">
-               <h4 class="hedding_right">Documents <small>You can add up to 4 documents at max.</small></h4>
-               <div class="card_bodym">
-                  <div id="responseMessage"></div>
-                  <label>Upload Support Document</label>
-                  <div class="row uuss_rowws" id="document_div">
-                     <?php
-                     foreach ($userDocuments as $userDocument) {
-                     ?>
-                        <div class="col-sm-2" id="document_div_index_<?= $userDocument['id']; ?>">
-                           <div class="image_uplod1">
-                              <img src="<?= site_url('assets/site/'); ?>img/img_2.png" class="tradup_img2">
-                              <div class="btttponm_psuiui">
-                                 <a href="<?= site_url($userDocument['document']); ?>" class="btn btn_theme" data-toggle="tooltip" data-placement="left" title="View" target="_blank"><i class="fa fa-eye"></i></a>
-                                 <a href="<?= site_url($userDocument['document']); ?>" class="btn btn_theme" data-toggle="tooltip" data-placement="left" title="Download" download><i class="fa fa-download"></i></a>
-                                 <button type="button" onclick="delete_document(<?= $userDocument['id']; ?>);" class="btn btn-danger" data-toggle="tooltip" data-placement="left" title="Delete">
-                                    <i class="fa fa-trash"></i>
-                                 </button>
-                              </div>
-                           </div>
-                           <?= ($userDocument['doc_name']) ? "<p>" . $userDocument['doc_name'] . "</p>" : ''; ?>
-                        </div>
-                     <?php
-                     }
-                     ?>
-                     <div class="col-sm-2" id="add_new_document" <?= (count($userDocuments) >= 4) ? 'style="display:none;"' : ''; ?>>
-                        <div class="image_uplod1">
-                           <img src="<?= site_url('assets/site/'); ?>img/icon_us2.png" class="tradup_img1">
-                           <form id="documentForm" name="documentForm" onsubmit="upload_document(event);">
-                              <input type="text" id="doc_name" name="doc_name" class="form-control fon_text" required="" placeholder="Name of Document">
-                              <input type="file" id="upload_file_input" onchange="check_files();" name="document" accept=".doc, .docx, .pdf" class="uplldui">
-                           </form>
-                        </div>
-                     </div>
-                  </div>
+<h4 class="hedding_right">Documents <small>You can add up to 8 documents at max.</small></h4>
+<div class="card_bodym">
+   <div id="responseMessage"></div>
+   <label>Upload Support Document</label>
+   <div class="row uuss_rowws" id="document_div">
+      <?php
+      foreach ($userDocuments as $userDocument) {
+      ?>
+         <div class="col-sm-3" id="document_div_index_<?= $userDocument['id']; ?>">
+            <div class="image_uplod1">
+               <img src="<?= site_url('assets/site/'); ?>img/img_2.png" class="tradup_img2">
+               <div class="btttponm_psuiui">
+                  <a href="<?= site_url($userDocument['document']); ?>" class="btn btn_theme" data-toggle="tooltip" data-placement="left" title="View" target="_blank"><i class="fa fa-eye"></i></a>
+                  <a href="<?= site_url($userDocument['document']); ?>" class="btn btn_theme" data-toggle="tooltip" data-placement="left" title="Download" download><i class="fa fa-download"></i></a>
+                  <button type="button" onclick="delete_document(<?= $userDocument['id']; ?>);" class="btn btn-danger" data-toggle="tooltip" data-placement="left" title="Delete">
+                     <i class="fa fa-trash"></i>
+                  </button>
                </div>
             </div>
+            <?= ($userDocument['doc_name']) ? "<p>" . $userDocument['doc_name'] . "</p>" : ''; ?>
+         </div>
+      <?php
+      }
+      ?>
+      <div class="col-sm-3" id="add_new_document" <?= (count($userDocuments) >= 8) ? 'style="display:none;"' : ''; ?>>
+         <div class="image_uplod1">
+            <img src="<?= site_url('assets/site/'); ?>img/icon_us2.png" class="tradup_img1">
+            <form id="documentForm" name="documentForm" onsubmit="upload_document(event);">
+               <input type="text" id="doc_name" name="doc_name" class="form-control fon_text" required="" placeholder="Name of Document">
+               <input type="file" id="upload_file_input" onchange="check_files();" name="document" accept=".doc, .docx, .pdf" class="uplldui">
+            </form>
          </div>
       </div>
    </div>
@@ -67,7 +54,7 @@
                $("#doc_name").val('');
                $("#document_div").prepend(documentDiv(response.document));
             }
-            if (response.totalDocuments >= 4) {
+            if (response.totalDocuments >= 8) {
                $("#add_new_document").hide();
             }
             $("#responseMessage").html(response.responseMessage);
@@ -94,7 +81,7 @@
                if (response.status == 1) {
                   $("#document_div_index_" + document_id).remove();
                }
-               if (response.totalDocuments < 4) {
+               if (response.totalDocuments < 8) {
                   $("#add_new_document").show();
                }
                $("#responseMessage").html(response.responseMessage);
@@ -112,7 +99,7 @@
    }
 
    const documentDiv = (document) => {
-      return `<div class="col-sm-2" id="document_div_index_${document.id}">
+      return `<div class="col-sm-3" id="document_div_index_${document.id}">
          <div class="image_uplod1">
             <img src="<?= site_url('assets/site/'); ?>img/img_2.png" class="tradup_img2">
             <div class="btttponm_psuiui">
