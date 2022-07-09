@@ -36,6 +36,14 @@ class Common_Model extends CI_Model
     return $query->row_array();
   }
 
+  public function get_admin($where)
+  {
+    // $this->db->where('username', $where);
+    $this->db->where('email', $where);
+    $query = $this->db->get('admins');
+    return $query->row_array();
+  }
+
   public function update($table, $where, $updateData)
   {
     $this->db->where($where);

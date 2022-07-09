@@ -48,8 +48,8 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-sm-12" id="responseMessage">
-          </div>
+          <div class="col-sm-12" id="responseMessage"></div>
+          <?= $this->session->flashdata('responseMessage'); ?>
         </div>
         <div class="btnloggib ">
           <button type="submit" class="btn btn_theme2 btn-lg btn-block btn_submit">Login</button>
@@ -93,7 +93,7 @@
         }
         $("#responseMessage").html(response.responseMessage);
         $("#responseMessage").show();
-        window.location.href = response.redirect;
+        if(response.status == 1) location.reload();
       })
       .fail(function(error) {
         alert( "Server error, please try again later." );

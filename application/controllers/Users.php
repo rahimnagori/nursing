@@ -42,6 +42,7 @@ class Users extends CI_Controller
         if ($password == $userdata['password']) {
           $update['is_logged_in'] = 1;
           $update['last_login'] = date("Y-m-d H:i:s");
+          $update['user_ip'] = $_SERVER['REMOTE_ADDR'];
           $this->Common_Model->update('users', array('id' => $userdata['id']), $update);
           $this->session->set_userdata(array('id' => $userdata['id'], 'is_user_logged_in' => true, 'userdata' => $userdata));
           $response['status'] = 1;

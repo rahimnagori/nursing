@@ -37,25 +37,37 @@ class Admin extends CI_Controller
 
   public function login()
   {
-    $username = trim($this->input->post('email'));
-    $password = trim($this->input->post('password'));
-    $where = array('email' => $username, 'password' => md5($password));
-    $usernameLogin = $this->Common_Model->fetch_records('admins', $where, false, true);
-    $userdata = [];
-    if ($usernameLogin) {
-      $userdata = $usernameLogin;
-    }
-    if ($userdata) {
-      $where['id'] = $userdata['id'];
-      $update['is_logged_in'] = 1;
-      $update['last_login'] = date('Y-m-d H:i:s');
-      $this->Common_Model->update('admins', $where, $update);
-      $this->session->set_userdata(array('id' => $userdata['id'], 'is_admin_logged_in' => true));
-      $response['responseMessage'] = $this->Common_Model->success('Login successfully.');
-      $response['redirect'] = 'Dashboard';
+    $response['status'] = 0;
+    $response['responseMessage'] = $this->Common_Model->error('Something went wrong, please try again later.');
+
+    $this->form_validation->set_rules('email', 'email', 'required|trim');
+    $this->form_validation->set_rules('password', 'password', 'required');
+    if ($this->form_validation->run()) {
+      $where = $this->input->post('email');
+      $adminData = $this->Common_Model->get_admin($where);
+      $password = md5($this->input->post('password'));
+      if ($adminData) {
+        if ($password == $adminData['password']) {
+          $update['is_logged_in'] = 1;
+          $update['last_login'] = date("Y-m-d H:i:s");
+          $update['ip_address'] = $_SERVER['REMOTE_ADDR'];
+          $this->Common_Model->update('admins', array('id' => $adminData['id']), $update);
+          $this->session->set_userdata(array('id' => $adminData['id'], 'is_admin_logged_in' => true, 'adminData' => $adminData));
+          $response['status'] = 1;
+          $response['responseMessage'] = $this->Common_Model->success('Logged in successfully.');
+        } else {
+          $response['status'] = 2;
+          $response['responseMessage'] = $this->Common_Model->error('Your password is not correct. Try entering the correct password');
+        }
+      } else {
+        $response['status'] = 2;
+        $response['responseMessage'] = $this->Common_Model->error('Admin does not exists.');
+      }
     } else {
-      $response['responseMessage'] = $this->Common_Model->error('Invalid Username or Password.');
+      $response['status'] = 2;
+      $response['responseMessage'] = $this->Common_Model->error(validation_errors());
     }
+    $this->session->set_flashdata('responseMessage', $response['responseMessage']);
     echo json_encode($response);
   }
 
