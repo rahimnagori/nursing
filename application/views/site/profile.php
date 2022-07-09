@@ -9,7 +9,7 @@
             <div class="right_box">
                <h4 class="hedding_right">Profile</h4>
                <div class="card_bodym">
-                  <form id="userUpdateForm" name="userUpdateForm" onsubmit="update_user(event);" >
+                  <form id="userUpdateForm" name="userUpdateForm" onsubmit="update_user(event);">
                      <div class="row">
                         <div class="col-sm-6">
                            <div class="form-group">
@@ -50,30 +50,32 @@
                         <div class="form-group">
                            <div class="col-sm-12">
                               <label>Resume <small>(Uploading new resume will remove the old)</small></label>
-                              <input type="file" name="resume" accept=".doc, .docx, .pdf" >
-                              <input type="hidden" name="old_resume" value="<?=$userDetails['resume'];?>" >
+                              <input type="file" name="resume" accept=".doc, .docx, .pdf">
+                              <input type="hidden" name="old_resume" value="<?= $userDetails['resume']; ?>">
                               <?php
-                                 if(empty($userDetails['resume'])){
+                              if (empty($userDetails['resume'])) {
                               ?>
-                                 <a href="#" >No resume uploaded yet</a>
+                                 <a href="#">No resume uploaded yet</a>
                               <?php
-                                 }else{
+                              } else {
                               ?>
-                                 <a href="<?=site_url($userDetails['resume']);?>" download >View Resume</a>
+                                 <a href="<?= site_url($userDetails['resume']); ?>" download>View Resume</a>
                               <?php
-                                 }
+                              }
                               ?>
                            </div>
                         </div>
                      </div>
                      <div class="remnper">
                         <label class="checkbox-inline">
-                           <input type="checkbox" name="uk_work_permit" id="remember" value="1" <?= ($userDetails['uk_work_permit']) ? 'checked' : ''; ?>>
-                           Do you have the right to work in the UK: <b>Yes/No</b>
+                           <!-- <input type="checkbox" name="uk_work_permit" id="remember" value="1" <?= ($userDetails['uk_work_permit']) ? 'checked' : ''; ?>> -->
+                           Do you have the right to work in the UK:
+                           <b>Yes</b><input type="radio" name="uk_work_permit" value="1" <?= ($userDetails['uk_work_permit'] == 1) ? 'checked' : ''; ?> />
+                           <b>No</b><input type="radio" name="uk_work_permit" value="0" <?= ($userDetails['uk_work_permit'] == 0) ? 'checked' : ''; ?> />
                         </label>
                      </div>
-                     <?=$this->session->flashdata('responseMessage');?>
-                     <div class="responseMessage" id="responseMessage" ></div>
+                     <?= $this->session->flashdata('responseMessage'); ?>
+                     <div class="responseMessage" id="responseMessage"></div>
                      <div class="form-group">
                         <label><button class="btn btn_theme2 btn-lg btn_submit">Update</button></label>
                      </div>
@@ -111,5 +113,17 @@
             $("#responseMessage").show();
          }
       });
+   }
+
+   function check_input(event) {
+      /* Can be used later */
+      let inputVal = event.target.value.replace(/\s/g, "");
+      let isValueAccepted = inputVal.match(/[A-Z/i]{2}[0-9]{6}[A-Z]{1}/g);
+      let newValue = '';
+      console.log('test ', isValueAccepted)
+      if (isValueAccepted) {
+         newValue = (isValueAccepted[1] ? isValueAccepted[1] + (isValueAccepted[2] ? isValueAccepted[2] + (isValueAccepted[3] ? " " + isValueAccepted[3] + (isValueAccepted[4] ? " " + isValueAccepted[4] : "") : "") : "") : "");
+      }
+      $("#custom_masked_input").val(newValue)
    }
 </script>
