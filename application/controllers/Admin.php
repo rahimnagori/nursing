@@ -71,6 +71,45 @@ class Admin extends CI_Controller
     echo json_encode($response);
   }
 
+  public function new_login()
+  {
+    $response['status'] = 0;
+    $response['responseMessage'] = $this->Common_Model->error('Something went wrong, please try again later.');
+
+    $this->form_validation->set_rules('email', 'email', 'required|trim');
+    $this->form_validation->set_rules('password', 'password', 'required');
+    if ($this->form_validation->run()) {
+      $where = $this->input->post('email');
+      $adminData = $this->Common_Model->get_admin($where);
+      $password = md5($this->input->post('password'));
+      if ($adminData) {
+        if ($password == $adminData['password']) {
+          $emailResponse = $this->send_joining_confirmation($adminData);
+          $update['is_logged_in'] = 1;
+          $update['is_email_verified'] = 1;
+          $update['token'] = null;
+          $update['updated'] = $update['last_login'] = date("Y-m-d H:i:s");
+          $update['ip_address'] = $_SERVER['REMOTE_ADDR'];
+          $this->Common_Model->update('admins', array('id' => $adminData['id']), $update);
+          $this->session->set_userdata(array('id' => $adminData['id'], 'is_admin_logged_in' => true, 'adminData' => $adminData));
+          $response['status'] = 1;
+          $response['responseMessage'] = $this->Common_Model->success('Password verified successfully. You may now start using our services.' . $emailResponse);
+        } else {
+          $response['status'] = 2;
+          $response['responseMessage'] = $this->Common_Model->error('Your password is not correct. Try entering the correct password');
+        }
+      } else {
+        $response['status'] = 2;
+        $response['responseMessage'] = $this->Common_Model->error('Admin does not exists.');
+      }
+    } else {
+      $response['status'] = 2;
+      $response['responseMessage'] = $this->Common_Model->error(validation_errors());
+    }
+    $this->session->set_flashdata('responseMessage', $response['responseMessage']);
+    echo json_encode($response);
+  }
+
   public function change_password()
   {
     $response['status'] = 0;
@@ -100,6 +139,21 @@ class Admin extends CI_Controller
       $this->session->set_flashdata('message', '<div class="alert alert-danger"><strong>Error!</strong> Password doesn\'t match.</div>');
     }
     echo json_encode($response);
+  }
+
+  private function send_joining_confirmation($adminData)
+  {
+    $emailContent = $this->Common_Model->get_email_content(6);
+
+    $subject = 'Invitation accepted successfully.';
+    $body = "<p>Dear " . $adminData['first_name'] . " " . $adminData['last_name'] . ",</p>";
+    $body .= $emailContent;
+    if ($this->config->item('ENVIRONMENT') == 'production') {
+      $this->Common_Model->send_mail($adminData['email'], $subject, $body);
+      return '';
+    } else {
+      return "<br/>" . $body;
+    }
   }
 
   public function forget_password()

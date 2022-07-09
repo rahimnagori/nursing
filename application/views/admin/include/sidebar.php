@@ -7,6 +7,9 @@
       <li>
         <a href="<?=site_url('Users-Management');?>"><i class="fa fa-user"></i> Users</a>
       </li>
+      <li>
+        <a href="<?=site_url('Admins-Management');?>"><i class="fa fa-user"></i> Admins Management</a>
+      </li>
       <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-briefcase"></i> 
           Jobs Management 

@@ -1,7 +1,7 @@
 <?php include 'include/header.php'; ?>
 
 <div class="conten_web">
-  <h4 class="heading">Dasboard</h4>
+  <h4 class="heading">Dashboard</h4>
   <div class="ddd">
     <div class="row">
       <div class="col-sm-3">
@@ -52,7 +52,7 @@
         <div class="dashboard-tile1 detail1 ">
           <div class="content1">
             <p>Chats</p>
-            <h1><?=count($chats);?></h1>
+            <h1><?= count($chats); ?></h1>
           </div>
           <div class="ussicon">
             <i class="fa fa-comments"></i>
@@ -63,7 +63,7 @@
         <div class="dashboard-tile1 detail1 ">
           <div class="content1">
             <p>Messages</p>
-            <h1><?=count($messages);?></h1>
+            <h1><?= count($messages); ?></h1>
           </div>
           <div class="ussicon">
             <i class="fa fa-commenting"></i>

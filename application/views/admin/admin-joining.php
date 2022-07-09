@@ -9,6 +9,10 @@
     padding-top: 14%;
     padding-bottom: 14%;
   }
+
+  .login_box1 {
+    background: white;
+  }
 </style>
 <div class="login_page">
   <div class="login_logo text-center">
@@ -16,7 +20,14 @@
   </div>
   <div class="login_box1">
     <div class="login_hedding">
-      <h4>Login</h4>
+      <h4>Complete Invitation</h4>
+      <div class="msg" id="responseMessage">
+        <div class="alert alert-success">Please verify your email by entering the password to complete the joining process.</div>
+      </div>
+      <p>We have sent password on your email <b><u>
+            <?= $adminData['email']; ?>
+          </u></b> .</p>
+      <p>Click <a href="javascript:void(0);" onclick="resend_joining_password();">here</a> to resend the password.</p>
     </div>
     <form role="form" method="POST" id="loginForm" onsubmit="adminLogin(event);">
       <div class="formn_me">
@@ -34,47 +45,26 @@
             <input type="password" name="password" placeholder="Password" class="form-control" required id="password">
           </div>
         </div>
-        <div class="remnper">
-          <!-- <div class="pull-left">
-            <label class="checkbox-inline">
-            <input type="checkbox" name="remember" id="remember" value="1">
-            Remember Me
-            </label>
-            </div> -->
-          <div class="pull-right">
-            <a href="#">
-              Forgot password?
-            </a>
-          </div>
-        </div>
         <div class="row">
           <div class="col-sm-12" id="responseMessage"></div>
           <?= $this->session->flashdata('responseMessage'); ?>
         </div>
         <div class="btnloggib ">
-          <button type="submit" class="btn btn_theme2 btn-lg btn-block btn_submit">Login</button>
+          <button type="submit" class="btn btn_theme2 btn-lg btn-block btn_submit">Start Using Application</button>
         </div>
       </div>
     </form>
   </div>
-  <!-- <div class="donit">
-    <p>
-       if you don't have account? <a href="jvascript:void(0)" onclick="alert('coming soon!')" >Sign Up</a>
-    </p>
-    </div> -->
 </div>
 
 <?php include 'include/footer.php'; ?>
 
 <script>
-  $("#email").val('admin@gmail.com');
-  $("#password").val('12312312');
-
   function adminLogin(e) {
     e.preventDefault();
     if (check_form()) {
       $.ajax({
-          url: BASE_URL + 'Admin-Login',
+          url: BASE_URL + 'Admin-First-Time-Login',
           type: 'POST',
           data: new FormData($('#loginForm')[0]),
           processData: false,
@@ -101,10 +91,40 @@
         })
         .always(function() {
           $(".btn_submit").attr('disabled', false);
-          $(".btn_submit").html('Login');
+          $(".btn_submit").html('Start Using Application');
         });
     }
   }
+
+  function resend_joining_password() {
+    $.ajax({
+        url: BASE_URL + 'Resend-Password',
+        type: 'POST',
+        dataType: 'JSON',
+        beforeSend: function() {
+          $('#responseMessage').html('');
+        }
+      })
+      .done(function(response) {
+        $('#responseMessage').html(response.responseMessage);
+      })
+      .fail(function(error) {
+        alert("Server error, please try again later.");
+      })
+      .always(function() {
+
+      });
+  }
+
+  <?php
+  if ($adminData['is_email_verified']) {
+  ?>
+    setTimeout(function() {
+      window.location.href = BASE_URL + 'Admin';
+    }, 5000);
+  <?php
+  }
+  ?>
 
   function check_form() {
     return true;
