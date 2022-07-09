@@ -82,45 +82,6 @@ class Admin_Users extends CI_Controller
     echo json_encode($response);
   }
 
-  public function verify_admin($adminId, $token)
-  {
-    $where['token'] = $token;
-    $where['id'] = $adminId;
-    $adminData = $this->Common_Model->fetch_records('admins', $where, false, true);
-    if ($adminData) {
-      if ($adminData['is_email_verified'] != 1) {
-        // $update['token'] = null;
-        // $update['updated'] = $update['last_login'] = date("Y-m-d H:i:d");
-        // $update['is_email_verified'] = 1;
-        // if ($this->Common_Model->update('admins', array('id' => $adminData['id']), $update)) {
-        //   $to = $adminData['email'];
-        //   $subject = 'Email successfully verified.';
-        //   $body = '<p>Hello ' . $adminData['first_name'] . ' ' . $adminData['last_name'] . ',</p>';
-        //   $body .= '<p>Congratulations!! your email has been verified successfully. You may now continue using our services.</p>';
-        //   $mailResponse = $this->Common_Model->send_mail($to, $subject, $body);
-        //   if ($this->session->userdata('is_logged_id')) {
-        //     redirect('Verify');
-        //   } else {
-        //     $message = $this->Common_Model->success('Thank you: Your email has been verified successfully. Please login to continue.');
-        //     $this->session->set_flashdata('responseMessage', $message);
-        //     redirect('Login');
-        //   }
-        // }
-        $pageData['adminData'] = $adminData;
-        $this->session->set_userdata(array('id' => $adminData['id'], 'is_admin_logged_in' => true, 'adminData' => $adminData));
-        $this->load->view('admin/admin-joining', $pageData);
-      } else {
-        $message = $this->Common_Model->success('Email already verified.');
-        $this->session->set_flashdata('responseMessage', $message);
-        redirect('Admin');
-      }
-    } else {
-      $message = $this->Common_Model->error('This link has been expired.');
-      $this->session->set_flashdata('responseMessage', $message);
-      redirect('Admin');
-    }
-  }
-
   public function resend_password()
   {
     $response['responseMessage'] = $this->Common_Model->error('Server error, please try again later');

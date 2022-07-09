@@ -123,7 +123,7 @@ $route['Users-Management'] = 'Admin_Users';
 
 $route['Admins-Management'] = 'Admin_Users/admin';
 $route['Create-Admin'] = 'Admin_Users/create_admin';
-$route['Verify-Admin/(:any)/(:any)'] = 'Admin_Users/verify_admin/$1/$2';
+$route['Verify-Admin/(:any)/(:any)'] = 'Admin/verify_admin/$1/$2';
 $route['Resend-Password'] = 'Admin_Users/resend_password';
 $route['Admin-First-Time-Login'] = 'Admin/new_login';
 

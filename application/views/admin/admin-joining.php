@@ -13,6 +13,10 @@
   .login_box1 {
     background: white;
   }
+
+  .login_hedding h4{
+    color: black;
+  }
 </style>
 <div class="login_page">
   <div class="login_logo text-center">
