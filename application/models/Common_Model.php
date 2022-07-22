@@ -250,4 +250,35 @@ class Common_Model extends CI_Model
     $totalUsers = count($this->fetch_records('users')) + 1;
     return $userdata['first_name'] . $totalUsers . $this->generate_password(4);
   }
+
+  public function is_admin_authorized($adminId, $permissionId = false){
+    $where['admin_id'] = $adminId;
+    $adminPermissions = $this->fetch_records('admin_permissions', $where, false, true);
+    if(empty($adminPermissions)){
+      $permissions = $this->fetch_records('permissions');
+      $adminDefaultPermission = [];
+      foreach($permissions as $permission){
+        $adminDefaultPermission[$permission['id']] = 0;
+      }
+      $insertAdminPermission['admin_id'] = $adminId;
+      $insertAdminPermission['permissions'] = json_encode($adminDefaultPermission);
+      $this->insert('admin_permissions', $insertAdminPermission);
+      $adminPermissions = $insertAdminPermission;
+    }
+    $allPermissions = json_decode($adminPermissions['permissions']);
+    $bulkPermissions = [];
+    foreach($allPermissions as $key => $allPermission){
+      $bulkPermissions[$key] = $allPermission;
+    }
+    return $permissionId ? $allPermissions[$permissionId] : $bulkPermissions;
+  }
+
+  public function getAdmin($adminId){
+    $where['id'] = $adminId;
+    $pageData['adminData'] = $this->fetch_records('admins', $where, false, true);
+    if(!empty($pageData['adminData'])){
+      $pageData['permissions'] = $this->is_admin_authorized($adminId);
+    }
+    return $pageData;
+  }
 }

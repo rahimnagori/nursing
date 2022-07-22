@@ -20,11 +20,8 @@ class Admin_Jobs extends CI_Controller
 
   public function index()
   {
-    $pageData = [];
-    $admin_id = $this->session->userdata('id');
-    $where['id'] = $admin_id;
-    $adminData = $this->Common_Model->fetch_records('admins', $where, false, true);
-    $pageData['adminData'] = $adminData;
+    $pageData = $this->Common_Model->getAdmin($this->session->userdata('id'));
+
     $join[0][] = 'job_types';
     $join[0][] = 'jobs.job_type = job_types.id';
     $join[0][] = 'left';
@@ -39,12 +36,7 @@ class Admin_Jobs extends CI_Controller
 
   public function types()
   {
-    $pageData = [];
-    $admin_id = $this->session->userdata('id');
-    $where['id'] = $admin_id;
-
-    $adminData = $this->Common_Model->fetch_records('admins', $where, false, true);
-    $pageData['adminData'] = $adminData;
+    $pageData = $this->Common_Model->getAdmin($this->session->userdata('id'));
 
     $pageData['jobTypes'] = $this->Common_Model->fetch_records('job_types', false, false, false, 'id');
 

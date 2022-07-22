@@ -20,12 +20,7 @@ class Admin_Contacts extends CI_Controller
 
   public function index()
   {
-    $pageData = [];
-    $admin_id = $this->session->userdata('id');
-    $where['id'] = $admin_id;
-
-    $adminData = $this->Common_Model->fetch_records('admins', $where, false, true);
-    $pageData['adminData'] = $adminData;
+    $pageData = $this->Common_Model->getAdmin($this->session->userdata('id'));
 
     $pageData['contactRequests']  = $this->Common_Model->fetch_records('contact_requests', false, false, false, 'id');
     $this->load->view('admin/contact_requests', $pageData);

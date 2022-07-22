@@ -20,12 +20,7 @@ class Admin_News extends CI_Controller
 
   public function index()
   {
-    $pageData = [];
-    $admin_id = $this->session->userdata('id');
-    $where['id'] = $admin_id;
-
-    $adminData = $this->Common_Model->fetch_records('admins', $where, false, true);
-    $pageData['adminData'] = $adminData;
+    $pageData = $this->Common_Model->getAdmin($this->session->userdata('id'));
 
     $pageData['newses']  = $this->Common_Model->fetch_records('newses', array('is_deleted' => 0), false, false, 'id');
     $this->load->view('admin/news_management', $pageData);
@@ -85,12 +80,7 @@ class Admin_News extends CI_Controller
 
   public function professionals()
   {
-    $pageData = [];
-    $admin_id = $this->session->userdata('id');
-    $where['id'] = $admin_id;
-
-    $adminData = $this->Common_Model->fetch_records('admins', $where, false, true);
-    $pageData['adminData'] = $adminData;
+    $pageData = $this->Common_Model->getAdmin($this->session->userdata('id'));
 
     $pageData['professionalRequests']  = $this->Common_Model->fetch_records('professional_requests', false, false, false, 'id');
     $this->load->view('admin/professional_requests', $pageData);

@@ -15,11 +15,8 @@ class Admin_Chat extends CI_Controller
 
   public function index()
   {
-    $admin_id = $this->session->userdata('id');
-    $where['id'] = $admin_id;
-    $pageData['adminData'] = $this->Common_Model->fetch_records('admins', $where, false, true);
-    $whereUsers['is_deleted'] = 0;
-    // $pageData['users'] = $this->Common_Model->fetch_records('users', $whereUsers);
+    $pageData = $this->Common_Model->getAdmin($this->session->userdata('id'));
+
     $join[0][] = 'users';
     $join[0][] = 'chats.user_id = users.id';
     $join[0][] = 'left';

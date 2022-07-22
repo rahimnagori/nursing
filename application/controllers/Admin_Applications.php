@@ -20,12 +20,7 @@ class Admin_Applications extends CI_Controller
 
   public function index()
   {
-    $pageData = [];
-    $admin_id = $this->session->userdata('id');
-    $where['id'] = $admin_id;
-
-    $adminData = $this->Common_Model->fetch_records('admins', $where, false, true);
-    $pageData['adminData'] = $adminData;
+    $pageData = $this->Common_Model->getAdmin($this->session->userdata('id'));
 
     $join[0][] = 'users';
     $join[0][] = 'job_applications.user_id = users.id';
