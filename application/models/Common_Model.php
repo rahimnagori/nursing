@@ -251,13 +251,15 @@ class Common_Model extends CI_Model
     return $userdata['first_name'] . $totalUsers . $this->generate_password(4);
   }
 
-  public function is_admin_authorized($adminId, $permissionId = false){
+  public function is_admin_authorized($adminId, $permissionId = false)
+  {
+    $adminData = $this->fetch_records('admins', array('id' => $adminId), false, true);
     $where['admin_id'] = $adminId;
     $adminPermissions = $this->fetch_records('admin_permissions', $where, false, true);
-    if(empty($adminPermissions)){
+    if (empty($adminPermissions)) {
       $permissions = $this->fetch_records('permissions');
       $adminDefaultPermission = [];
-      foreach($permissions as $permission){
+      foreach ($permissions as $permission) {
         $adminDefaultPermission[$permission['id']] = 0;
       }
       $insertAdminPermission['admin_id'] = $adminId;
@@ -267,16 +269,22 @@ class Common_Model extends CI_Model
     }
     $allPermissions = json_decode($adminPermissions['permissions']);
     $bulkPermissions = [];
-    foreach($allPermissions as $key => $allPermission){
-      $bulkPermissions[$key] = $allPermission;
+    foreach ($allPermissions as $key => $allPermission) {
+      $bulkPermissions[$key] = $adminData['admin_type'] == 1 ? 1 : $allPermission; /* Super Admin have all the priviledge by default. */
     }
-    return $permissionId ? $allPermissions[$permissionId] : $bulkPermissions;
+    if ($permissionId) {
+      return isset($bulkPermissions[$permissionId]) ? $bulkPermissions[$permissionId] : 0;
+      // return $adminData['admin_type'] == 1 ? 1 : isset($bulkPermissions[$permissionId]) ? $bulkPermissions[$permissionId] : 0;
+    } else {
+      return $bulkPermissions;
+    }
   }
 
-  public function getAdmin($adminId){
+  public function getAdmin($adminId)
+  {
     $where['id'] = $adminId;
     $pageData['adminData'] = $this->fetch_records('admins', $where, false, true);
-    if(!empty($pageData['adminData'])){
+    if (!empty($pageData['adminData'])) {
       $pageData['permissions'] = $this->is_admin_authorized($adminId);
     }
     return $pageData;

@@ -20,6 +20,10 @@ class Admin_News extends CI_Controller
 
   public function index()
   {
+    if (!$this->Common_Model->is_admin_authorized($this->session->userdata('id'), 19)) {
+      $this->session->set_flashdata('responseMessage', $this->Common_Model->error('You are not authorized to access this page.'));
+      redirect('Admin');
+    }
     $pageData = $this->Common_Model->getAdmin($this->session->userdata('id'));
 
     $pageData['newses']  = $this->Common_Model->fetch_records('newses', array('is_deleted' => 0), false, false, 'id');
@@ -80,6 +84,10 @@ class Admin_News extends CI_Controller
 
   public function professionals()
   {
+    if (!$this->Common_Model->is_admin_authorized($this->session->userdata('id'), 4)) {
+      $this->session->set_flashdata('responseMessage', $this->Common_Model->error('You are not authorized to access this page.'));
+      redirect('Admin');
+    }
     $pageData = $this->Common_Model->getAdmin($this->session->userdata('id'));
 
     $pageData['professionalRequests']  = $this->Common_Model->fetch_records('professional_requests', false, false, false, 'id');

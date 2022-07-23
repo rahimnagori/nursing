@@ -2,6 +2,7 @@
 
 <div class="conten_web">
   <h4 class="heading">Dashboard</h4>
+  <?= $this->session->flashdata('responseMessage'); ?>
   <div class="ddd">
     <div class="row">
       <div class="col-sm-3">

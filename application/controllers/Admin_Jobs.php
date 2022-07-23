@@ -20,6 +20,10 @@ class Admin_Jobs extends CI_Controller
 
   public function index()
   {
+    if (!$this->Common_Model->is_admin_authorized($this->session->userdata('id'), 7)) {
+      $this->session->set_flashdata('responseMessage', $this->Common_Model->error('You are not authorized to access this page.'));
+      redirect('Admin');
+    }
     $pageData = $this->Common_Model->getAdmin($this->session->userdata('id'));
 
     $join[0][] = 'job_types';
@@ -36,6 +40,10 @@ class Admin_Jobs extends CI_Controller
 
   public function types()
   {
+    if (!$this->Common_Model->is_admin_authorized($this->session->userdata('id'), 10)) {
+      $this->session->set_flashdata('responseMessage', $this->Common_Model->error('You are not authorized to access this page.'));
+      redirect('Admin');
+    }
     $pageData = $this->Common_Model->getAdmin($this->session->userdata('id'));
 
     $pageData['jobTypes'] = $this->Common_Model->fetch_records('job_types', false, false, false, 'id');

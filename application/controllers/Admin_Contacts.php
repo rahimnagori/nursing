@@ -20,6 +20,10 @@ class Admin_Contacts extends CI_Controller
 
   public function index()
   {
+    if (!$this->Common_Model->is_admin_authorized($this->session->userdata('id'), 16)) {
+      $this->session->set_flashdata('responseMessage', $this->Common_Model->error('You are not authorized to access this page.'));
+      redirect('Admin');
+    }
     $pageData = $this->Common_Model->getAdmin($this->session->userdata('id'));
 
     $pageData['contactRequests']  = $this->Common_Model->fetch_records('contact_requests', false, false, false, 'id');
