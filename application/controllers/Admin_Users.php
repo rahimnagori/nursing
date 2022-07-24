@@ -38,7 +38,8 @@ class Admin_Users extends CI_Controller
     $pageData = $this->Common_Model->getAdmin($this->session->userdata('id'));
 
     $whereAdmins = [
-      'id !=' => $admin_id
+      'id !=' => $admin_id,
+      'is_deleted' => 0
     ];
     $pageData['admins'] = $this->Common_Model->fetch_records('admins', $whereAdmins);
 
@@ -49,34 +50,39 @@ class Admin_Users extends CI_Controller
   {
     $response['status'] = 0;
     $response['responseMessage'] = $this->Common_Model->error('Something went wrong.');
-    $this->form_validation->set_rules('first_name', 'first_name', 'required');
-    $this->form_validation->set_rules('last_name', 'last_name', 'required');
-    $this->form_validation->set_rules('email', 'email', 'required|valid_email|trim|is_unique[admins.email]', array('is_unique' => 'This email is already taken. Please provide another email.'));
-    if ($this->form_validation->run()) {
-      $password = $this->Common_Model->generate_password(8);
-      $insert = array(
-        'first_name' => $this->input->post('first_name'),
-        'last_name' => $this->input->post('last_name'),
-        'phone' => $this->input->post('phone'),
-        'email' => $this->input->post('email'),
-        'admin_type' => $this->input->post('admin_type'),
-        'password' => md5($password),
-        'pass' => $password, /* delete this column on production */
-        'token' => rand(100000, 999999),
-        'is_logged_in' => 0,
-        'is_email_verified' => 0,
-        'created' => date("Y-m-d H:i:s"),
-        'updated' => date("Y-m-d H:i:s"),
-      );
-      $adminId = $this->Common_Model->insert('admins', $insert);
-      if ($adminId) {
-        $emailResponse = $this->send_joining_email_to_admin($adminId, $insert, $password);
-        $response['status'] = 1;
-        $response['responseMessage'] = $this->Common_Model->success('Admin added successfully.' . $emailResponse);
+    if ($this->Common_Model->is_admin_authorized($this->session->userdata('id'), 2)) {
+      $this->form_validation->set_rules('first_name', 'first_name', 'required');
+      $this->form_validation->set_rules('last_name', 'last_name', 'required');
+      $this->form_validation->set_rules('email', 'email', 'required|valid_email|trim|is_unique[admins.email]', array('is_unique' => 'This email is already taken. Please provide another email.'));
+      if ($this->form_validation->run()) {
+        $password = $this->Common_Model->generate_password(8);
+        $insert = array(
+          'first_name' => $this->input->post('first_name'),
+          'last_name' => $this->input->post('last_name'),
+          'phone' => $this->input->post('phone'),
+          'email' => $this->input->post('email'),
+          'admin_type' => $this->input->post('admin_type'),
+          'password' => md5($password),
+          'pass' => $password, /* delete this column on production */
+          'token' => rand(100000, 999999),
+          'is_logged_in' => 0,
+          'is_email_verified' => 0,
+          'created' => date("Y-m-d H:i:s"),
+          'updated' => date("Y-m-d H:i:s"),
+        );
+        $adminId = $this->Common_Model->insert('admins', $insert);
+        if ($adminId) {
+          $emailResponse = $this->send_joining_email_to_admin($adminId, $insert, $password);
+          $response['status'] = 1;
+          $response['responseMessage'] = $this->Common_Model->success('Admin added successfully.' . $emailResponse);
+        }
+      } else {
+        $response['status'] = 2;
+        $response['responseMessage'] = $this->Common_Model->error(validation_errors());
       }
     } else {
       $response['status'] = 2;
-      $response['responseMessage'] = $this->Common_Model->error(validation_errors());
+      $response['responseMessage'] = $this->Common_Model->error('Sorry you are not authorized. Please contact Admin.');
     }
     $this->session->set_flashdata('responseMessage', $response['responseMessage']);
     echo json_encode($response);
@@ -125,5 +131,42 @@ class Admin_Users extends CI_Controller
     } else {
       return "<br/>" . $body;
     }
+  }
+
+  public function get_admin_permissions()
+  {
+    if ($this->Common_Model->is_admin_authorized($this->session->userdata('id'), 3)) {
+      $adminId = $this->input->get('admin_id');
+      $pageData['admin_id'] = $adminId;
+      $pageData['adminPermissions'] = $this->Common_Model->is_admin_authorized($adminId);
+      $pageData['defaultPermissions'] = $this->Common_Model->fetch_records('permissions');
+      $this->load->view('admin/include/permissions', $pageData);
+    } else {
+      $response['status'] = 2;
+      echo $this->Common_Model->error('Sorry you are not authorized. Please contact Admin');
+    }
+  }
+
+  public function update_admin_permissions()
+  {
+    $response['responseMessage'] = $this->Common_Model->error('Server error, please try again later');
+    $response['status'] = 0;
+    $defaultPermissions = $this->Common_Model->fetch_records('permissions');
+    foreach ($defaultPermissions as $defaultPermission) {
+      $this->form_validation->set_rules($defaultPermission['permission'], $defaultPermission['permission'], 'required');
+      $adminPermissions[$defaultPermission['id']] = $this->input->post($defaultPermission['permission']);
+    }
+    if ($this->form_validation->run()) {
+      $update['permissions'] = json_encode($adminPermissions);
+      if ($this->Common_Model->update('admin_permissions', array('admin_id' => $this->input->post('admin_id')), $update)) {
+        $response['responseMessage'] = $this->Common_Model->success('Permissions updated successfully.');
+        $response['status'] = 1;
+      }
+    } else {
+      $response['status'] = 2;
+      $response['responseMessage'] = $this->Common_Model->error(validation_errors());
+    }
+
+    echo json_encode($response);
   }
 }

@@ -55,11 +55,11 @@
                   <!-- <a href="#" class="btn btn-info btn-xs">Send Mail</a>
                   <a href="#" class="btn btn-info btn-xs">Edit</a>
                   <a href="#" class="btn btn-danger btn-xs">Delete</a> -->
-                  <a href="#" data-toggle="modal" data-target="#view_desss_<?=$user['id'];?>" class="btn btn-info btn-xs">Documents</a>
+                  <a href="#" data-toggle="modal" data-target="#view_desss_<?= $user['id']; ?>" class="btn btn-info btn-xs">Documents</a>
                 </td>
 
                 <!-- Modal -->
-                <div class="modal fade " id="view_desss_<?=$user['id'];?>" tabindex="-1" role="dialog">
+                <div class="modal fade " id="view_desss_<?= $user['id']; ?>" tabindex="-1" role="dialog">
                   <div class="modal-dialog" role="document">
                     <form id="addForm" name="addForm" onsubmit="add_job_type(event);">
                       <div class="modal-content">
@@ -93,8 +93,8 @@
                               foreach ($user['userDocuments'] as $userDoc) {
                               ?>
                                 <li>
-                                  <?=($userDoc['doc_type'] == 2) ? '<i class="fa fa-comment" aria-hidden="true"></i>' : '';?>
-                                  <img src="<?= site_url('assets/admin/'); ?>img/img_2.png" alt=""> <?=($userDoc['doc_name']) ? $userDoc['doc_name'] : "<i>(No name)</i>"; ?>
+                                  <?= ($userDoc['doc_type'] == 2) ? '<i class="fa fa-comment" aria-hidden="true"></i>' : ''; ?>
+                                  <img src="<?= site_url('assets/admin/'); ?>img/img_2.png" alt=""> <?= ($userDoc['doc_name']) ? $userDoc['doc_name'] : "<i>(No name)</i>"; ?>
                                   <span>
                                     <a href="<?= site_url($userDoc['document']); ?>" target="_blank"><i class="fa fa-eye"></i></a>
                                     <a href="<?= site_url($userDoc['document']); ?>" download><i class="fa fa-download"></i></a>

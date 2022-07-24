@@ -284,6 +284,7 @@ class Common_Model extends CI_Model
   {
     $where['id'] = $adminId;
     $pageData['adminData'] = $this->fetch_records('admins', $where, false, true);
+    $pageData['defaultPermissions'] = $this->fetch_records('permissions');
     if (!empty($pageData['adminData'])) {
       $pageData['permissions'] = $this->is_admin_authorized($adminId);
     }

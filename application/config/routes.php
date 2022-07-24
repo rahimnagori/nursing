@@ -127,6 +127,9 @@ $route['Verify-Admin/(:any)/(:any)'] = 'Admin/verify_admin/$1/$2';
 $route['Resend-Password'] = 'Admin_Users/resend_password';
 $route['Admin-First-Time-Login'] = 'Admin/new_login';
 
+$route['Get-Permissions'] = 'Admin_Users/get_admin_permissions';
+$route['Update-Permissions'] = 'Admin_Users/update_admin_permissions';
+
 $route['Admin-Jobs'] = 'Admin_Jobs';
 $route['Admin-Jobs/Get/(:any)'] = 'Admin_Jobs/get_job/$1';
 $route['Admin-Jobs/Add'] = 'Admin_Jobs/add_job';

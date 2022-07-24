@@ -1,7 +1,13 @@
 <?php include 'include/header.php'; ?>
 
 <div class="conten_web">
-  <h4 class="heading">Admins <small>Management</small><span><button class="btn btn_theme2" data-toggle="modal" data-target="#addAdminModal">Add</button></span></h4>
+  <?php
+  if (isset($permissions[2]) && $permissions[2]) {
+  ?>
+    <h4 class="heading">Admins <small>Management</small><span><button class="btn btn_theme2" data-toggle="modal" data-target="#addAdminModal">Add</button></span></h4>
+  <?php
+  }
+  ?>
   <div class="white_box">
     <?= $this->session->flashdata('responseMessage'); ?>
     <div class="card_bodym">
@@ -16,7 +22,13 @@
               <th>Phone</th>
               <th>Last Login</th>
               <th>Created</th>
-              <th>Action</th>
+              <?php
+              if (isset($permissions[2]) && $permissions[3]) {
+              ?>
+                <th>Action</th>
+              <?php
+              }
+              ?>
             </tr>
           </thead>
           <tbody>
@@ -40,9 +52,17 @@
                 <td><?= $admin['phone']; ?></td>
                 <td><?= ($admin['last_login']) ? date("d M, Y", strtotime($admin['last_login'])) : 'Not logged in yet'; ?></td>
                 <td><?= date("d M, Y", strtotime($admin['created'])); ?></td>
-                <td>
-                  Actions
-                </td>
+                <?php
+                if (isset($permissions[2]) && $permissions[3]) {
+                ?>
+                  <td>
+                    <button type="button" onclick="delete_admin(<?= $admin['id']; ?>);" class="btn btn-danger btn-xs">Delete</button>
+                    <button type="button" onclick="block_admin(<?= $admin['id']; ?>);" class="btn btn-warning btn-xs">Block</button>
+                    <button type="button" onclick="get_admin_permissions(<?= $admin['id']; ?>);" class="btn btn-secondary btn-xs">Permissions</button>
+                  </td>
+                <?php
+                }
+                ?>
               </tr>
             <?php
             }
@@ -103,18 +123,24 @@
 </div>
 <!-- Modal close-->
 
+
 <!-- Modal -->
-<div class="modal fade" id="editJobModal" tabindex="-1" role="dialog">
+<div class="modal fade " id="admin_permissions_modal" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
-    <form id="editForm" name="editForm" onsubmit="update_job(event);">
+    <form id="updatePermissionForm" name="updatePermissionForm" onsubmit="update_admin_permissions(event);">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title">Edit Job</h4>
+          <h4 class="modal-title">Update permissions</h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="la la-times-circle"></i></span></button>
         </div>
 
-        <div class="modal-body" id="editModal">
-          <i class='fa fa-spin fa-spinner' aria-hidden='true'></i>
+        <div class="modal-body" id="admin-permission-element">
+          <!-- Dynamic permissions from permissions.php -->
+        </div>
+
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success btn_submit">Update</button>
+          <button type="button" data-dismiss="modal" class="btn btn-info">Cancel</button>
         </div>
       </div>
     </form>
@@ -149,52 +175,30 @@
     });
   }
 
-  function delete_job(e) {
-    e.preventDefault();
-    $.ajax({
-      type: 'POST',
-      url: BASE_URL + 'Admin-Jobs/delete',
-      data: new FormData($('#deleteForm')[0]),
-      dataType: 'JSON',
-      processData: false,
-      contentType: false,
-      cache: false,
-      beforeSend: function(xhr) {
-        $(".btn_submit").attr('disabled', true);
-        $(".btn_submit").html(LOADING);
-        $("#responseMessage").html('');
-        $("#responseMessage").hide();
-      },
-      success: function(response) {
-        $(".btn_submit").prop('disabled', false);
-        $(".btn_submit").html(' Yes ');
-        if (response.status == 1) location.reload();
-      }
-    });
-  }
-
-  function edit_job(job_id) {
+  function get_admin_permissions(adminId) {
     $.ajax({
       type: 'GET',
-      url: BASE_URL + 'Admin-Jobs/Get/' + job_id,
+      url: BASE_URL + 'Get-Permissions',
+      data: {
+        admin_id: adminId
+      },
       dataType: 'HTML',
       beforeSend: function(xhr) {
-        $("#editModal").html("<i class='fa fa-spin fa-spinner' aria-hidden='true'></i>")
-        $("#editJobModal").modal("show");
+        $("#admin-permission-element").html("<i class='fa fa-spin fa-spinner' aria-hidden='true'></i>");
+        $("#admin_permissions_modal").modal("show");
       },
       success: function(response) {
-        $("#editModal").html(response);
-        update_tiny('textarea-edit');
+        $("#admin-permission-element").html(response);
       }
     });
   }
 
-  function update_job(e) {
+  function update_admin_permissions(e) {
     e.preventDefault();
     $.ajax({
       type: 'POST',
-      url: BASE_URL + 'Admin-Jobs/Update',
-      data: new FormData($('#editForm')[0]),
+      url: BASE_URL + 'Update-Permissions',
+      data: new FormData($('#updatePermissionForm')[0]),
       dataType: 'JSON',
       processData: false,
       contentType: false,
@@ -202,13 +206,14 @@
       beforeSend: function(xhr) {
         $(".btn_submit").attr('disabled', true);
         $(".btn_submit").html(LOADING);
-        $("#responseMessage").html('');
-        $("#responseMessage").hide();
+        $("#permissionResponseMessage").html('');
+        $("#permissionResponseMessage").hide();
       },
       success: function(response) {
         $(".btn_submit").prop('disabled', false);
-        $(".btn_submit").html(' Update ');
-        if (response.status == 1) location.reload();
+        $(".btn_submit").html('Update');
+        $("#permissionResponseMessage").html(response.responseMessage);
+        $("#permissionResponseMessage").show();
       }
     });
   }
