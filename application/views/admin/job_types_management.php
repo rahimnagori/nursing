@@ -1,7 +1,16 @@
 <?php include 'include/header.php'; ?>
 
 <div class="conten_web">
-  <h4 class="heading">Job Locations <small>Management</small><span><button class="btn btn_theme2" data-toggle="modal" data-target="#addJobTypeModal">Add</button></span></h4>
+  <h4 class="heading">
+    Job Locations <small>Management</small>
+    <?php
+    if (isset($permissions[11]) && $permissions[11]) {
+    ?>
+    <span><button class="btn btn_theme2" data-toggle="modal" data-target="#addJobTypeModal">Add</button></span>
+    <?php
+    }
+    ?>
+  </h4>
   <div class="white_box">
     <?=$this->session->flashdata('responseMessage');?>
     <div class="card_bodym">
@@ -11,7 +20,13 @@
             <tr>
               <th>S.No.</th>
               <th>Name</th>
-              <th>Action</th>
+              <?php
+              if (isset($permissions[11]) && $permissions[11]) {
+              ?>
+                  <th>Action</th>
+              <?php
+              }
+              ?>
             </tr>
           </thead>
           <tbody>
@@ -21,10 +36,16 @@
                 <tr>
                   <td><?=$serialNumber + 1;?></td>
                   <td><?=$jobType['name'];?></td>
-                  <td>
-                    <button onclick="edit_job_type(<?=$jobType['id']?>)" class="btn btn-info btn-xs">Edit</button>
-                    <button class="btn btn-danger btn-xs" onclick="open_delete_modal(<?=$jobType['id']?>)" >Delete</button>
-                  </td>
+                  <?php
+                  if (isset($permissions[12]) && $permissions[12]) {
+                  ?>
+                    <td>
+                      <button onclick="edit_job_type(<?=$jobType['id']?>)" class="btn btn-info btn-xs">Edit</button>
+                      <button class="btn btn-danger btn-xs" onclick="open_delete_modal(<?=$jobType['id']?>)" >Delete</button>
+                    </td>
+                  <?php
+                  }
+                  ?>
                 </tr>
             <?php
               }

@@ -1,7 +1,16 @@
 <?php include 'include/header.php'; ?>
 
 <div class="conten_web">
-  <h4 class="heading">News <small>Management</small><span><button class="btn btn_theme2" data-toggle="modal" data-target="#addNewsModal">Add</button></span></h4>
+  <h4 class="heading">
+    News <small>Management</small>
+    <?php
+    if (isset($permissions[20]) && $permissions[20]) {
+    ?>
+      <span><button class="btn btn_theme2" data-toggle="modal" data-target="#addNewsModal">Add</button></span>
+    <?php
+    }
+    ?>
+  </h4>
   <div class="white_box">
     <?= $this->session->flashdata('responseMessage'); ?>
     <div class="card_bodym">
@@ -15,7 +24,13 @@
               <th>Created By</th>
               <th>Created</th>
               <th>Updated</th>
-              <th>Action</th>
+              <?php
+              if (isset($permissions[21]) && $permissions[21]) {
+              ?>
+                <th>Action</th>
+              <?php
+              }
+              ?>
             </tr>
           </thead>
           <tbody>
@@ -30,10 +45,16 @@
                 <td><?= $news['user_id']; ?></td>
                 <td><?= date("d M, Y", strtotime($news['created'])); ?></td>
                 <td><?= date("d M, Y", strtotime($news['updated'])); ?></td>
-                <td>
-                  <button onclick="edit_news(<?= $news['id'] ?>)" class="btn btn-info btn-sm">Edit</button>
-                  <button class="btn btn-danger btn-sm" onclick="open_delete_modal(<?= $news['id'] ?>)">Delete</button>
-                </td>
+                <?php
+                if (isset($permissions[21]) && $permissions[21]) {
+                ?>
+                  <td>
+                    <button onclick="edit_news(<?= $news['id'] ?>)" class="btn btn-info btn-sm">Edit</button>
+                    <button class="btn btn-danger btn-sm" onclick="open_delete_modal(<?= $news['id'] ?>)">Delete</button>
+                  </td>
+                <?php
+                }
+                ?>
               </tr>
             <?php
             }

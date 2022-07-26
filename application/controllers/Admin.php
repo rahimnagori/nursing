@@ -48,13 +48,23 @@ class Admin extends CI_Controller
       $password = md5($this->input->post('password'));
       if ($adminData) {
         if ($password == $adminData['password']) {
-          $update['is_logged_in'] = 1;
-          $update['last_login'] = date("Y-m-d H:i:s");
-          $update['ip_address'] = $_SERVER['REMOTE_ADDR'];
-          $this->Common_Model->update('admins', array('id' => $adminData['id']), $update);
-          $this->session->set_userdata(array('id' => $adminData['id'], 'is_admin_logged_in' => true, 'adminData' => $adminData));
-          $response['status'] = 1;
-          $response['responseMessage'] = $this->Common_Model->success('Logged in successfully.');
+          if($adminData['is_deleted']){
+            $response['status'] = 2;
+            $response['responseMessage'] = $this->Common_Model->error('Sorry your account has been deleted by our management. Please contact us for further details.');
+          }else{
+            if(!$adminData['status']){
+              $response['status'] = 2;
+              $response['responseMessage'] = $this->Common_Model->error('Your account has been blocked. Please contact us for further details.');
+            }else{
+              $update['is_logged_in'] = 1;
+              $update['last_login'] = date("Y-m-d H:i:s");
+              $update['ip_address'] = $_SERVER['REMOTE_ADDR'];
+              $this->Common_Model->update('admins', array('id' => $adminData['id']), $update);
+              $this->session->set_userdata(array('id' => $adminData['id'], 'is_admin_logged_in' => true, 'adminData' => $adminData));
+              $response['status'] = 1;
+              $response['responseMessage'] = $this->Common_Model->success('Logged in successfully.');
+            }
+          }
         } else {
           $response['status'] = 2;
           $response['responseMessage'] = $this->Common_Model->error('Your password is not correct. Try entering the correct password');

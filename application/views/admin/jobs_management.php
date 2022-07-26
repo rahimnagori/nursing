@@ -1,7 +1,16 @@
 <?php include 'include/header.php'; ?>
 
 <div class="conten_web">
-  <h4 class="heading">Jobs <small>Management</small><span><button class="btn btn_theme2" data-toggle="modal" data-target="#addJobModal">Add</button></span></h4>
+  <h4 class="heading">
+    Jobs <small>Management</small>
+    <?php
+    if (isset($permissions[8]) && $permissions[8]) {
+    ?>
+      <span><button class="btn btn_theme2" data-toggle="modal" data-target="#addJobModal">Add</button></span>
+    <?php
+    }
+    ?>
+  </h4>
   <div class="white_box">
     <?= $this->session->flashdata('responseMessage'); ?>
     <div class="card_bodym">
@@ -15,14 +24,19 @@
               <th>Work Location</th>
               <th>Address</th>
               <th>Salary</th>
-              <th>Description</th>
               <th>Qualification</th>
               <th>Employment Type</th>
               <th>Payment Type</th>
               <th>Last Date</th>
               <th>Created</th>
               <th>Updated</th>
-              <th>Action</th>
+              <?php
+              if (isset($permissions[9]) && $permissions[9]) {
+              ?>
+                <th>Action</th>
+              <?php
+              }
+              ?>
             </tr>
           </thead>
           <tbody>
@@ -34,26 +48,34 @@
               <tr>
                 <td><?= $serialNumber + 1; ?></td>
                 <td><?= $job['job_ref']; ?></td>
-                <td><?= $job['title']; ?></td>
+                <td>
+                  <p><a href="<?= site_url('Job-Details/' . $job['id']); ?>" target="_blank"><?= $job['title']; ?></a></p>
+                  <p>
+                    <?php
+                    echo $description;
+                    echo (strlen($description) > 100) ? '...' : '';
+                    ?>
+                  </p>
+                </td>
                 <td><?= $job['name'] ?></td>
                 <td><?= $job['address']; ?></td>
                 <td><?= $this->config->item('CURRENCY'); ?><?= $job['salary']; ?></td>
-                <td>
-                  <?php
-                  echo $description;
-                  echo (strlen($description) > 100) ? '...' : '';
-                  ?>
-                </td>
                 <td><?= $job['qualification']; ?></td>
                 <td><?= ($job['employment_type'] == 1) ? 'Permanent' : 'Temporary'; ?></td>
                 <td><?= $paymentTypes[$job['payment_type']]; ?></td>
                 <td class="<?= $elementClass; ?>"><?= date("d M, Y", strtotime($job['last_date'])); ?></td>
                 <td><?= date("d M, Y", strtotime($job['created'])); ?></td>
                 <td><?= date("d M, Y", strtotime($job['updated'])); ?></td>
-                <td>
-                  <button onclick="edit_job(<?= $job['id'] ?>)" class="btn btn-info btn-xs">Edit</button>
-                  <button class="btn btn-danger btn-xs" onclick="open_delete_modal(<?= $job['id'] ?>)">Delete</button>
-                </td>
+                <?php
+                if (isset($permissions[9]) && $permissions[9]) {
+                ?>
+                  <td>
+                    <button onclick="edit_job(<?= $job['id'] ?>)" class="btn btn-info btn-xs">Edit</button>
+                    <button class="btn btn-danger btn-xs" onclick="open_delete_modal(<?= $job['id'] ?>)">Delete</button>
+                  </td>
+                <?php
+                }
+                ?>
               </tr>
             <?php
             }

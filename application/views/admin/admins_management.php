@@ -1,13 +1,16 @@
 <?php include 'include/header.php'; ?>
 
 <div class="conten_web">
-  <?php
-  if (isset($permissions[2]) && $permissions[2]) {
-  ?>
-    <h4 class="heading">Admins <small>Management</small><span><button class="btn btn_theme2" data-toggle="modal" data-target="#addAdminModal">Add</button></span></h4>
-  <?php
-  }
-  ?>
+  <h4 class="heading">
+    Admins <small>Management</small>
+    <?php
+    if (isset($permissions[2]) && $permissions[2]) {
+    ?>
+      <span><button class="btn btn_theme2" data-toggle="modal" data-target="#addAdminModal">Add</button></span>
+    <?php
+    }
+    ?>
+  </h4>
   <div class="white_box">
     <?= $this->session->flashdata('responseMessage'); ?>
     <div class="card_bodym">
@@ -18,12 +21,12 @@
               <th>S.No.</th>
               <th>Name</th>
               <th>Email</th>
-              <th>Type</th>
+              <!-- <th>Type</th> -->
               <th>Phone</th>
               <th>Last Login</th>
               <th>Created</th>
               <?php
-              if (isset($permissions[2]) && $permissions[3]) {
+              if (isset($permissions[3]) && $permissions[3]) {
               ?>
                 <th>Action</th>
               <?php
@@ -48,16 +51,16 @@
                     <span class="text-<?= $statusClass; ?>">(<?= $emailStatus; ?>)</span>
                   </strong>
                 </td>
-                <td><?= ($admin['admin_type'] == 1) ? 'Super Admin' : 'Admin'; ?></td>
+                <!-- <td><?= ($admin['admin_type'] == 1) ? 'Super Admin' : 'Admin'; ?></td> -->
                 <td><?= $admin['phone']; ?></td>
                 <td><?= ($admin['last_login']) ? date("d M, Y", strtotime($admin['last_login'])) : 'Not logged in yet'; ?></td>
                 <td><?= date("d M, Y", strtotime($admin['created'])); ?></td>
                 <?php
-                if (isset($permissions[2]) && $permissions[3]) {
+                if (isset($permissions[3]) && $permissions[3]) {
                 ?>
                   <td>
                     <button type="button" onclick="delete_admin(<?= $admin['id']; ?>);" class="btn btn-danger btn-xs">Delete</button>
-                    <button type="button" onclick="block_admin(<?= $admin['id']; ?>);" class="btn btn-warning btn-xs">Block</button>
+                    <button type="button" onclick="block_unblock_admin(<?= $admin['id']; ?>, <?= ($admin['status']) ? 0 : 1; ?>);" class="btn btn-warning btn-xs"><?= ($admin['status']) ? 'Block' : 'Unblock'; ?></button>
                     <button type="button" onclick="get_admin_permissions(<?= $admin['id']; ?>);" class="btn btn-secondary btn-xs">Permissions</button>
                   </td>
                 <?php
@@ -102,13 +105,14 @@
               <label> Email </label>
               <input type="email" name="email" class="form-control" required="">
             </div>
-            <div class="form-group">
+            <!-- <div class="form-group">
               <label> Admin Type </label>
               <select class="form-control" name="admin_type" required="">
                 <option value="1">Super Admin</option>
                 <option value="2">Admin</option>
               </select>
-            </div>
+            </div> -->
+            <!-- Only one Super Admin is possible -->
             <div class="row">
               <div class="col-sm-12" class="responseMessage" id="responseMessage"></div>
             </div>
@@ -216,5 +220,39 @@
         $("#permissionResponseMessage").show();
       }
     });
+  }
+
+  function delete_admin(admin_id) {
+    if (confirm("Are you sure want to delete this Admin? This action cannot be undone.")) {
+      $.ajax({
+        type: 'POST',
+        url: BASE_URL + 'Delete-Admin',
+        data: {
+          admin_id: admin_id
+        },
+        dataType: 'JSON',
+        success: function(response) {
+          location.reload();
+        }
+      });
+    }
+  }
+
+  function block_unblock_admin(admin_id, status) {
+    let statusMessage = status ? 'unblock' : 'block';
+    if (confirm(`Are you sure want to ${statusMessage} this Admin?`)) {
+      $.ajax({
+        type: 'POST',
+        url: BASE_URL + 'Block-Unblock-Admin',
+        data: {
+          admin_id: admin_id,
+          status: status
+        },
+        dataType: 'JSON',
+        success: function(response) {
+          location.reload();
+        }
+      });
+    }
   }
 </script>

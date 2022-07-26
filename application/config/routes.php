@@ -129,6 +129,8 @@ $route['Admin-First-Time-Login'] = 'Admin/new_login';
 
 $route['Get-Permissions'] = 'Admin_Users/get_admin_permissions';
 $route['Update-Permissions'] = 'Admin_Users/update_admin_permissions';
+$route['Delete-Admin'] = 'Admin_Users/delete_admin';
+$route['Block-Unblock-Admin'] = 'Admin_Users/block_unblock_admin';
 
 $route['Admin-Jobs'] = 'Admin_Jobs';
 $route['Admin-Jobs/Get/(:any)'] = 'Admin_Jobs/get_job/$1';

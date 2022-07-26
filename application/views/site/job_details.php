@@ -31,7 +31,7 @@
             </a>
             <div class="detaidl">
                 <?php
-                if ($this->session->userdata('id')) {
+                if ($this->session->userdata('id') && $this->session->userdata('is_user_logged_in')) {
                     if (!$userDetails['resume']) {
                         echo "<p><a href='" . site_url('Profile') . "'>Upload</a> resume to start applying.</a>";
                     }
@@ -64,7 +64,7 @@
         </div>
         <div class="text-right">
             <?php
-            if ($this->session->userdata('id') && $userDetails['resume']) {
+            if ($this->session->userdata('id') && $this->session->userdata('is_user_logged_in') && $userDetails['resume']) {
                 if ($isJobApplied) {
                     echo "<a >You have already applied for this job.</a>";
                 } else {
@@ -73,7 +73,7 @@
                 <?php
                 }
             }
-            if (!$this->session->userdata('id')) {
+            if (!$this->session->userdata('id') && !$this->session->userdata('is_user_logged_in')) {
                 ?>
                 <button class="btn btn_theme2 btn_r btn_submit" data-toggle="modal" data-target="#applyConfirmationModal">Apply</button>
             <?php

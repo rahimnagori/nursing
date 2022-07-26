@@ -41,6 +41,9 @@ class Admin_Users extends CI_Controller
       'id !=' => $admin_id,
       'is_deleted' => 0
     ];
+    if ($pageData['adminData']['admin_type'] != 1) {
+      $whereAdmins['admin_type'] = 2;
+    }
     $pageData['admins'] = $this->Common_Model->fetch_records('admins', $whereAdmins);
 
     $this->load->view('admin/admins_management', $pageData);
@@ -61,7 +64,8 @@ class Admin_Users extends CI_Controller
           'last_name' => $this->input->post('last_name'),
           'phone' => $this->input->post('phone'),
           'email' => $this->input->post('email'),
-          'admin_type' => $this->input->post('admin_type'),
+          /* 'admin_type' => $this->input->post('admin_type'), */
+          'admin_type' => 2, /* Only one Super Admin is possible */
           'password' => md5($password),
           'pass' => $password, /* delete this column on production */
           'token' => rand(100000, 999999),
@@ -139,7 +143,7 @@ class Admin_Users extends CI_Controller
       $adminId = $this->input->get('admin_id');
       $pageData['admin_id'] = $adminId;
       $pageData['adminPermissions'] = $this->Common_Model->is_admin_authorized($adminId);
-      $pageData['defaultPermissions'] = $this->Common_Model->fetch_records('permissions');
+      $pageData['defaultPermissions'] = $this->Common_Model->fetch_records('permissions', array('is_active' => 1));
       $this->load->view('admin/include/permissions', $pageData);
     } else {
       $response['status'] = 2;
@@ -151,7 +155,7 @@ class Admin_Users extends CI_Controller
   {
     $response['responseMessage'] = $this->Common_Model->error('Server error, please try again later');
     $response['status'] = 0;
-    $defaultPermissions = $this->Common_Model->fetch_records('permissions');
+    $defaultPermissions = $this->Common_Model->fetch_records('permissions', array('is_active' => 1));
     foreach ($defaultPermissions as $defaultPermission) {
       $this->form_validation->set_rules($defaultPermission['permission'], $defaultPermission['permission'], 'required');
       $adminPermissions[$defaultPermission['id']] = $this->input->post($defaultPermission['permission']);
@@ -169,4 +173,43 @@ class Admin_Users extends CI_Controller
 
     echo json_encode($response);
   }
+
+  public function delete_admin()
+  {
+    $response['responseMessage'] = $this->Common_Model->error('Server error, please try again later');
+    $response['status'] = 0;
+    if ($this->Common_Model->is_admin_authorized($this->session->userdata('id'), 3)) {
+      $update['is_deleted'] = 1;
+      $admin_id = $this->input->post('admin_id');
+      if ($this->Common_Model->update('admins', array('id' => $admin_id), $update)) {
+        $response['responseMessage'] = $this->Common_Model->success('Admin deleted successfully.');
+        $response['status'] = 1;
+      }
+    }else{
+      $response['responseMessage'] = $this->Common_Model->error('Sorry you are not authorized to perform this action.');
+      $response['status'] = 2;
+    }
+    $this->session->set_flashdata('responseMessage', $response['responseMessage']);
+    echo json_encode($response);
+  }
+
+  public function block_unblock_admin()
+  {
+    $response['responseMessage'] = $this->Common_Model->error('Server error, please try again later');
+    $response['status'] = 0;
+    if ($this->Common_Model->is_admin_authorized($this->session->userdata('id'), 3)) {
+      $where['id'] = $this->input->post('admin_id');
+      $update['status'] = $this->input->post('status');
+      if ($this->Common_Model->update('admins', $where, $update)) {
+        $response['responseMessage'] = $this->Common_Model->success('Admin updated successfully.');
+        $response['status'] = 1;
+      }
+    }else{
+      $response['responseMessage'] = $this->Common_Model->error('Sorry you are not authorized to perform this action.');
+      $response['status'] = 2;
+    }
+    $this->session->set_flashdata('responseMessage', $response['responseMessage']);
+    echo json_encode($response);
+  }
+
 }

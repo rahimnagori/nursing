@@ -55,62 +55,83 @@ class Admin_Jobs extends CI_Controller
   {
     $response['status'] = 0;
     $response['responseMessage'] = $this->Common_Model->error('Something went wrong.');
-    $insert = $this->create_job();
-
-    if ($insert['job_type'] == 'other' && $insert['name']) {
-      $insertJobType['name'] = $insert['name'];
-      $insert['job_type'] = $this->Common_Model->insert('job_types', $insertJobType);
-      unset($insert['name']);
+    if ($this->Common_Model->is_admin_authorized($this->session->userdata('id'), 8)) {
+      $insert = $this->create_job();
+  
+      if ($insert['job_type'] == 'other' && $insert['name']) {
+        $insertJobType['name'] = $insert['name'];
+        $insert['job_type'] = $this->Common_Model->insert('job_types', $insertJobType);
+        unset($insert['name']);
+      }
+      if ($this->Common_Model->insert('jobs', $insert)) {
+        $response['status'] = 1;
+        $response['responseMessage'] = $this->Common_Model->success('Job added successfully.');
+      }
+      $this->session->set_flashdata('responseMessage', $response['responseMessage']);
+    }else{
+      $response['status'] = 2;
+      $response['responseMessage'] = $this->Common_Model->error('Sorry you are not authorized to perform this action.');
     }
-    if ($this->Common_Model->insert('jobs', $insert)) {
-      $response['status'] = 1;
-      $response['responseMessage'] = $this->Common_Model->success('Job added successfully.');
-    }
-    $this->session->set_flashdata('responseMessage', $response['responseMessage']);
     echo json_encode($response);
   }
 
   public function delete_job()
   {
     $response['status'] = 0;
-    $where['id'] = $this->input->post('delete_job_id');
-    $update['is_deleted'] = 1;
-    if ($this->Common_Model->update('jobs', $where, $update)) {
-      $response['status'] = 1;
-      $response['responseMessage'] = $this->Common_Model->success('Job deleted successfully.');
+    $response['responseMessage'] = $this->Common_Model->error('Something went wrong.');
+    if ($this->Common_Model->is_admin_authorized($this->session->userdata('id'), 9)) {
+      $where['id'] = $this->input->post('delete_job_id');
+      $update['is_deleted'] = 1;
+      if ($this->Common_Model->update('jobs', $where, $update)) {
+        $response['status'] = 1;
+        $response['responseMessage'] = $this->Common_Model->success('Job deleted successfully.');
+      }
+      $this->session->set_flashdata('responseMessage', $response['responseMessage']);
+    }else{
+      $response['status'] = 2;
+      $response['responseMessage'] = $this->Common_Model->error('Sorry you are not authorized. Please contact Admin');
     }
-    $this->session->set_flashdata('responseMessage', $response['responseMessage']);
     echo json_encode($response);
   }
 
   public function get_job($id)
   {
-    $join[0][] = 'job_types';
-    $join[0][] = 'jobs.job_type = job_types.id';
-    $join[0][] = 'left';
-    $where['jobs.is_deleted'] = 0;
-    $where['jobs.id'] = $id;
-    $select = 'jobs.*, job_types.name';
-    $jobDetails = $this->Common_Model->join_records('jobs', $join, $where, $select, 'jobs.id', 'DESC');
-    $pageData['jobDetails'] = $jobDetails[0];
+    if ($this->Common_Model->is_admin_authorized($this->session->userdata('id'), 9)) {
+      $join[0][] = 'job_types';
+      $join[0][] = 'jobs.job_type = job_types.id';
+      $join[0][] = 'left';
+      $where['jobs.is_deleted'] = 0;
+      $where['jobs.id'] = $id;
+      $select = 'jobs.*, job_types.name';
+      $jobDetails = $this->Common_Model->join_records('jobs', $join, $where, $select, 'jobs.id', 'DESC');
+      $pageData['jobDetails'] = $jobDetails[0];
+  
+      $pageData['jobTypes'] = $this->Common_Model->fetch_records('job_types');
+      $pageData['paymentTypes'] = $this->Common_Model->get_payment_types();
+      $this->load->view('admin/include/job_details', $pageData);
+    }else{
+      $response['status'] = 2;
+      echo $this->Common_Model->error('Sorry you are not authorized. Please contact Admin');
+    }
 
-    $pageData['jobTypes'] = $this->Common_Model->fetch_records('job_types');
-    $pageData['paymentTypes'] = $this->Common_Model->get_payment_types();
-
-    $this->load->view('admin/include/job_details', $pageData);
   }
 
   public function update_job()
   {
     $response['status'] = 0;
     $response['responseMessage'] = $this->Common_Model->error('Something went wrong.');
-    $update = $this->create_job(true);
-    $where['id'] = $this->input->post('job_id');
-    if ($this->Common_Model->update('jobs', $where, $update)) {
-      $response['status'] = 1;
-      $response['responseMessage'] = $this->Common_Model->success('Job updated successfully.');
+    if ($this->Common_Model->is_admin_authorized($this->session->userdata('id'), 9)) {
+      $update = $this->create_job(true);
+      $where['id'] = $this->input->post('job_id');
+      if ($this->Common_Model->update('jobs', $where, $update)) {
+        $response['status'] = 1;
+        $response['responseMessage'] = $this->Common_Model->success('Job updated successfully.');
+      }
+      $this->session->set_flashdata('responseMessage', $response['responseMessage']);
+    }else{
+      $response['status'] = 2;
+      $response['responseMessage'] = $this->Common_Model->error('Sorry you are not authorized. Please contact Admin');
     }
-    $this->session->set_flashdata('responseMessage', $response['responseMessage']);
     echo json_encode($response);
   }
 
@@ -353,96 +374,4 @@ class Admin_Jobs extends CI_Controller
     echo json_encode($response);
   }
 
-  // public function Brochure($id)
-  // {
-  //   $pageData = [];
-  //   $admin_id = $this->session->userdata('id');
-  //   $where['id'] = $admin_id;
-
-  //   $adminData = $this->Common_Model->fetch_records('admins', $where, false, true);
-  //   $pageData['adminData'] = $adminData;
-
-  //   $pageData['serviceDetails'] = $this->Common_Model->fetch_records('services', array('id' => $id), false, true);
-
-  //   $pageData['serviceBrochures'] = $this->Common_Model->fetch_records('service_brochures', array('service_id' => $id, 'is_deleted' => 0));
-
-  //   $this->load->view('admin/brochure_management', $pageData);
-  // }
-
-  // public function add_brochure()
-  // {
-  //   $response['status'] = 0;
-  //   $insert = $this->input->post();
-  //   $insert['is_deleted'] = 0;
-  //   if ($_FILES['brochure']['error'] == 0) {
-  //     $config['upload_path'] = "assets/site/brochure/";
-  //     $config['allowed_types'] = 'pdf';
-  //     $config['encrypt_name'] = true;
-  //     $this->load->library("upload", $config);
-  //     if ($this->upload->do_upload('brochure')) {
-  //       $brochure = $this->upload->data("file_name");
-
-  //       $insert['brochure'] = "assets/site/brochure/" . $brochure;
-  //     } else {
-  //       $response['responseMessage'] = $this->Common_Model->error($this->upload->display_errors());
-  //     }
-  //   }
-  //   $insert['created'] = date("Y-m-d H:i:s");
-  //   if ($this->Common_Model->insert('service_brochures', $insert)) {
-  //     $response['status'] = 1;
-  //     $response['responseMessage'] = 'Service Brochure Added Successfully.';
-  //   }
-  //   echo json_encode($response);
-  // }
-
-  // public function Get_Brochure()
-  // {
-  //   $whereService['id'] = $this->input->post('service_id');
-  //   $pageData['brochureDetails'] = $this->Common_Model->fetch_records('service_brochures', $whereService, false, true);
-
-  //   $this->load->view('admin/edit_brochure', $pageData);
-  // }
-
-  // public function Update_Brochure()
-  // {
-  //   $response['status'] = 0;
-  //   $response['responseMessage'] = $this->Common_Model->error('Server error, please try again later');
-
-  //   $update = $this->input->post();
-  //   $where['id'] = $update['brochure_id'];
-  //   unset($update['brochure_id']);
-  //   if ($_FILES['brochure_update']['error'] == 0) {
-  //     $config['upload_path'] = "assets/site/brochure/";
-  //     $config['allowed_types'] = 'pdf';
-  //     $config['encrypt_name'] = true;
-  //     $this->load->library("upload", $config);
-  //     if ($this->upload->do_upload('brochure_update')) {
-  //       $serviceImage = $this->upload->data("file_name");
-
-  //       $update['brochure'] = "assets/site/brochure/" . $serviceImage;
-  //       if (file_exists($update['brochure_old'])) unlink($update['brochure_old']);
-  //     }
-  //   }
-  //   unset($update['brochure_old']);
-  //   if ($this->Common_Model->update('service_brochures', $where, $update)) {
-  //     $response['status'] = 1;
-  //     $response['responseMessage'] = $this->Common_Model->success('Service brochure updated successfully.');
-  //   }
-  //   $this->session->set_flashdata('responseMessage', $response['responseMessage']);
-  //   echo json_encode($response);
-  // }
-
-  // public function Delete_Brochure()
-  // {
-  //   $response['status'] = 0;
-  //   $response['responseMessage'] = $this->Common_Model->error('Server error, please try again later.');
-  //   $where['id'] = $this->input->post('brochure_id');
-  //   $update['is_deleted'] = 1;
-  //   if ($this->Common_Model->update('service_brochures', $where, $update)) {
-  //     $response['status'] = 1;
-  //     $response['responseMessage'] = $this->Common_Model->success('Brochure deleted successfully.');
-  //   }
-  //   $this->session->set_flashdata('responseMessage', $response['responseMessage']);
-  //   echo json_encode($response);
-  // }
 }
