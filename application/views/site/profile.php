@@ -67,12 +67,13 @@
                         </div>
                      </div>
                      <div class="remnper">
-                        <label class="checkbox-inline">
+                        <label>
                            <!-- <input type="checkbox" name="uk_work_permit" id="remember" value="1" <?= ($userDetails['uk_work_permit']) ? 'checked' : ''; ?>> -->
                            Do you have the right to work in the UK:
-                           <b>Yes</b><input type="radio" name="uk_work_permit" value="1" <?= ($userDetails['uk_work_permit'] == 1) ? 'checked' : ''; ?> />
-                           <b>No</b><input type="radio" name="uk_work_permit" value="0" <?= ($userDetails['uk_work_permit'] == 0) ? 'checked' : ''; ?> />
-                        </label>
+                           <span><b>Yes</b><input type="radio" name="uk_work_permit" value="1" <?= ($userDetails['uk_work_permit'] == 1) ? 'checked' : ''; ?> /></span>
+                           <span><b>No</b><input type="radio" name="uk_work_permit" value="0" <?= ($userDetails['uk_work_permit'] == 0) ? 'checked' : ''; ?> />
+</span>
+                           </label>
                      </div>
                      <?= $this->session->flashdata('responseMessage'); ?>
                      <div class="responseMessage" id="responseMessage"></div>
