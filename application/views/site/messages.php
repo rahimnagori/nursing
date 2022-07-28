@@ -4,9 +4,13 @@ foreach ($messages as $message) {
     <li class="<?= ($message['is_admin'] == 0) ? 'sender' : 'recever'; ?>">
         <div class="message-data">
             <div class="mess_dat_img">
-                <img src="<?= site_url('assets/site/img/'); ?>logo.png">
+                <!-- <img src="<?= site_url('assets/site/img/'); ?>logo.png"> -->
+                <span class="name_d">
+                    a
+                </span>
             </div>
             <div class="messge_cont">
+                <h4>Jointh Smith</h4>
                 <p>
                     <span class="message_box"><?= $message['message']; ?>
                         <?php

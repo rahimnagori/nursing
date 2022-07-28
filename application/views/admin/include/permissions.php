@@ -1,9 +1,10 @@
-<div class="row">
+<div class="desjj1">
+<div class="row set_spac2">
     <?php
     foreach ($defaultPermissions as $defaultPermission) {
     ?>
-        <div class="form-group">
-            <div class="col-sm-3">
+        <div class="col-sm-6 col-xs-12">
+            <div class="box_blockk">
                 <label><?= $defaultPermission['comment']; ?></label>
                 <select type="select" class="form-control" name="<?= $defaultPermission['permission']; ?>">
                     <option value="0"> Blocked </option>
@@ -14,6 +15,7 @@
     <?php
     }
     ?>
+</div>
 </div>
 <input type="hidden" name="admin_id" value="<?= $admin_id; ?>" />
 <div class="row">

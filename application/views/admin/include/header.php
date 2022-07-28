@@ -33,7 +33,7 @@
           <li class="user_dropp">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <span class="img_radiuus">
-                <img src="<?= site_url('assets/admin/'); ?>img/img_1.png">
+                <img src="<?= site_url('assets/site/'); ?>img/user_d1.png">
                 <span class="namee"><?= $adminData['first_name'] . ' ' . $adminData['last_name']; ?></span>
               </span>
             </a>
