@@ -24,7 +24,7 @@ let load_chat = null;
 function fetch_new_message() {
     load_chat = setInterval(function () {
         get_message();
-    }, 1000);
+    }, 2000);
 }
 
 function open_file_options() {
@@ -46,6 +46,23 @@ function delete_file(message_id) {
         $.ajax({
             type: "POST",
             url: BASE_URL + "DELETE-CHAT-DOCUMENT",
+            data: {
+                message_id: message_id,
+            },
+            dataType: "json",
+            beforeSend: function (xhr) { },
+            success: function (response) {
+                fetch_new_message();
+            },
+        });
+    }
+}
+
+function delete_message(message_id){
+    if (confirm("Are you sure want to delete this message?")) {
+        $.ajax({
+            type: "POST",
+            url: BASE_URL + "DELETE-CHAT-MESSAGE",
             data: {
                 message_id: message_id,
             },

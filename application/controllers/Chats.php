@@ -74,8 +74,8 @@ class Chats extends CI_Controller
 
     public function get_messages()
     {
+        $pageData = $this->Common_Model->get_userdata();
         $where['chat_id'] = $this->input->post('chat_id');
-        // $pageData['messages'] = $this->Common_Model->fetch_records('messages', $where);
         $join[0][] = 'user_docs';
         $join[0][] = 'messages.document_id = user_docs.id';
         $join[0][] = 'left';
@@ -129,16 +129,30 @@ class Chats extends CI_Controller
         $messageDetails = $this->Common_Model->fetch_records('messages', $whereMessage, false, true);
         $whereUserDoc['id'] = $messageDetails['document_id'];
         $documentDetails = $this->Common_Model->fetch_records('user_docs', $whereUserDoc, false, true);
-        if (file_exists(($documentDetails['document']))) {
+        if (!empty($documentDetails) && file_exists(($documentDetails['document']))) {
             unlink($documentDetails['document']);
             $this->Common_Model->delete('user_docs', $whereUserDoc);
         }
-        $updateMessage['message']  = '<i>This file is deleted</i>';
+        $updateMessage['message']  = ($this->session->userdata('is_user_logged_in')) ? '<i>This file is deleted</i>' : '<i>This file is deleted by Admin</i>';
         $updateMessage['document_id']  = 0;
         $updateMessage['is_document']  = 0;
+        $updateMessage['is_deleted']  = 1;
         $this->Common_Model->update('messages', $whereMessage, $updateMessage);
         $response['responseMessage'] = $this->Common_Model->success('File deleted successfully.');
         $response['status'] = 1;
+        echo json_encode($response);
+    }
+
+    public function delete_message(){
+        $response['responseMessage'] = $this->Common_Model->error('Something went wrong, please try again later.');
+        $response['status'] = 0;
+        $where['id'] = $this->input->post('message_id');
+        $update['message'] = ($this->session->userdata('is_user_logged_in')) ? "<i>This messages is deleted.</i>" : "<i>Admin deleted this message.</i>";
+        $update['is_deleted'] = 1;
+        if($this->Common_Model->update('messages', $where, $update)){
+            $response['responseMessage'] = $this->Common_Model->success('Message deleted successfully.');
+            $response['status'] = 1;
+        }
         echo json_encode($response);
     }
 }

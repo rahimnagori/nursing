@@ -19,7 +19,7 @@
                   <a href="#" onclick="load_new_chat(<?= $chat['id']; ?>, '<?= $chat['first_name'] . ' ' . $chat['last_name']; ?>');">
                     <span class="chat_user_img">
                       <img src="<?= site_url('assets/site/img/'); ?>user_d1.png">
-                      <span class="chat_stas online1 "></span>
+                      <span class="chat_stas <?=($chat['is_logged_in']) ? 'online1 ' : 'offline';?> "></span>
                     </span>
                     <?= $chat['first_name'] . ' ' . $chat['last_name']; ?>
                     <span class="tex_us1d"><?= $chat['email']; ?></span>

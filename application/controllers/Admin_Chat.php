@@ -24,7 +24,7 @@ class Admin_Chat extends CI_Controller
     $join[0][] = 'users';
     $join[0][] = 'chats.user_id = users.id';
     $join[0][] = 'left';
-    $select = 'chats.*, users.first_name, users.last_name, users.email';
+    $select = 'chats.*, users.first_name, users.last_name, users.email, users.is_logged_in';
     $pageData['chats'] = $this->Common_Model->join_records('chats', $join, false, $select, 'chats.id', 'DESC');
     if (!empty($pageData['chats'])) {
       $whereMessage['chat_id'] = $pageData['chats'][0]['id'];
@@ -72,8 +72,8 @@ class Admin_Chat extends CI_Controller
 
   public function get_messages()
   {
+    $pageData = $this->Common_Model->getAdmin($this->session->userdata('id'));
     $where['chat_id'] = $this->input->post('chat_id');
-    // $pageData['messages'] = $this->Common_Model->fetch_records('messages', $where);
     $join[0][] = 'user_docs';
     $join[0][] = 'messages.document_id = user_docs.id';
     $join[0][] = 'left';

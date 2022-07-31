@@ -42,7 +42,7 @@
    </div>
 </div>
 
-<script src="<?= site_url('assets/common/js/chat.js'); ?>"></script>
+<script src="<?= site_url('assets/common/js/chat.js'); ?>?time=<?=rand();?>"></script>
 
 <script>
    function send_message(e) {

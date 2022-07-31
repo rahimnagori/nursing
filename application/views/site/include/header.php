@@ -61,7 +61,7 @@
               <li class="user_dropp">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <span class="img_radiuus">
-                    <img src="<?= site_url('assets/site/'); ?>img/img_3.png">
+                    <img src="<?= site_url('assets/site/img/'); ?>user_d1.png">
                     User Name
                   </span>
                 </a>

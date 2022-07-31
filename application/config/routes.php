@@ -98,6 +98,7 @@ $route['Message/send'] = 'Chats/add';
 $route['Get-Messages'] = 'Chats/get_messages';
 $route['Send-File'] = 'Chats/send_file';
 $route['DELETE-CHAT-DOCUMENT'] = 'Chats/delete_document';
+$route['DELETE-CHAT-MESSAGE'] = 'Chats/delete_message';
 
 $route['User-Documents'] = 'User_Documents';
 $route['Update-Document'] = 'User_Documents/update';
