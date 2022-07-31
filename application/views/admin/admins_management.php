@@ -145,7 +145,7 @@
 
         <div class="modal-footer">
           <button type="submit" class="btn btn-success btn_submit">Update</button>
-          <button type="button" data-dismiss="modal" class="btn btn-info">Cancel</button>
+          <button type="button" data-dismiss="modal" class="btn btn-info">Close</button>
         </div>
       </div>
     </form>
